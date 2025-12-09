@@ -1,0 +1,482 @@
+@extends('admin.admin_dashboard')
+@section('admin') 
+
+
+		<div hidden="">
+			<!--$--><!--/$-->
+		</div>
+	
+		<script>requestAnimationFrame(function(){$RT=performance.now()});</script><script src="_next/static/chunks/webpack-a2510a8647e753fd.js" id="_R_" async=""></script>
+		<div hidden id="S:0">
+			<div>
+				<div class="space-y-6">
+					<div>
+						<h2 class="text-2xl md:text-3xl font-bold">Dashboard Widgets</h2>
+						<p class="text-muted-foreground">Monitor your logistics operations</p>
+					</div>
+					<div dir="ltr" data-orientation="horizontal" class="space-y-4">
+						<div role="tablist" aria-orientation="horizontal" class="items-center rounded-md bg-muted p-1 text-muted-foreground flex gap-2 flex-wrap justify-start h-max" tabindex="-1" data-orientation="horizontal" style="outline:none"><button type="button" role="tab" aria-selected="true" aria-controls="radix-_R_inpflb_-content-dashboard" data-state="active" id="radix-_R_inpflb_-trigger-dashboard" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm" tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">Dashboard</button><button type="button" role="tab" aria-selected="false" aria-controls="radix-_R_inpflb_-content-analytics" data-state="inactive" id="radix-_R_inpflb_-trigger-analytics" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm" tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">Analytics</button><button type="button" role="tab" aria-selected="false" aria-controls="radix-_R_inpflb_-content-settings" data-state="inactive" id="radix-_R_inpflb_-trigger-settings" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm" tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">Settings</button></div>
+						<div data-state="active" data-orientation="horizontal" role="tabpanel" aria-labelledby="radix-_R_inpflb_-trigger-dashboard" id="radix-_R_inpflb_-content-dashboard" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 space-y-6" style="animation-duration:0s">
+							<div class="flex flex-wrap gap-2 items-center justify-between">
+								<button type="button" role="combobox" aria-controls="radix-_R_4linpflb_" aria-expanded="false" aria-autocomplete="none" dir="ltr" data-state="closed" class="flex h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1 w-48">
+									<span style="pointer-events:none"></span>
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down h-4 w-4 opacity-50" aria-hidden="true">
+										<path d="m6 9 6 6 6-6"></path>
+									</svg>
+								</button>
+								<select aria-hidden="true" tabindex="-1" style="position:absolute;border:0;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;word-wrap:normal"></select>
+								<div class="flex items-center space-x-2">
+									<span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground">Auto-refresh</span>
+									<button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-cw mr-2 h-4 w-4" aria-hidden="true">
+											<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+											<path d="M21 3v5h-5"></path>
+											<path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+											<path d="M8 16H3v5"></path>
+										</svg>
+										Refresh All
+									</button>
+								</div>
+							</div>
+							<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+								<div class="rounded-lg border bg-card text-card-foreground shadow-sm relative group hover:shadow-lg transition-shadow">
+									<div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+										<button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md h-6 w-6 p-0" type="button" id="radix-_R_155inpflb_" aria-haspopup="menu" aria-expanded="false" data-state="closed">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical h-3 w-3" aria-hidden="true">
+												<circle cx="12" cy="12" r="1"></circle>
+												<circle cx="12" cy="5" r="1"></circle>
+												<circle cx="12" cy="19" r="1"></circle>
+											</svg>
+										</button>
+									</div>
+									<div class="p-4 md:p-6 flex flex-row items-center justify-between space-y-0 pb-2">
+										<h3 class="sm:text-2xl tracking-tight text-sm font-medium">Active Vehicles</h3>
+										<div class="p-2 bg-primary/10 rounded-full">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck h-4 w-4 text-blue-600 dark:text-blue-400" aria-hidden="true">
+												<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path>
+												<path d="M15 18H9"></path>
+												<path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path>
+												<circle cx="17" cy="18" r="2"></circle>
+												<circle cx="7" cy="18" r="2"></circle>
+											</svg>
+										</div>
+									</div>
+									<div class="p-4 md:p-6 pt-0">
+										<div class="text-2xl font-bold">142</div>
+										<div class="flex items-center text-xs text-muted-foreground mt-1">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up h-3 w-3 text-green-500 mr-1" aria-hidden="true">
+												<path d="M16 7h6v6"></path>
+												<path d="m22 7-8.5 8.5-5-5L2 17"></path>
+											</svg>
+											<span class="text-green-500">
+												+<!-- -->8.2<!-- -->%
+											</span>
+											<span class="ml-1">from last month</span>
+										</div>
+										<p class="text-sm text-muted-foreground mt-1">Currently on road</p>
+										<p class="text-xs text-muted-foreground mt-2">
+											Updated: <!-- -->6:29:25 PM
+										</p>
+									</div>
+								</div>
+								<div class="rounded-lg border bg-card text-card-foreground shadow-sm relative group hover:shadow-lg transition-shadow">
+									<div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+										<button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md h-6 w-6 p-0" type="button" id="radix-_R_195inpflb_" aria-haspopup="menu" aria-expanded="false" data-state="closed">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical h-3 w-3" aria-hidden="true">
+												<circle cx="12" cy="12" r="1"></circle>
+												<circle cx="12" cy="5" r="1"></circle>
+												<circle cx="12" cy="19" r="1"></circle>
+											</svg>
+										</button>
+									</div>
+									<div class="p-4 md:p-6 flex flex-row items-center justify-between space-y-0 pb-2">
+										<h3 class="sm:text-2xl tracking-tight text-sm font-medium">Pending Shipments</h3>
+										<div class="p-2 bg-primary/10 rounded-full">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package h-4 w-4 text-orange-600 dark:text-orange-400" aria-hidden="true">
+												<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path>
+												<path d="M12 22V12"></path>
+												<polyline points="3.29 7 12 12 20.71 7"></polyline>
+												<path d="m7.5 4.27 9 5.15"></path>
+											</svg>
+										</div>
+									</div>
+									<div class="p-4 md:p-6 pt-0">
+										<div class="text-2xl font-bold">89</div>
+										<div class="flex items-center text-xs text-muted-foreground mt-1">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-down h-3 w-3 text-red-500 mr-1" aria-hidden="true">
+												<path d="M16 17h6v-6"></path>
+												<path d="m22 17-8.5-8.5-5 5L2 7"></path>
+											</svg>
+											<span class="text-red-500">
+												-3.1<!-- -->%
+											</span>
+											<span class="ml-1">from last month</span>
+										</div>
+										<p class="text-sm text-muted-foreground mt-1">Awaiting dispatch</p>
+										<p class="text-xs text-muted-foreground mt-2">
+											Updated: <!-- -->6:29:20 PM
+										</p>
+									</div>
+								</div>
+								<div class="rounded-lg border bg-card text-card-foreground shadow-sm relative group hover:shadow-lg transition-shadow">
+									<div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+										<button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md h-6 w-6 p-0" type="button" id="radix-_R_1d5inpflb_" aria-haspopup="menu" aria-expanded="false" data-state="closed">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical h-3 w-3" aria-hidden="true">
+												<circle cx="12" cy="12" r="1"></circle>
+												<circle cx="12" cy="5" r="1"></circle>
+												<circle cx="12" cy="19" r="1"></circle>
+											</svg>
+										</button>
+									</div>
+									<div class="p-4 md:p-6 flex flex-row items-center justify-between space-y-0 pb-2">
+										<h3 class="sm:text-2xl tracking-tight text-sm font-medium">Monthly Revenue</h3>
+										<div class="p-2 bg-primary/10 rounded-full">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign h-4 w-4 text-green-600 dark:text-green-400" aria-hidden="true">
+												<line x1="12" x2="12" y1="2" y2="22"></line>
+												<path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+											</svg>
+										</div>
+									</div>
+									<div class="p-4 md:p-6 pt-0">
+										<div class="text-2xl font-bold">$2.4M</div>
+										<div class="flex items-center text-xs text-muted-foreground mt-1">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up h-3 w-3 text-green-500 mr-1" aria-hidden="true">
+												<path d="M16 7h6v6"></path>
+												<path d="m22 7-8.5 8.5-5-5L2 17"></path>
+											</svg>
+											<span class="text-green-500">
+												+<!-- -->12.5<!-- -->%
+											</span>
+											<span class="ml-1">from last month</span>
+										</div>
+										<p class="text-sm text-muted-foreground mt-1">This month</p>
+										<p class="text-xs text-muted-foreground mt-2">
+											Updated: <!-- -->6:29:15 PM
+										</p>
+									</div>
+								</div>
+								<div class="rounded-lg border bg-card text-card-foreground shadow-sm relative group hover:shadow-lg transition-shadow">
+									<div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+										<button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md h-6 w-6 p-0" type="button" id="radix-_R_1h5inpflb_" aria-haspopup="menu" aria-expanded="false" data-state="closed">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical h-3 w-3" aria-hidden="true">
+												<circle cx="12" cy="12" r="1"></circle>
+												<circle cx="12" cy="5" r="1"></circle>
+												<circle cx="12" cy="19" r="1"></circle>
+											</svg>
+										</button>
+									</div>
+									<div class="p-4 md:p-6 flex flex-row items-center justify-between space-y-0 pb-2">
+										<h3 class="sm:text-2xl tracking-tight text-sm font-medium">Active Drivers</h3>
+										<div class="p-2 bg-primary/10 rounded-full">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users h-4 w-4 text-purple-600 dark:text-purple-400" aria-hidden="true">
+												<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+												<path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+												<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+												<circle cx="9" cy="7" r="4"></circle>
+											</svg>
+										</div>
+									</div>
+									<div class="p-4 md:p-6 pt-0">
+										<div class="text-2xl font-bold">67</div>
+										<div class="flex items-center text-xs text-muted-foreground mt-1">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up h-3 w-3 text-green-500 mr-1" aria-hidden="true">
+												<path d="M16 7h6v6"></path>
+												<path d="m22 7-8.5 8.5-5-5L2 17"></path>
+											</svg>
+											<span class="text-green-500">
+												+<!-- -->2.3<!-- -->%
+											</span>
+											<span class="ml-1">from last month</span>
+										</div>
+										<p class="text-sm text-muted-foreground mt-1">On duty now</p>
+										<p class="text-xs text-muted-foreground mt-2">
+											Updated: <!-- -->6:29:10 PM
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="grid gap-4 xl:grid-cols-2">
+								<div class="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-shadow">
+									<div class="flex flex-col space-y-1.5 p-4 md:p-6">
+										<h3 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight flex flex-wrap gap-2 items-center justify-between">
+											Fleet Performance
+											<span class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground text-xs">
+												0<!-- -->/<!-- -->4<!-- --> targets met
+											</span>
+										</h3>
+									</div>
+									<div class="p-4 md:p-6 pt-0 space-y-4">
+										<div class="space-y-2">
+											<div class="flex justify-between text-sm">
+												<span class="flex items-center">Fuel Efficiency</span>
+												<span class="font-medium">
+													85<!-- -->% / <!-- -->90<!-- -->%
+												</span>
+											</div>
+											<div aria-valuemax="100" aria-valuemin="0" role="progressbar" data-state="indeterminate" data-max="100" class="relative w-full overflow-hidden rounded-full bg-secondary h-2">
+												<div data-state="indeterminate" data-max="100" class="h-full w-full flex-1 bg-primary transition-all" style="transform:translateX(-15%)"></div>
+											</div>
+										</div>
+										<div class="space-y-2">
+											<div class="flex justify-between text-sm">
+												<span class="flex items-center">On-Time Delivery</span>
+												<span class="font-medium">
+													92<!-- -->% / <!-- -->95<!-- -->%
+												</span>
+											</div>
+											<div aria-valuemax="100" aria-valuemin="0" role="progressbar" data-state="indeterminate" data-max="100" class="relative w-full overflow-hidden rounded-full bg-secondary h-2">
+												<div data-state="indeterminate" data-max="100" class="h-full w-full flex-1 bg-primary transition-all" style="transform:translateX(-8%)"></div>
+											</div>
+										</div>
+										<div class="space-y-2">
+											<div class="flex justify-between text-sm">
+												<span class="flex items-center">Vehicle Utilization</span>
+												<span class="font-medium">
+													78<!-- -->% / <!-- -->85<!-- -->%
+												</span>
+											</div>
+											<div aria-valuemax="100" aria-valuemin="0" role="progressbar" data-state="indeterminate" data-max="100" class="relative w-full overflow-hidden rounded-full bg-secondary h-2">
+												<div data-state="indeterminate" data-max="100" class="h-full w-full flex-1 bg-primary transition-all" style="transform:translateX(-22%)"></div>
+											</div>
+										</div>
+										<div class="space-y-2">
+											<div class="flex justify-between text-sm">
+												<span class="flex items-center">Maintenance Score</span>
+												<span class="font-medium">
+													88<!-- -->% / <!-- -->90<!-- -->%
+												</span>
+											</div>
+											<div aria-valuemax="100" aria-valuemin="0" role="progressbar" data-state="indeterminate" data-max="100" class="relative w-full overflow-hidden rounded-full bg-secondary h-2">
+												<div data-state="indeterminate" data-max="100" class="h-full w-full flex-1 bg-primary transition-all" style="transform:translateX(-12%)"></div>
+											</div>
+										</div>
+										<p class="text-xs text-muted-foreground pt-2 border-t">
+											Updated: <!-- -->6:29:05 PM
+										</p>
+									</div>
+								</div>
+								<div class="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-shadow">
+									<div class="flex flex-col space-y-1.5 p-4 md:p-6">
+										<h3 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight flex items-center justify-between">
+											System Alerts
+											<span class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground text-xs">
+												1<!-- --> <!-- -->urgent
+											</span>
+										</h3>
+									</div>
+									<div class="p-4 md:p-6 pt-0">
+										<div class="space-y-3 max-h-64 overflow-y-auto">
+											<div class="flex items-start space-x-3 p-2 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert h-4 w-4 mt-0.5 text-orange-500" aria-hidden="true">
+													<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path>
+													<path d="M12 9v4"></path>
+													<path d="M12 17h.01"></path>
+												</svg>
+												<div class="flex-1 min-w-0">
+													<p class="text-sm text-gray-900 dark:text-gray-100">Vehicle TRK-001 requires maintenance</p>
+													<div class="flex items-center justify-between mt-1">
+														<p class="text-xs text-gray-500">2 minutes ago</p>
+														<span class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80 text-xs">high</span>
+													</div>
+												</div>
+											</div>
+											<div class="flex items-start space-x-3 p-2 rounded-lg bg-gray-50 dark:bg-gray-800/50">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big h-4 w-4 mt-0.5 text-green-500" aria-hidden="true">
+													<path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+													<path d="m9 11 3 3L22 4"></path>
+												</svg>
+												<div class="flex-1 min-w-0">
+													<p class="text-sm text-gray-900 dark:text-gray-100">Shipment delivered successfully</p>
+													<div class="flex items-center justify-between mt-1">
+														<p class="text-xs text-gray-500">15 minutes ago</p>
+														<span class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 text-xs">normal</span>
+													</div>
+												</div>
+											</div>
+											<div class="flex items-start space-x-3 p-2 rounded-lg bg-gray-50 dark:bg-gray-800/50">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin h-4 w-4 mt-0.5 text-blue-500" aria-hidden="true">
+													<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+													<circle cx="12" cy="10" r="3"></circle>
+												</svg>
+												<div class="flex-1 min-w-0">
+													<p class="text-sm text-gray-900 dark:text-gray-100">Route optimization available</p>
+													<div class="flex items-center justify-between mt-1">
+														<p class="text-xs text-gray-500">1 hour ago</p>
+														<span class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 text-xs">normal</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<p class="text-xs text-muted-foreground pt-3 border-t mt-3">
+											Updated: <!-- -->6:29:00 PM
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="hidden sm:grid gap-4">
+								<div class="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-shadow">
+									<div class="flex flex-col space-y-1.5 p-4 md:p-6">
+										<h3 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight flex flex-wrap gap-2 items-center justify-between">
+											Shipment Status
+											<span class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground text-xs">
+												Total: <!-- -->234
+											</span>
+										</h3>
+									</div>
+									<div class="p-4 md:p-6 pt-0">
+										<div class="grid sm:grid-cols-2 gap-4 mb-4">
+											<div class="flex items-center space-x-3 p-3 rounded-lg bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800">
+												<div class="w-4 h-4 rounded-full" style="background-color:#10b981"></div>
+												<div class="flex-1">
+													<div class="flex items-center justify-between">
+														<span class="text-sm font-medium">Delivered</span>
+														<span class="text-sm font-semibold">
+															45<!-- -->%
+														</span>
+													</div>
+													<p class="text-xs text-muted-foreground">
+														105<!-- --> shipments
+													</p>
+												</div>
+											</div>
+											<div class="flex items-center space-x-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
+												<div class="w-4 h-4 rounded-full" style="background-color:#3b82f6"></div>
+												<div class="flex-1">
+													<div class="flex items-center justify-between">
+														<span class="text-sm font-medium">In Transit</span>
+														<span class="text-sm font-semibold">
+															30<!-- -->%
+														</span>
+													</div>
+													<p class="text-xs text-muted-foreground">
+														70<!-- --> shipments
+													</p>
+												</div>
+											</div>
+											<div class="flex items-center space-x-3 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800">
+												<div class="w-4 h-4 rounded-full" style="background-color:#f59e0b"></div>
+												<div class="flex-1">
+													<div class="flex items-center justify-between">
+														<span class="text-sm font-medium">Pending</span>
+														<span class="text-sm font-semibold">
+															15<!-- -->%
+														</span>
+													</div>
+													<p class="text-xs text-muted-foreground">
+														35<!-- --> shipments
+													</p>
+												</div>
+											</div>
+											<div class="flex items-center space-x-3 p-3 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800">
+												<div class="w-4 h-4 rounded-full" style="background-color:#ef4444"></div>
+												<div class="flex-1">
+													<div class="flex items-center justify-between">
+														<span class="text-sm font-medium">Delayed</span>
+														<span class="text-sm font-semibold">
+															10<!-- -->%
+														</span>
+													</div>
+													<p class="text-xs text-muted-foreground">
+														24<!-- --> shipments
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="h-32 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-200 dark:border-gray-700">
+											<div class="text-center">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-pie h-8 w-8 text-gray-400 mx-auto mb-2" aria-hidden="true">
+													<path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"></path>
+													<path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+												</svg>
+												<span class="text-sm text-gray-500">Chart Visualization</span>
+											</div>
+										</div>
+										<p class="text-xs text-muted-foreground pt-3 border-t mt-3">
+											Updated: <!-- -->6:28:55 PM
+										</p>
+									</div>
+								</div>
+								<div class="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-shadow">
+									<div class="flex flex-col space-y-1.5 p-4 md:p-6">
+										<h3 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight">Top Routes</h3>
+									</div>
+									<div class="p-4 md:p-6 pt-0">
+										<div class="overflow-x-auto">
+											<div class="relative w-full overflow-auto">
+												<table class="w-full caption-bottom text-sm whitespace-nowrap">
+													<thead class="[&amp;_tr]:border-b">
+														<tr class="transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted border-b">
+															<th class="h-12 px-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-left py-2 text-sm font-medium text-muted-foreground">Route</th>
+															<th class="h-12 px-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-left py-2 text-sm font-medium text-muted-foreground">Efficiency</th>
+															<th class="h-12 px-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-left py-2 text-sm font-medium text-muted-foreground">Deliveries</th>
+															<th class="h-12 px-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-left py-2 text-sm font-medium text-muted-foreground">Avg Time</th>
+															<th class="h-12 px-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-left py-2 text-sm font-medium text-muted-foreground">Rating</th>
+														</tr>
+													</thead>
+													<tbody class="[&amp;_tr:last-child]:border-0">
+														<tr class="transition-colors data-[state=selected]:bg-muted border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm font-medium">Route-A47</td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm"><span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80">94%</span></td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm">28</td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm">2.3h</td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm">
+																<div class="flex items-center">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-3 w-3 text-yellow-400 mr-1" aria-hidden="true">
+																		<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path>
+																	</svg>
+																	4.8
+																</div>
+															</td>
+														</tr>
+														<tr class="transition-colors data-[state=selected]:bg-muted border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm font-medium">Route-B23</td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm"><span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80">91%</span></td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm">24</td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm">2.7h</td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm">
+																<div class="flex items-center">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-3 w-3 text-yellow-400 mr-1" aria-hidden="true">
+																		<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path>
+																	</svg>
+																	4.6
+																</div>
+															</td>
+														</tr>
+														<tr class="transition-colors data-[state=selected]:bg-muted border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm font-medium">Route-C15</td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm"><span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">89%</span></td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm">31</td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm">3.1h</td>
+															<td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 py-2 text-sm">
+																<div class="flex items-center">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-3 w-3 text-yellow-400 mr-1" aria-hidden="true">
+																		<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path>
+																	</svg>
+																	4.5
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<p class="text-xs text-muted-foreground pt-3 border-t mt-3">
+											Updated: <!-- -->6:28:50 PM
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div data-state="inactive" data-orientation="horizontal" role="tabpanel" aria-labelledby="radix-_R_inpflb_-trigger-analytics" hidden="" id="radix-_R_inpflb_-content-analytics" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 space-y-4"></div>
+						<div data-state="inactive" data-orientation="horizontal" role="tabpanel" aria-labelledby="radix-_R_inpflb_-trigger-settings" hidden="" id="radix-_R_inpflb_-content-settings" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 space-y-4"></div>
+					</div>
+				</div>
+				<!--$--><!--/$-->
+			</div>
+		</div>
+		<script>$RB=[];$RV=function(b){$RT=performance.now();for(var a=0;a<b.length;a+=2){var c=b[a],e=b[a+1];null!==e.parentNode&&e.parentNode.removeChild(e);var f=c.parentNode;if(f){var g=c.previousSibling,h=0;do{if(c&&8===c.nodeType){var d=c.data;if("/$"===d||"/&"===d)if(0===h)break;else h--;else"$"!==d&&"$?"!==d&&"$~"!==d&&"$!"!==d&&"&"!==d||h++}d=c.nextSibling;f.removeChild(c);c=d}while(c);for(;e.firstChild;)f.insertBefore(e.firstChild,c);g.data="$";g._reactRetry&&g._reactRetry()}}b.length=0};
+			$RC=function(b,a){if(a=document.getElementById(a))(b=document.getElementById(b))?(b.previousSibling.data="$~",$RB.push(b,a),2===$RB.length&&(b="number"!==typeof $RT?0:$RT,a=performance.now(),setTimeout($RV.bind(null,$RB),2300>a&&2E3<a?2300-a:b+300-a))):a.parentNode.removeChild(a)};$RC("B:0","S:0")
+		</script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[7360,[\"2960\",\"static/chunks/2960-50c6bb298c0a116b.js\",\"4400\",\"static/chunks/4400-090f20fe363681d3.js\",\"2472\",\"static/chunks/2472-753e678bc42bc97a.js\",\"1998\",\"static/chunks/1998-d14cc1a79a229042.js\",\"328\",\"static/chunks/328-eebb9acd6b46eefa.js\",\"1702\",\"static/chunks/1702-7a4960c3fc60a993.js\",\"4356\",\"static/chunks/4356-c0183a6ae8173a1e.js\",\"7177\",\"static/chunks/app/layout-cc9ba3c2a1346fa3.js\"],\"ThemeProvider\"]\n3:I[90936,[\"2960\",\"static/chunks/2960-50c6bb298c0a116b.js\",\"4400\",\"static/chunks/4400-090f20fe363681d3.js\",\"2472\",\"static/chunks/2472-753e678bc42bc97a.js\",\"1998\",\"static/chunks/1998-d14cc1a79a229042.js\",\"328\",\"static/chunks/328-eebb9acd6b46eefa.js\",\"1702\",\"static/chunks/1702-7a4960c3fc60a993.js\",\"4356\",\"static/chunks/4356-c0183a6ae8173a1e.js\",\"7177\",\"static/chunks/app/layout-cc9ba3c2a1346fa3.js\"],\"default\"]\n4:I[11423,[],\"\"]\n5:I[42969,[\"2960\",\"static/chunks/2960-50c6bb298c0a116b.js\",\"1702\",\"static/chunks/1702-7a4960c3fc60a993.js\",\"8039\",\"static/chunks/app/error-cf80389aefa2cd62.js\"],\"default\"]\n6:I[19235,[],\"\"]\n7:I[61702,[\"1702\",\"static/chunks/1702-7a4960c3fc60a993.js\",\"4345\",\"static/chunks/app/not-found-19d90919b18a0206.js\"],\"\"]\n11:I[47173,[],\"\"]\n:HL[\"/_next/static/media/e4af272ccee01ff0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/css/5eee5e3e85546ba3.css\",\"style\"]\n:HL[\"/_next/static/css/931b179cff3131dc.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"lOUGRG5VelF99c2c6Qwn-\",\"p\":\"\",\"c\":[\"\",\"widgets\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"widgets\",{\"children\":[\"__PAGE__\",{}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/5eee5e3e85546ba3.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/931b179cff3131dc.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[\"$\",\"body\",null,{\"className\":\"__className_e8ce0c\",\"children\":[\"$\",\"$L2\",null,{\"attribute\":\"class\",\"defaultTheme\":\"system\",\"enableSystem\":true,\"children\":[\"$\",\"div\",null,{\"className\":\"min-h-screen bg-background\",\"children\":[\"$\",\"$L3\",null,{\"children\":[\"$\",\"$L4\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$5\",\"errorStyles\":[],\"errorScripts\":[],\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"div\",null,{\"className\":\"fixed inset-0 z-50 bg-background flex items-center justify-center p-4 \",\"children\":[[\"$\",\"div\",null,{\"className\":\"absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20\"}],[\"$\",\"div\",null,{\"ref\":\"$undefined\",\"className\":\"rounded-lg border bg-card text-card-foreground relative w-full max-w-lg shadow-lg max-h-[90vh] overflow-y-auto\",\"children\":[[\"$\",\"div\",null,{\"ref\":\"$undefined\",\"className\":\"flex flex-col space-y-1.5 p-4 md:p-6 text-center\",\"children\":[[\"$\",\"div\",null,{\"className\":\"mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10\",\"children\":[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":24,\"height\":24,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"lucide lucide-file-question-mark h-8 w-8 text-primary\",\"aria-hidden\":\"true\",\"children\":[[\"$\",\"path\",\"p32p05\",{\"d\":\"M12 17h.01\"}],[\"$\",\"path\",\"1mlx9k\",{\"d\":\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z\"}],[\"$\",\"path\",\"mhlwft\",{\"d\":\"M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3\"}],\"$undefined\"]}]}],[\"$\",\"h3\",null,{\"ref\":\"$undefined\",\"className\":\"sm:text-2xl tracking-tight text-2xl md:text-3xl font-bold\",\"children\":\"Page Not Found\"}],[\"$\",\"div\",null,{\"ref\":\"$undefined\",\"className\":\"text-muted-foreground text-lg\",\"children\":\"The page you're looking for doesn't exist or has been moved.\"}]]}],[\"$\",\"div\",null,{\"ref\":\"$undefined\",\"className\":\"p-4 md:p-6 pt-0 space-y-6\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-center\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-6xl font-bold text-muted-foreground/20 mb-2\",\"children\":\"404\"}],[\"$\",\"p\",null,{\"className\":\"text-sm text-muted-foreground\",\"children\":\"This might happen if you followed a broken link or typed the URL incorrectly.\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L7\",null,{\"href\":\"/\",\"children\":[[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":24,\"height\":24,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"lucide lucide-house mr-2 h-4 w-4\",\"aria-hidden\":\"true\",\"children\":[[\"$\",\"path\",\"5wwlr5\",{\"d\":\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\"}],[\"$\",\"path\",\"1d0kgt\",{\"d\":\"M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"}],\"$undefined\"]}],\"Go to Dashboard\"],\"className\":\"inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 w-full\",\"ref\":null}],[\"$\",\"div\",null,{\"className\":\"grid grid-cols-2 gap-2\",\"children\":[[\"$\",\"$L7\",null,{\"href\":\"/shipments\",\"children\":[[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":24,\"height\":24,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"lucide lucide-truck mr-2 h-4 w-4\",\"aria-hidden\":\"true\",\"children\":[[\"$\",\"path\",\"wrbu53\",{\"d\":\"M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2\"}],[\"$\",\"path\",\"1lyqi6\",{\"d\":\"M15 18H9\"}],[\"$\",\"path\",\"lysw3i\",{\"d\":\"M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14\"}],\"$L8\",\"$L9\",\"$undefined\"]}],\"Shipments\"],\"className\":\"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2\",\"ref\":null}],\"$La\"]}],\"$Lb\"]}],\"$Lc\"]}]]}]]}],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}]}]}]}]]}],{\"children\":[\"widgets\",\"$Ld\",{\"children\":[\"__PAGE__\",\"$Le\",{},null,false]},null,false]},[\"$Lf\",[],[]],false],\"$L10\",false]],\"m\":\"$undefined\",\"G\":[\"$11\",[]],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"12:I[73978,[],\"ClientPageRoot\"]\n13:I[84839,[\"2960\",\"static/chunks/2960-50c6bb298c0a116b.js\",\"4400\",\"static/chunks/4400-090f20fe363681d3.js\",\"2472\",\"static/chunks/2472-753e678bc42bc97a.js\",\"2081\",\"static/chunks/2081-8e49e9445c003ec8.js\",\"1998\",\"static/chunks/1998-d14cc1a79a229042.js\",\"2252\",\"static/chunks/2252-f107d4d3704a2177.js\",\"5392\",\"static/chunks/app/widgets/page-f0f30ccc64ae73cd.js\"],\"default\"]\n16:I[68445,[],\"OutletBoundary\"]\n18:I[57867,[],\"AsyncMetadataOutlet\"]\n1a:I[68445,[],\"ViewportBoundary\"]\n1c:I[68445,[],\"MetadataBoundary\"]\n1d:\"$Sreact.suspense\"\n8:[\"$\",\"circle\",\"332jqn\",{\"cx\":\"17\",\"cy\":\"18\",\"r\":\"2\"}]\n9:[\"$\",\"circle\",\"19iecd\",{\"cx\":\"7\",\"cy\":\"18\",\"r\":\"2\"}]\n"])</script><script>self.__next_f.push([1,"a:[\"$\",\"$L7\",null,{\"href\":\"/orders\",\"children\":[[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":24,\"height\":24,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"lucide lucide-package mr-2 h-4 w-4\",\"aria-hidden\":\"true\",\"children\":[[\"$\",\"path\",\"1a0edw\",{\"d\":\"M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z\"}],[\"$\",\"path\",\"d0xqtd\",{\"d\":\"M12 22V12\"}],[\"$\",\"polyline\",\"ousv84\",{\"points\":\"3.29 7 12 12 20.71 7\"}],[\"$\",\"path\",\"1c824w\",{\"d\":\"m7.5 4.27 9 5.15\"}],\"$undefined\"]}],\"Orders\"],\"className\":\"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2\",\"ref\":null}]\n"])</script><script>self.__next_f.push([1,"b:[\"$\",\"div\",null,{\"className\":\"grid grid-cols-2 gap-2\",\"children\":[[\"$\",\"$L7\",null,{\"href\":\"/fleet\",\"children\":[[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":24,\"height\":24,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"lucide lucide-users mr-2 h-4 w-4\",\"aria-hidden\":\"true\",\"children\":[[\"$\",\"path\",\"1yyitq\",{\"d\":\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"}],[\"$\",\"path\",\"16gr8j\",{\"d\":\"M16 3.128a4 4 0 0 1 0 7.744\"}],[\"$\",\"path\",\"kshegd\",{\"d\":\"M22 21v-2a4 4 0 0 0-3-3.87\"}],[\"$\",\"circle\",\"nufk8\",{\"cx\":\"9\",\"cy\":\"7\",\"r\":\"4\"}],\"$undefined\"]}],\"Fleet\"],\"className\":\"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2\",\"ref\":null}],[\"$\",\"$L7\",null,{\"href\":\"/reports\",\"children\":[[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":24,\"height\":24,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"lucide lucide-chart-column mr-2 h-4 w-4\",\"aria-hidden\":\"true\",\"children\":[[\"$\",\"path\",\"c24i48\",{\"d\":\"M3 3v16a2 2 0 0 0 2 2h16\"}],[\"$\",\"path\",\"2bz60n\",{\"d\":\"M18 17V9\"}],[\"$\",\"path\",\"1frdt8\",{\"d\":\"M13 17V5\"}],[\"$\",\"path\",\"17ska0\",{\"d\":\"M8 17v-3\"}],\"$undefined\"]}],\"Reports\"],\"className\":\"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2\",\"ref\":null}]]}]\n"])</script><script>self.__next_f.push([1,"c:[\"$\",\"div\",null,{\"className\":\"text-center pt-4 border-t\",\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs text-muted-foreground mb-2\",\"children\":\"CargoMax Logistics Platform\"}],[\"$\",\"p\",null,{\"className\":\"text-xs text-muted-foreground\",\"children\":[\"Need help?\",\" \",[\"$\",\"$L7\",null,{\"href\":\"/help\",\"className\":\"text-primary hover:underline font-medium\",\"children\":\"Contact Support\"}]]}]]}]\nd:[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"div\",null,{\"children\":[\"$\",\"$L4\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]\ne:[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"$L12\",null,{\"Component\":\"$13\",\"searchParams\":{},\"params\":{},\"promises\":[\"$@14\",\"$@15\"]}],null,[\"$\",\"$L16\",null,{\"children\":[\"$L17\",[\"$\",\"$L18\",null,{\"promise\":\"$@19\"}]]}]]}]\nf:[\"$\",\"div\",\"l\",{\"className\":\"flex items-center justify-center h-screen\",\"children\":[\"$\",\"p\",null,{\"className\":\"text-xl text-green-500\",\"children\":\"Loading...\"}]}]\n10:[\"$\",\"$1\",\"h\",{\"children\":[null,[[\"$\",\"$L1a\",null,{\"children\":\"$L1b\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]],[\"$\",\"$L1c\",null,{\"children\":[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$1d\",null,{\"fallback\":null,\"children\":\"$L1e\"}]}]}]]}]\n"])</script><script>self.__next_f.push([1,"14:{}\n15:\"$e:props:children:0:props:params\"\n"])</script><script>self.__next_f.push([1,"1b:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n17:null\n"])</script><script>self.__next_f.push([1,"1f:I[39283,[],\"IconMark\"]\n19:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"Widgets | CargoMax\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Cargomax is a modern and responsive Shipping \u0026 Logistics Admin Dashboard Template designed for cargo management, freight tracking, warehouse control, and logistics operations. Built with clean UI components and advanced features, Cargomax offers real-time shipment monitoring, driver assignments, order tracking, fleet status, and warehouse insights.\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico\",\"type\":\"image/x-icon\",\"sizes\":\"512x512\"}],[\"$\",\"$L1f\",\"3\",{}]],\"error\":null,\"digest\":\"$undefined\"}\n"])</script><script>self.__next_f.push([1,"1e:\"$19:metadata\"\n"])</script>
+	
+
+@endsection

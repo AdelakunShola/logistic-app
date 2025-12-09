@@ -1,0 +1,14 @@
+
+   ERROR  Command "optimize:clear-" is not defined. Did you mean one of these?  
+
+  ⇂ auth:clear-resets  
+  ⇂ cache:clear  
+  ⇂ config:clear  
+  ⇂ event:clear  
+  ⇂ optimize  
+  ⇂ optimize:clear  
+  ⇂ queue:clear  
+  ⇂ route:clear  
+  ⇂ schedule:clear-cache  
+  ⇂ view:clear  
+
