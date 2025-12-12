@@ -1,18 +1,42 @@
 <html lang="en" class="light" style="color-scheme: light;">
+	<html lang="en" class="light" style="color-scheme: light;">
 	<head>
-		<meta charSet="utf-8"/>
+		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-         <meta name="csrf-token" content="{{ csrf_token() }}">
-         
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+		
+		<!-- Favicon -->
+		<link rel="icon" href="{{ asset('logoo.png') }}" type="image/png"/>
+		<link rel="apple-touch-icon" href="{{ asset('logoo.png') }}"/>
+		
+		<!-- SEO Meta Tags -->
+		<meta name="description" content="WebMotion HQ Driver Dashboard - Manage your deliveries, track routes in real-time, update delivery status, and communicate with dispatch. Complete driver portal for efficient logistics operations."/>
+		<meta name="keywords" content="driver dashboard, delivery tracking, route management, WebMotion HQ, driver portal, logistics driver app"/>
+		<meta name="author" content="WebMotion HQ"/>
+		<meta name="robots" content="noindex, nofollow"/>
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website"/>
+		<meta property="og:url" content="{{ url()->current() }}"/>
+		<meta property="og:title" content="WebMotion HQ Logistics - Driver Dashboard"/>
+		<meta property="og:description" content="Manage your deliveries and track routes in real-time with our comprehensive driver portal"/>
+		<meta property="og:image" content="{{ asset('logoo.png') }}"/>
+		
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary"/>
+		<meta name="twitter:url" content="{{ url()->current() }}"/>
+		<meta name="twitter:title" content="WebMotion HQ Logistics - Driver Dashboard"/>
+		<meta name="twitter:description" content="Manage your deliveries and track routes in real-time with our comprehensive driver portal"/>
+		<meta name="twitter:image" content="{{ asset('logoo.png') }}"/>
+		
+		<!-- Preload fonts -->
 		<link rel="preload" href="_next/static/media/e4af272ccee01ff0-s.p.woff2" as="font" crossorigin="" type="font/woff2"/>
 		<link rel="stylesheet" href="{{asset('_next/static/css/5eee5e3e85546ba3.css')}}" data-precedence="next"/>
-
-
-		<meta name="next-size-adjust" content=""/>
-		<title>Cargomax – Shipping &amp; Logistics Driver Dashboard Next.js Template</title>
-		<meta name="description" content="Cargomax is a modern and responsive Shipping &amp; Logistics Driver Dashboard Template designed for cargo management, freight tracking, warehouse control, and logistics operations. Built with clean UI components and advanced features, Cargomax offers real-time shipment monitoring, driver assignments, order tracking, fleet status, and warehouse insights. Ideal for logistics companies, transportation services, and supply chain dashboards, this template ensures a seamless and intuitive driver experience. Fully responsive, customizable, and developer-friendly – boost your logistics platform with Cargomax today."/>
-		<link rel="icon" href="favicon.ico" type="image/x-icon" sizes="512x512"/>
 		
+		<meta name="next-size-adjust" content=""/>
+		
+		<title>WebMotion HQ Logistics – Driver Dashboard</title>
+
 		<style>
 			.imageye-selected {
 			outline: 2px solid black !important;

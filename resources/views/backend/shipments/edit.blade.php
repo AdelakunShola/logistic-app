@@ -265,12 +265,12 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Contact Name *</label>
-                                <input type="text" name="pickup_contact_name" value="{{ old('pickup_contact_name', $shipment->pickup_contact_name) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter contact name" required>
+                                <input type="text" name="pickup_contact_name" value="{{ old('pickup_contact_name', $shipment->pickup_contact_name) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter contact name" >
                             </div>
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-medium">Address Line 1 *</label>
-                            <input type="text" name="pickup_address" id="pickup_address" value="{{ old('pickup_address', $shipment->pickup_address) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter street address" required onchange="calculatePricing()">
+                            <input type="text" name="pickup_address" id="pickup_address" value="{{ old('pickup_address', $shipment->pickup_address) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter street address"  onchange="calculatePricing()">
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-medium">Address Line 2 (Optional)</label>
@@ -279,21 +279,21 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">City *</label>
-                                <input type="text" name="pickup_city" id="pickup_city" value="{{ old('pickup_city', $shipment->pickup_city) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter city" required>
+                                <input type="text" name="pickup_city" id="pickup_city" value="{{ old('pickup_city', $shipment->pickup_city) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter city" >
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">State/Province *</label>
-                                <input type="text" name="pickup_state" id="pickup_state" value="{{ old('pickup_state', $shipment->pickup_state) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter state" required>
+                                <input type="text" name="pickup_state" id="pickup_state" value="{{ old('pickup_state', $shipment->pickup_state) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter state" >
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">ZIP/Postal Code *</label>
-                                <input type="text" name="pickup_postal_code" id="pickup_postal_code" value="{{ old('pickup_postal_code', $shipment->pickup_postal_code) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter ZIP code" required>
+                                <input type="text" name="pickup_postal_code" id="pickup_postal_code" value="{{ old('pickup_postal_code', $shipment->pickup_postal_code) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter ZIP code" >
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Phone Number *</label>
-                                <input type="tel" name="pickup_contact_phone" value="{{ old('pickup_contact_phone', $shipment->pickup_contact_phone) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter phone number" required>
+                                <input type="tel" name="pickup_contact_phone" value="{{ old('pickup_contact_phone', $shipment->pickup_contact_phone) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter phone number" >
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Email Address</label>
@@ -323,12 +323,12 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Contact Name *</label>
-                                <input type="text" name="delivery_contact_name" value="{{ old('delivery_contact_name', $shipment->delivery_contact_name) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter contact name" required>
+                                <input type="text" name="delivery_contact_name" value="{{ old('delivery_contact_name', $shipment->delivery_contact_name) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter contact name" >
                             </div>
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-medium">Address Line 1 *</label>
-                            <input type="text" name="delivery_address" id="delivery_address" value="{{ old('delivery_address', $shipment->delivery_address) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter street address" required onchange="calculatePricing()">
+                            <input type="text" name="delivery_address" id="delivery_address" value="{{ old('delivery_address', $shipment->delivery_address) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter street address"  onchange="calculatePricing()">
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-medium">Address Line 2 (Optional)</label>
@@ -337,21 +337,21 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">City *</label>
-                                <input type="text" name="delivery_city" id="delivery_city" value="{{ old('delivery_city', $shipment->delivery_city) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter city" required>
+                                <input type="text" name="delivery_city" id="delivery_city" value="{{ old('delivery_city', $shipment->delivery_city) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter city" >
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">State/Province *</label>
-                                <input type="text" name="delivery_state" id="delivery_state" value="{{ old('delivery_state', $shipment->delivery_state) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter state" required>
+                                <input type="text" name="delivery_state" id="delivery_state" value="{{ old('delivery_state', $shipment->delivery_state) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter state" >
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">ZIP/Postal Code *</label>
-                                <input type="text" name="delivery_postal_code" id="delivery_postal_code" value="{{ old('delivery_postal_code', $shipment->delivery_postal_code) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter ZIP code" required>
+                                <input type="text" name="delivery_postal_code" id="delivery_postal_code" value="{{ old('delivery_postal_code', $shipment->delivery_postal_code) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter ZIP code" >
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Phone Number *</label>
-                                <input type="tel" name="delivery_contact_phone" value="{{ old('delivery_contact_phone', $shipment->delivery_contact_phone) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter phone number" required>
+                                <input type="tel" name="delivery_contact_phone" value="{{ old('delivery_contact_phone', $shipment->delivery_contact_phone) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter phone number" >
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Email Address</label>
@@ -401,7 +401,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Description</label>
-                                        <input type="text" name="items[{{ $index }}][description]" value="{{ old('items.'.$index.'.description', $item->description) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter item description" required>
+                                        <input type="text" name="items[{{ $index }}][description]" value="{{ old('items.'.$index.'.description', $item->description) }}" class="w-full px-4 py-2 border rounded-md" placeholder="Enter item description" >
                                     </div>
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Category</label>
@@ -418,15 +418,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Quantity</label>
-                                        <input type="number" name="items[{{ $index }}][quantity]" value="{{ old('items.'.$index.'.quantity', $item->quantity) }}" min="1" class="w-full px-4 py-2 border rounded-md item-quantity" onchange="calculateTotals()" required>
+                                        <input type="number" name="items[{{ $index }}][quantity]" value="{{ old('items.'.$index.'.quantity', $item->quantity) }}" min="1" class="w-full px-4 py-2 border rounded-md item-quantity" onchange="calculateTotals()" >
                                     </div>
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Weight (lbs)</label>
-                                        <input type="number" name="items[{{ $index }}][weight]" value="{{ old('items.'.$index.'.weight', $item->weight) }}" step="0.01" min="0" class="w-full px-4 py-2 border rounded-md item-weight" onchange="calculateTotals()" required>
+                                        <input type="number" name="items[{{ $index }}][weight]" value="{{ old('items.'.$index.'.weight', $item->weight) }}" step="0.01" min="0" class="w-full px-4 py-2 border rounded-md item-weight" onchange="calculateTotals()" >
                                     </div>
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Value ($)</label>
-                                        <input type="number" name="items[{{ $index }}][value]" value="{{ old('items.'.$index.'.value', $item->value) }}" step="0.01" min="0" class="w-full px-4 py-2 border rounded-md item-value" onchange="calculateTotals()" required>
+                                        <input type="number" name="items[{{ $index }}][value]" value="{{ old('items.'.$index.'.value', $item->value) }}" step="0.01" min="0" class="w-full px-4 py-2 border rounded-md item-value" onchange="calculateTotals()" >
                                     </div>
                                 </div>
                                 <div class="space-y-2">
@@ -452,7 +452,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Description</label>
-                                        <input type="text" name="items[0][description]" class="w-full px-4 py-2 border rounded-md" placeholder="Enter item description" required>
+                                        <input type="text" name="items[0][description]" class="w-full px-4 py-2 border rounded-md" placeholder="Enter item description" >
                                     </div>
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Category</label>
@@ -469,15 +469,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Quantity</label>
-                                        <input type="number" name="items[0][quantity]" value="1" min="1" class="w-full px-4 py-2 border rounded-md item-quantity" onchange="calculateTotals()" required>
+                                        <input type="number" name="items[0][quantity]" value="1" min="1" class="w-full px-4 py-2 border rounded-md item-quantity" onchange="calculateTotals()" >
                                     </div>
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Weight (lbs)</label>
-                                        <input type="number" name="items[0][weight]" value="0" step="0.01" min="0" class="w-full px-4 py-2 border rounded-md item-weight" onchange="calculateTotals()" required>
+                                        <input type="number" name="items[0][weight]" value="0" step="0.01" min="0" class="w-full px-4 py-2 border rounded-md item-weight" onchange="calculateTotals()" >
                                     </div>
                                     <div class="space-y-2">
                                         <label class="text-sm font-medium">Value ($)</label>
-                                        <input type="number" name="items[0][value]" value="0" step="0.01" min="0" class="w-full px-4 py-2 border rounded-md item-value" onchange="calculateTotals()" required>
+                                        <input type="number" name="items[0][value]" value="0" step="0.01" min="0" class="w-full px-4 py-2 border rounded-md item-value" onchange="calculateTotals()" >
                                     </div>
                                 </div>
                                 <div class="space-y-2">
@@ -678,7 +678,7 @@
                 </svg>
                 <label class="text-sm font-medium">Shipping Zone *</label>
             </div>
-            <select name="shipping_zone" id="shipping_zone" class="w-full px-4 py-2 border rounded-md" required onchange="calculatePricing()">
+            <select name="shipping_zone" id="shipping_zone" class="w-full px-4 py-2 border rounded-md"  onchange="calculatePricing()">
                 <option value="">Select shipping zone</option>
                 <option value="local" data-price="{{ $pricingSettings['zone_local'] }}" {{ $shipment->shipping_zone === 'local' ? 'selected' : '' }}>
                     Local (Within Same City) - {{ $pricingSettings['currency_symbol'] }}{{ number_format($pricingSettings['zone_local'], 2) }}
@@ -1319,333 +1319,344 @@ function calculateTotals() {
         calculatePricing();
     }, 200);
 }
+
 // Update insurance fee display based on total shipment value
 function updateInsuranceFeeDisplay(totalValue) {
-const insuranceCheckbox = document.querySelector('input[name="insurance_required"]');
-const insuranceFeeDisplay = document.getElementById('insurance-fee-display');
-const insuranceFeeAmount = document.getElementById('insurance-fee-amount');
-if (insuranceCheckbox && insuranceCheckbox.checked && totalValue > 0) {
-    const insuranceRate = parseFloat(pricingSettings.insurance_rate || 2);
-    const insuranceFee = (totalValue * insuranceRate) / 100;
+    const insuranceCheckbox = document.querySelector('input[name="insurance_required"]');
+    const insuranceFeeDisplay = document.getElementById('insurance-fee-display');
+    const insuranceFeeAmount = document.getElementById('insurance-fee-amount');
     
-    insuranceFeeAmount.textContent = insuranceFee.toFixed(2);
-    insuranceFeeDisplay.style.display = 'inline';
-} else {
-    insuranceFeeDisplay.style.display = 'none';
+    if (insuranceCheckbox && insuranceCheckbox.checked && totalValue > 0) {
+        const insuranceRate = parseFloat(pricingSettings.insurance_rate || 2);
+        const insuranceFee = (totalValue * insuranceRate) / 100;
+        
+        insuranceFeeAmount.textContent = insuranceFee.toFixed(2);
+        insuranceFeeDisplay.style.display = 'inline';
+    } else {
+        insuranceFeeDisplay.style.display = 'none';
+    }
 }
-}
+
 // Pricing Calculation using API
 function calculatePricing() {
-// Gather all required data
-const shipmentType = document.querySelector('input[name="shipment_type"]:checked')?.value || 'Standard Package';
-const deliveryPriority = document.querySelector('input[name="delivery_priority"]:checked')?.value || 'standard';
-const totalWeight = parseFloat(document.getElementById('hidden-total-weight')?.value) || 0;
-const shippingZone = document.getElementById('shipping_zone')?.value;
-console.log('=== Calculate Pricing Called ===');
-console.log('Shipment Type:', shipmentType);
-console.log('Priority:', deliveryPriority);
-console.log('Total Weight:', totalWeight);
-console.log('Shipping Zone:', shippingZone);
-
-// Check if we have minimum required data
-if (!shippingZone) {
-    console.warn('Shipping zone not selected - using fallback calculation');
-    fallbackPricingCalculation();
-    return;
-}
-
-// Insurance
-const insuranceRequired = document.querySelector('input[name="insurance_required"]')?.checked || false;
-const totalValue = parseFloat(document.getElementById('hidden-total-value')?.value) || 0;
-
-// Additional services
-const signatureRequired = document.querySelector('input[name="signature_required"]')?.checked || false;
-const temperatureControlled = document.querySelector('input[name="temperature_controlled"]')?.checked || false;
-const fragileHandling = document.querySelector('input[name="fragile_handling"]')?.checked || false;
-
-console.log('Insurance Required:', insuranceRequired, 'Total Value:', totalValue);
-console.log('Services - Signature:', signatureRequired, 'Temperature:', temperatureControlled, 'Fragile:', fragileHandling);
-
-// Call API to calculate pricing
-fetch('{{ route("admin.shipments.calculate-pricing") }}', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    },
-    body: JSON.stringify({
-        shipment_type: shipmentType,
-        delivery_priority: deliveryPriority,
-        total_weight: totalWeight,
-        shipping_zone: shippingZone,
-        total_value: totalValue,
-        insurance_required: insuranceRequired,
-        signature_required: signatureRequired,
-        temperature_controlled: temperatureControlled,
-        fragile_handling: fragileHandling,
-    })
-})
-.then(response => response.json())
-.then(response => {
-    console.log('API Response:', response);
-    if (response.success) {
-        updatePricingDisplay(response.pricing);
-    } else {
-        console.error('API returned error:', response);
+    // Gather all required data
+    const shipmentType = document.querySelector('input[name="shipment_type"]:checked')?.value || 'Standard Package';
+    const deliveryPriority = document.querySelector('input[name="delivery_priority"]:checked')?.value || 'standard';
+    const totalWeight = parseFloat(document.getElementById('hidden-total-weight')?.value) || 0;
+    const shippingZone = document.getElementById('shipping_zone')?.value;
+    
+    console.log('=== Calculate Pricing Called ===');
+    console.log('Shipment Type:', shipmentType);
+    console.log('Priority:', deliveryPriority);
+    console.log('Total Weight:', totalWeight);
+    console.log('Shipping Zone:', shippingZone);
+    
+    // Check if we have minimum required data
+    if (!shippingZone) {
+        console.warn('Shipping zone not selected - using fallback calculation');
         fallbackPricingCalculation();
+        return;
     }
-})
-.catch(error => {
-    console.error('Pricing calculation API failed:', error);
-    // Use fallback calculation if API fails
-    fallbackPricingCalculation();
-});
+    
+    // Insurance
+    const insuranceRequired = document.querySelector('input[name="insurance_required"]')?.checked || false;
+    const totalValue = parseFloat(document.getElementById('hidden-total-value')?.value) || 0;
+    
+    // Additional services
+    const signatureRequired = document.querySelector('input[name="signature_required"]')?.checked || false;
+    const temperatureControlled = document.querySelector('input[name="temperature_controlled"]')?.checked || false;
+    const fragileHandling = document.querySelector('input[name="fragile_handling"]')?.checked || false;
+    
+    console.log('Insurance Required:', insuranceRequired, 'Total Value:', totalValue);
+    console.log('Services - Signature:', signatureRequired, 'Temperature:', temperatureControlled, 'Fragile:', fragileHandling);
+    
+    // Call API to calculate pricing
+    fetch('{{ route("admin.shipments.calculate-pricing") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            shipment_type: shipmentType,
+            delivery_priority: deliveryPriority,
+            total_weight: totalWeight,
+            shipping_zone: shippingZone,
+            total_value: totalValue,
+            insurance_required: insuranceRequired,
+            signature_required: signatureRequired,
+            temperature_controlled: temperatureControlled,
+            fragile_handling: fragileHandling,
+        })
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log('API Response:', response);
+        if (response.success) {
+            updatePricingDisplay(response.pricing);
+        } else {
+            console.error('API returned error:', response);
+            fallbackPricingCalculation();
+        }
+    })
+    .catch(error => {
+        console.error('Pricing calculation API failed:', error);
+        // Use fallback calculation if API fails
+        fallbackPricingCalculation();
+    });
 }
+
 // Update pricing display with API response
 function updatePricingDisplay(pricing) {
-const symbol = pricing.currency_symbol || pricingSettings.currency_symbol || '$';
-// Update cost breakdown
-document.getElementById('cost-base').textContent = pricing.base_price;
-document.getElementById('cost-weight').textContent = pricing.weight_charge;
-document.getElementById('cost-distance').textContent = pricing.distance_charge;
-
-// Update weight breakdown
-document.getElementById('weight-rate-display').textContent = symbol + parseFloat(pricing.weight_rate || pricingSettings.weight_rate_per_lb).toFixed(2);
-document.getElementById('total-weight-display').textContent = parseFloat(pricing.total_weight || 0).toFixed(2);
-
-// Update zone breakdown
-const zoneNames = {
-    'local': 'Local (Same City)',
-    'regional': 'Regional (Same State)',
-    'national': 'National (Different States)',
-    'international': 'International'
-};
-document.getElementById('zone-display').textContent = pricing.zone_name || zoneNames[pricing.shipping_zone] || 'Not selected';
-
-// Update individual service fees
-const signatureFee = parseFloat(pricing.signature_fee || 0);
-const temperatureFee = parseFloat(pricing.temperature_fee || 0);
-const fragileFee = parseFloat(pricing.fragile_fee || 0);
-
-const serviceSignature = document.getElementById('service-signature');
-const serviceTemperature = document.getElementById('service-temperature');
-const serviceFragile = document.getElementById('service-fragile');
-
-if (serviceSignature) serviceSignature.style.display = signatureFee > 0 ? 'flex' : 'none';
-if (serviceTemperature) serviceTemperature.style.display = temperatureFee > 0 ? 'flex' : 'none';
-if (serviceFragile) serviceFragile.style.display = fragileFee > 0 ? 'flex' : 'none';
-
-document.getElementById('cost-signature').textContent = signatureFee.toFixed(2);
-document.getElementById('cost-temperature').textContent = temperatureFee.toFixed(2);
-document.getElementById('cost-fragile').textContent = fragileFee.toFixed(2);
-
-// Update insurance
-document.getElementById('cost-insurance').textContent = pricing.insurance_fee;
-const insuranceBreakdown = document.getElementById('insurance-breakdown');
-if (parseFloat(pricing.insurance_fee) > 0 && parseFloat(pricing.total_value) > 0) {
-    insuranceBreakdown.style.display = 'block';
-    document.getElementById('insurance-rate-display').textContent = pricing.insurance_rate + '%';
-    document.getElementById('insurance-value-display').textContent = parseFloat(pricing.total_value).toFixed(2);
-} else {
-    insuranceBreakdown.style.display = 'none';
+    const symbol = pricing.currency_symbol || pricingSettings.currency_symbol || '$';
+    
+    // Update cost breakdown
+    document.getElementById('cost-base').textContent = pricing.base_price;
+    document.getElementById('cost-weight').textContent = pricing.weight_charge;
+    document.getElementById('cost-distance').textContent = pricing.distance_charge;
+    
+    // Update weight breakdown
+    document.getElementById('weight-rate-display').textContent = symbol + parseFloat(pricing.weight_rate || pricingSettings.weight_rate_per_lb).toFixed(2);
+    document.getElementById('total-weight-display').textContent = parseFloat(pricing.total_weight || 0).toFixed(2);
+    
+    // Update zone breakdown
+    const zoneNames = {
+        'local': 'Local (Same City)',
+        'regional': 'Regional (Same State)',
+        'national': 'National (Different States)',
+        'international': 'International'
+    };
+    document.getElementById('zone-display').textContent = pricing.zone_name || zoneNames[pricing.shipping_zone] || 'Not selected';
+    
+    // Update individual service fees
+    const signatureFee = parseFloat(pricing.signature_fee || 0);
+    const temperatureFee = parseFloat(pricing.temperature_fee || 0);
+    const fragileFee = parseFloat(pricing.fragile_fee || 0);
+    
+    const serviceSignature = document.getElementById('service-signature');
+    const serviceTemperature = document.getElementById('service-temperature');
+    const serviceFragile = document.getElementById('service-fragile');
+    
+    if (serviceSignature) serviceSignature.style.display = signatureFee > 0 ? 'flex' : 'none';
+    if (serviceTemperature) serviceTemperature.style.display = temperatureFee > 0 ? 'flex' : 'none';
+    if (serviceFragile) serviceFragile.style.display = fragileFee > 0 ? 'flex' : 'none';
+    
+    document.getElementById('cost-signature').textContent = signatureFee.toFixed(2);
+    document.getElementById('cost-temperature').textContent = temperatureFee.toFixed(2);
+    document.getElementById('cost-fragile').textContent = fragileFee.toFixed(2);
+    
+    // Update insurance
+    document.getElementById('cost-insurance').textContent = pricing.insurance_fee;
+    const insuranceBreakdown = document.getElementById('insurance-breakdown');
+    if (parseFloat(pricing.insurance_fee) > 0 && parseFloat(pricing.total_value) > 0) {
+        insuranceBreakdown.style.display = 'block';
+        document.getElementById('insurance-rate-display').textContent = pricing.insurance_rate + '%';
+        document.getElementById('insurance-value-display').textContent = parseFloat(pricing.total_value).toFixed(2);
+    } else {
+        insuranceBreakdown.style.display = 'none';
+    }
+    
+    // Update subtotal, tax, and total
+    document.getElementById('cost-subtotal').textContent = pricing.subtotal || '0.00';
+    document.getElementById('cost-tax').textContent = pricing.tax_amount;
+    document.getElementById('cost-total').textContent = pricing.total_amount;
+    
+    // Update hidden fields for form submission
+    document.getElementById('hidden-base-price').value = pricing.base_price;
+    document.getElementById('hidden-weight-charge').value = pricing.weight_charge;
+    document.getElementById('hidden-distance-charge').value = pricing.distance_charge;
+    document.getElementById('hidden-insurance-fee').value = pricing.insurance_fee;
+    document.getElementById('hidden-tax').value = pricing.tax_amount;
+    document.getElementById('hidden-total').value = pricing.total_amount;
+    document.getElementById('hidden-priority-charge').value = pricing.base_price;
+    
+    // Update individual service fee hidden fields
+    document.getElementById('hidden-signature-fee').value = signatureFee.toFixed(2);
+    document.getElementById('hidden-temperature-fee').value = temperatureFee.toFixed(2);
+    document.getElementById('hidden-fragile-fee').value = fragileFee.toFixed(2);
+    document.getElementById('hidden-services-fee').value = pricing.additional_services_fee;
+    document.getElementById('hidden-subtotal').value = pricing.subtotal || '0.00';
 }
 
-// Update subtotal, tax, and total
-document.getElementById('cost-subtotal').textContent = pricing.subtotal || '0.00';
-document.getElementById('cost-tax').textContent = pricing.tax_amount;
-document.getElementById('cost-total').textContent = pricing.total_amount;
-
-// Update hidden fields for form submission
-document.getElementById('hidden-base-price').value = pricing.base_price;
-document.getElementById('hidden-weight-charge').value = pricing.weight_charge;
-document.getElementById('hidden-distance-charge').value = pricing.distance_charge;
-document.getElementById('hidden-insurance-fee').value = pricing.insurance_fee;
-document.getElementById('hidden-tax').value = pricing.tax_amount;
-document.getElementById('hidden-total').value = pricing.total_amount;
-document.getElementById('hidden-priority-charge').value = pricing.base_price;
-
-// Update individual service fee hidden fields
-document.getElementById('hidden-signature-fee').value = signatureFee.toFixed(2);
-document.getElementById('hidden-temperature-fee').value = temperatureFee.toFixed(2);
-document.getElementById('hidden-fragile-fee').value = fragileFee.toFixed(2);
-document.getElementById('hidden-services-fee').value = pricing.additional_services_fee;
-document.getElementById('hidden-subtotal').value = pricing.subtotal || '0.00';
-}
 // Fallback pricing calculation (client-side)
 function fallbackPricingCalculation() {
-if (!pricingSettings || !pricingSettings.currency_symbol) {
-console.error('Pricing settings not loaded');
-return;
-}
-console.log('=== Starting Fallback Calculation ===');
-
-// 1. Base price from delivery priority
-const priorityEl = document.querySelector('input[name="delivery_priority"]:checked');
-const basePrice = parseFloat(priorityEl?.dataset.price || 15.99);
-console.log('Base Price:', basePrice);
-
-// 2. Weight charge
-const totalWeight = parseFloat(document.getElementById('hidden-total-weight')?.value) || 0;
-const weightRate = parseFloat(pricingSettings.weight_rate_per_lb) || 0.50;
-const weightCharge = totalWeight * weightRate;
-console.log('Weight:', totalWeight, 'Rate:', weightRate, 'Charge:', weightCharge);
-
-// 3. Distance charge - use selected zone value directly
-const shippingZoneSelect = document.getElementById('shipping_zone');
-const shippingZone = shippingZoneSelect?.value;
-let distanceCharge = 0;
-
-if (shippingZone) {
-    switch(shippingZone) {
-        case 'local':
-            distanceCharge = parseFloat(pricingSettings.zone_local) || 5.00;
-            break;
-        case 'regional':
-            distanceCharge = parseFloat(pricingSettings.zone_regional) || 15.00;
-            break;
-        case 'national':
-            distanceCharge = parseFloat(pricingSettings.zone_national) || 35.00;
-            break;
-        case 'international':
-            distanceCharge = parseFloat(pricingSettings.zone_international) || 100.00;
-            break;
-        default:
-            distanceCharge = 0;
+    if (!pricingSettings || !pricingSettings.currency_symbol) {
+        console.error('Pricing settings not loaded');
+        return;
     }
+    
+    console.log('=== Starting Fallback Calculation ===');
+    
+    // 1. Base price from delivery priority
+    const priorityEl = document.querySelector('input[name="delivery_priority"]:checked');
+    const basePrice = parseFloat(priorityEl?.dataset.price || 15.99);
+    console.log('Base Price:', basePrice);
+    
+    // 2. Weight charge
+    const totalWeight = parseFloat(document.getElementById('hidden-total-weight')?.value) || 0;
+    const weightRate = parseFloat(pricingSettings.weight_rate_per_lb) || 0.50;
+    const weightCharge = totalWeight * weightRate;
+    console.log('Weight:', totalWeight, 'Rate:', weightRate, 'Charge:', weightCharge);
+    
+    // 3. Distance charge - use selected zone value directly
+    const shippingZoneSelect = document.getElementById('shipping_zone');
+    const shippingZone = shippingZoneSelect?.value;
+    let distanceCharge = 0;
+
+    if (shippingZone) {
+        switch(shippingZone) {
+            case 'local':
+                distanceCharge = parseFloat(pricingSettings.zone_local) || 5.00;
+                break;
+            case 'regional':
+                distanceCharge = parseFloat(pricingSettings.zone_regional) || 15.00;
+                break;
+            case 'national':
+                distanceCharge = parseFloat(pricingSettings.zone_national) || 35.00;
+                break;
+            case 'international':
+                distanceCharge = parseFloat(pricingSettings.zone_international) || 100.00;
+                break;
+            default:
+                distanceCharge = 0;
+        }
+    }
+    console.log('Shipping Zone:', shippingZone, 'Distance Charge:', distanceCharge);
+    
+    // 4. Individual service fees
+    let signatureFee = 0;
+    let temperatureFee = 0;
+    let fragileFee = 0;
+    
+    if (document.querySelector('input[name="signature_required"]')?.checked) {
+        signatureFee = parseFloat(pricingSettings.signature_fee) || 5.00;
+    }
+    if (document.querySelector('input[name="temperature_controlled"]')?.checked) {
+        temperatureFee = parseFloat(pricingSettings.temperature_controlled_fee) || 25.00;
+    }
+    if (document.querySelector('input[name="fragile_handling"]')?.checked) {
+        fragileFee = parseFloat(pricingSettings.fragile_handling_fee) || 10.00;
+    }
+    
+    const totalServicesFee = signatureFee + temperatureFee + fragileFee;
+    console.log('Services - Signature:', signatureFee, 'Temp:', temperatureFee, 'Fragile:', fragileFee, 'Total:', totalServicesFee);
+    
+    // 5. Insurance fee
+    const insuranceRequired = document.querySelector('input[name="insurance_required"]')?.checked || false;
+    const totalValue = parseFloat(document.getElementById('hidden-total-value')?.value) || 0;
+    const insuranceRate = parseFloat(pricingSettings.insurance_rate) || 2;
+    const insuranceFee = insuranceRequired && totalValue > 0 ? (totalValue * insuranceRate) / 100 : 0;
+    console.log('Insurance - Required:', insuranceRequired, 'Value:', totalValue, 'Rate:', insuranceRate, 'Fee:', insuranceFee);
+    
+    // 6. Calculate subtotal (before tax)
+    const subtotal = basePrice + weightCharge + distanceCharge + totalServicesFee + insuranceFee;
+    console.log('Subtotal:', subtotal);
+    
+    // 7. Tax
+    const taxPercentage = parseFloat(pricingSettings.tax_percentage) || 10;
+    const tax = (subtotal * taxPercentage) / 100;
+    console.log('Tax:', tax, 'Percentage:', taxPercentage);
+    
+    // 8. Total
+    const total = subtotal + tax;
+    console.log('Total:', total);
+    
+    // Update display
+    document.getElementById('cost-base').textContent = basePrice.toFixed(2);
+    document.getElementById('cost-weight').textContent = weightCharge.toFixed(2);
+    document.getElementById('cost-distance').textContent = distanceCharge.toFixed(2);
+    
+    // Update weight breakdown
+    document.getElementById('weight-rate-display').textContent = pricingSettings.currency_symbol + weightRate.toFixed(2);
+    document.getElementById('total-weight-display').textContent = totalWeight.toFixed(2);
+    
+    // Update zone breakdown
+    const zoneNames = {
+        'local': 'Local (Same City)',
+        'regional': 'Regional (Same State)',
+        'national': 'National (Different States)',
+        'international': 'International'
+    };
+    const zoneName = shippingZone ? zoneNames[shippingZone] : 'Not selected';
+    document.getElementById('zone-display').textContent = zoneName;
+    
+    // Update individual service fees display
+    const signatureDiv = document.getElementById('service-signature');
+    const temperatureDiv = document.getElementById('service-temperature');
+    const fragileDiv = document.getElementById('service-fragile');
+    
+    if (signatureDiv) signatureDiv.style.display = signatureFee > 0 ? 'flex' : 'none';
+    if (temperatureDiv) temperatureDiv.style.display = temperatureFee > 0 ? 'flex' : 'none';
+    if (fragileDiv) fragileDiv.style.display = fragileFee > 0 ? 'flex' : 'none';
+    
+    document.getElementById('cost-signature').textContent = signatureFee.toFixed(2);
+    document.getElementById('cost-temperature').textContent = temperatureFee.toFixed(2);
+    document.getElementById('cost-fragile').textContent = fragileFee.toFixed(2);
+    
+    // Update insurance display
+    document.getElementById('cost-insurance').textContent = insuranceFee.toFixed(2);
+    const insuranceBreakdown = document.getElementById('insurance-breakdown');
+    if (insuranceRequired && totalValue > 0) {
+        insuranceBreakdown.style.display = 'block';
+        document.getElementById('insurance-rate-display').textContent = insuranceRate + '%';
+        document.getElementById('insurance-value-display').textContent = totalValue.toFixed(2);
+    } else {
+        insuranceBreakdown.style.display = 'none';
+    }
+    
+    // Update subtotal, tax, and total
+    document.getElementById('cost-subtotal').textContent = subtotal.toFixed(2);
+    document.getElementById('cost-tax').textContent = tax.toFixed(2);
+    document.getElementById('cost-total').textContent = total.toFixed(2);
+    
+    // Update hidden fields
+    document.getElementById('hidden-base-price').value = basePrice.toFixed(2);
+    document.getElementById('hidden-weight-charge').value = weightCharge.toFixed(2);
+    document.getElementById('hidden-distance-charge').value = distanceCharge.toFixed(2);
+    document.getElementById('hidden-priority-charge').value = basePrice.toFixed(2);
+    document.getElementById('hidden-insurance-fee').value = insuranceFee.toFixed(2);
+    document.getElementById('hidden-tax').value = tax.toFixed(2);
+    document.getElementById('hidden-total').value = total.toFixed(2);
+    
+    // Update individual service fee hidden fields
+    document.getElementById('hidden-signature-fee').value = signatureFee.toFixed(2);
+    document.getElementById('hidden-temperature-fee').value = temperatureFee.toFixed(2);
+    document.getElementById('hidden-fragile-fee').value = fragileFee.toFixed(2);
+    document.getElementById('hidden-services-fee').value = totalServicesFee.toFixed(2);
+    document.getElementById('hidden-subtotal').value = subtotal.toFixed(2);
+    
+    updateInsuranceFeeDisplay(totalValue);
+    
+    console.log('=== Calculation Complete ===');
 }
-console.log('Shipping Zone:', shippingZone, 'Distance Charge:', distanceCharge);
 
-// 4. Individual service fees
-let signatureFee = 0;
-let temperatureFee = 0;
-let fragileFee = 0;
-
-if (document.querySelector('input[name="signature_required"]')?.checked) {
-    signatureFee = parseFloat(pricingSettings.signature_fee) || 5.00;
-}
-if (document.querySelector('input[name="temperature_controlled"]')?.checked) {
-    temperatureFee = parseFloat(pricingSettings.temperature_controlled_fee) || 25.00;
-}
-if (document.querySelector('input[name="fragile_handling"]')?.checked) {
-    fragileFee = parseFloat(pricingSettings.fragile_handling_fee) || 10.00;
-}
-
-const totalServicesFee = signatureFee + temperatureFee + fragileFee;
-console.log('Services - Signature:', signatureFee, 'Temp:', temperatureFee, 'Fragile:', fragileFee, 'Total:', totalServicesFee);
-
-// 5. Insurance fee
-const insuranceRequired = document.querySelector('input[name="insurance_required"]')?.checked || false;
-const totalValue = parseFloat(document.getElementById('hidden-total-value')?.value) || 0;
-const insuranceRate = parseFloat(pricingSettings.insurance_rate) || 2;
-const insuranceFee = insuranceRequired && totalValue > 0 ? (totalValue * insuranceRate) / 100 : 0;
-console.log('Insurance - Required:', insuranceRequired, 'Value:', totalValue, 'Rate:', insuranceRate, 'Fee:', insuranceFee);
-
-// 6. Calculate subtotal (before tax)
-const subtotal = basePrice + weightCharge + distanceCharge + totalServicesFee + insuranceFee;
-console.log('Subtotal:', subtotal);
-
-// 7. Tax
-const taxPercentage = parseFloat(pricingSettings.tax_percentage) || 10;
-const tax = (subtotal * taxPercentage) / 100;
-console.log('Tax:', tax, 'Percentage:', taxPercentage);
-
-// 8. Total
-const total = subtotal + tax;
-console.log('Total:', total);
-
-// Update display
-document.getElementById('cost-base').textContent = basePrice.toFixed(2);
-document.getElementById('cost-weight').textContent = weightCharge.toFixed(2);
-document.getElementById('cost-distance').textContent = distanceCharge.toFixed(2);
-
-// Update weight breakdown
-document.getElementById('weight-rate-display').textContent = pricingSettings.currency_symbol + weightRate.toFixed(2);
-document.getElementById('total-weight-display').textContent = totalWeight.toFixed(2);
-
-// Update zone breakdown
-const zoneNames = {
-    'local': 'Local (Same City)',
-    'regional': 'Regional (Same State)',
-    'national': 'National (Different States)',
-    'international': 'International'
-};
-const zoneName = shippingZone ? zoneNames[shippingZone] : 'Not selected';
-document.getElementById('zone-display').textContent = zoneName;
-
-// Update individual service fees display
-const signatureDiv = document.getElementById('service-signature');
-const temperatureDiv = document.getElementById('service-temperature');
-const fragileDiv = document.getElementById('service-fragile');
-
-if (signatureDiv) signatureDiv.style.display = signatureFee > 0 ? 'flex' : 'none';
-if (temperatureDiv) temperatureDiv.style.display = temperatureFee > 0 ? 'flex' : 'none';
-if (fragileDiv) fragileDiv.style.display = fragileFee > 0 ? 'flex' : 'none';
-
-document.getElementById('cost-signature').textContent = signatureFee.toFixed(2);
-document.getElementById('cost-temperature').textContent = temperatureFee.toFixed(2);
-document.getElementById('cost-fragile').textContent = fragileFee.toFixed(2);
-
-// Update insurance display
-document.getElementById('cost-insurance').textContent = insuranceFee.toFixed(2);
-const insuranceBreakdown = document.getElementById('insurance-breakdown');
-if (insuranceRequired && totalValue > 0) {
-    insuranceBreakdown.style.display = 'block';
-    document.getElementById('insurance-rate-display').textContent = insuranceRate + '%';
-    document.getElementById('insurance-value-display').textContent = totalValue.toFixed(2);
-} else {
-    insuranceBreakdown.style.display = 'none';
-}
-
-// Update subtotal, tax, and total
-document.getElementById('cost-subtotal').textContent = subtotal.toFixed(2);
-document.getElementById('cost-tax').textContent = tax.toFixed(2);
-document.getElementById('cost-total').textContent = total.toFixed(2);
-
-// Update hidden fields
-document.getElementById('hidden-base-price').value = basePrice.toFixed(2);
-document.getElementById('hidden-weight-charge').value = weightCharge.toFixed(2);
-document.getElementById('hidden-distance-charge').value = distanceCharge.toFixed(2);
-document.getElementById('hidden-priority-charge').value = basePrice.toFixed(2);
-document.getElementById('hidden-insurance-fee').value = insuranceFee.toFixed(2);
-document.getElementById('hidden-tax').value = tax.toFixed(2);
-document.getElementById('hidden-total').value = total.toFixed(2);
-
-// Update individual service fee hidden fields
-document.getElementById('hidden-signature-fee').value = signatureFee.toFixed(2);
-document.getElementById('hidden-temperature-fee').value = temperatureFee.toFixed(2);
-document.getElementById('hidden-fragile-fee').value = fragileFee.toFixed(2);
-document.getElementById('hidden-services-fee').value = totalServicesFee.toFixed(2);
-document.getElementById('hidden-subtotal').value = subtotal.toFixed(2);
-
-updateInsuranceFeeDisplay(totalValue);
-
-console.log('=== Calculation Complete ===');
-}
 // Step Navigation
 function nextStep() {
-if (!validateStep(currentStep)) {
-return;
-}
-if (currentStep < 5) {
-    document.getElementById(`step-${currentStep}`).classList.remove('active');
-    document.getElementById(`step-label-${currentStep}`).classList.remove('text-primary', 'font-medium');
-    
-    currentStep++;
-    
-    document.getElementById(`step-${currentStep}`).classList.add('active');
-    document.getElementById(`step-label-${currentStep}`).classList.add('text-primary', 'font-medium');
-    
-    updateProgress();
-    updateButtons();
-    
-    if (currentStep === 5) {
-        updateReviewSummary();
+    if (!validateStep(currentStep)) {
+        return;
     }
     
-    window.scrollTo(0, 0);
+    if (currentStep < 5) {
+        document.getElementById(`step-${currentStep}`).classList.remove('active');
+        document.getElementById(`step-label-${currentStep}`).classList.remove('text-primary', 'font-medium');
+        
+        currentStep++;
+        
+        document.getElementById(`step-${currentStep}`).classList.add('active');
+        document.getElementById(`step-label-${currentStep}`).classList.add('text-primary', 'font-medium');
+        
+        updateProgress();
+        updateButtons();
+        
+        if (currentStep === 5) {
+            updateReviewSummary();
+        }
+        
+        window.scrollTo(0, 0);
+    }
 }
-}
+
 function previousStep() {
     if (currentStep > 1) {
         document.getElementById(`step-${currentStep}`).classList.remove('active');
@@ -1659,6 +1670,25 @@ function previousStep() {
         updateProgress();
         updateButtons();
         window.scrollTo(0, 0);
+    }
+}
+
+function updateProgress() {
+    const percent = (currentStep / 5) * 100;
+    document.getElementById('current-step').textContent = currentStep;
+    document.getElementById('progress-percent').textContent = percent;
+    document.getElementById('progress-bar').style.width = percent + '%';
+}
+
+function updateButtons() {
+    document.getElementById('prev-btn').disabled = currentStep === 1;
+    
+    if (currentStep === 5) {
+        document.getElementById('next-btn').classList.add('hidden');
+        document.getElementById('submit-btn').classList.remove('hidden');
+    } else {
+        document.getElementById('next-btn').classList.remove('hidden');
+        document.getElementById('submit-btn').classList.add('hidden');
     }
 }
 
@@ -1676,93 +1706,68 @@ function validateStep(step) {
     return true;
 }
 
-function updateProgress() {
-const percent = (currentStep / 5) * 100;
-document.getElementById('current-step').textContent = currentStep;
-document.getElementById('progress-percent').textContent = percent;
-document.getElementById('progress-bar').style.width = percent + '%';
-}
-function updateButtons() {
-document.getElementById('prev-btn').disabled = currentStep === 1;
-if (currentStep === 5) {
-    document.getElementById('next-btn').classList.add('hidden');
-    document.getElementById('submit-btn').classList.remove('hidden');
-} else {
-    document.getElementById('next-btn').classList.remove('hidden');
-    document.getElementById('submit-btn').classList.add('hidden');
-}
-}
-function validateStep(step) {
-const currentStepEl = document.getElementById(step-${step});
-const required = currentStepEl.querySelectorAll('[required]');
-for (let field of required) {
-    if (!field.value) {
-        field.focus();
-        alert('Please fill in all required fields');
-        return false;
+function toggleCOD(select) {
+    const div = document.getElementById('cod-amount-div');
+    if (select.value === 'cod') {
+        div.classList.remove('hidden');
+    } else {
+        div.classList.add('hidden');
+        const codInput = document.querySelector('input[name="cod_amount"]');
+        if (codInput) codInput.value = '';
     }
 }
-return true;
-}
-function toggleCOD(select) {
-const div = document.getElementById('cod-amount-div');
-if (select.value === 'cod') {
-div.classList.remove('hidden');
-} else {
-div.classList.add('hidden');
-const codInput = document.querySelector('input[name="cod_amount"]');
-if (codInput) codInput.value = '';
-}
-}
+
 function updateReviewSummary() {
-console.log('=== Updating Review Summary ===');
-// Force recalculation when entering step 5
-const shippingZone = document.getElementById('shipping_zone')?.value;
-console.log('Current shipping zone:', shippingZone);
-
-if (!shippingZone) {
-    console.warn('WARNING: No shipping zone selected!');
+    console.log('=== Updating Review Summary ===');
+    
+    // Force recalculation when entering step 5
+    const shippingZone = document.getElementById('shipping_zone')?.value;
+    console.log('Current shipping zone:', shippingZone);
+    
+    if (!shippingZone) {
+        console.warn('WARNING: No shipping zone selected!');
+    }
+    
+    // Update driver display
+    const driverSelect = document.querySelector('select[name="assigned_driver_id"]');
+    const driverText = driverSelect?.options[driverSelect.selectedIndex]?.text || 'Not assigned';
+    const reviewDriver = document.getElementById('review-driver');
+    if (reviewDriver) {
+        reviewDriver.textContent = driverText;
+    }
+    
+    // Type and Priority
+    const type = document.querySelector('input[name="shipment_type"]:checked')?.value || 'Standard Package';
+    const priority = document.querySelector('input[name="delivery_priority"]:checked')?.value || 'standard';
+    document.getElementById('review-type').textContent = type;
+    document.getElementById('review-priority').textContent = priority.charAt(0).toUpperCase() + priority.slice(1);
+    
+    // Totals
+    document.getElementById('review-items').textContent = document.getElementById('total-items').textContent;
+    document.getElementById('review-weight').textContent = document.getElementById('total-weight').textContent;
+    document.getElementById('review-value').textContent = document.getElementById('total-value').textContent;
+    
+    // Addresses
+    const pickupCompany = document.querySelector('input[name="pickup_company_name"]')?.value || document.querySelector('input[name="pickup_contact_name"]')?.value || 'N/A';
+    const deliveryCompany = document.querySelector('input[name="delivery_company_name"]')?.value || document.querySelector('input[name="delivery_contact_name"]')?.value || 'N/A';
+    document.getElementById('review-from').textContent = pickupCompany;
+    document.getElementById('review-to').textContent = deliveryCompany;
+    
+    // Services
+    const services = [];
+    if (document.querySelector('input[name="insurance_required"]')?.checked) services.push('Insurance Coverage');
+    if (document.querySelector('input[name="signature_required"]')?.checked) services.push('Signature Required');
+    if (document.querySelector('input[name="temperature_controlled"]')?.checked) services.push('Temperature Controlled');
+    if (document.querySelector('input[name="fragile_handling"]')?.checked) services.push('Fragile Handling');
+    document.getElementById('review-services').textContent = services.length > 0 ? services.join(', ') : 'No special services selected';
+    
+    calculatePricing();
 }
 
-// Update driver display
-const driverSelect = document.querySelector('select[name="assigned_driver_id"]');
-const driverText = driverSelect?.options[driverSelect.selectedIndex]?.text || 'Not assigned';
-const reviewDriver = document.getElementById('review-driver');
-if (reviewDriver) {
-    reviewDriver.textContent = driverText;
-}
-
-// Type and Priority
-const type = document.querySelector('input[name="shipment_type"]:checked')?.value || 'standard';
-const priority = document.querySelector('input[name="delivery_priority"]:checked')?.value || 'standard';
-document.getElementById('review-type').textContent = type.charAt(0).toUpperCase() + type.slice(1);
-document.getElementById('review-priority').textContent = priority.charAt(0).toUpperCase() + priority.slice(1);
-
-// Totals
-document.getElementById('review-items').textContent = document.getElementById('total-items').textContent;
-document.getElementById('review-weight').textContent = document.getElementById('total-weight').textContent;
-document.getElementById('review-value').textContent = document.getElementById('total-value').textContent;
-
-// Addresses
-const pickupCompany = document.querySelector('input[name="pickup_company_name"]')?.value || document.querySelector('input[name="pickup_contact_name"]')?.value || 'N/A';
-const deliveryCompany = document.querySelector('input[name="delivery_company_name"]')?.value || document.querySelector('input[name="delivery_contact_name"]')?.value || 'N/A';
-document.getElementById('review-from').textContent = pickupCompany;
-document.getElementById('review-to').textContent = deliveryCompany;
-
-// Services
-const services = [];
-if (document.querySelector('input[name="insurance_required"]')?.checked) services.push('Insurance Coverage');
-if (document.querySelector('input[name="signature_required"]')?.checked) services.push('Signature Required');
-if (document.querySelector('input[name="temperature_controlled"]')?.checked) services.push('Temperature Controlled');
-if (document.querySelector('input[name="fragile_handling"]')?.checked) services.push('Fragile Handling');
-document.getElementById('review-services').textContent = services.length > 0 ? services.join(', ') : 'No special services selected';
-
-calculatePricing();
-}
 // Manual Recalculate Handler
 function manualRecalculate() {
-console.log('=== Manual Recalculate Triggered ===');
-calculatePricing();
+    console.log('=== Manual Recalculate Triggered ===');
+    calculatePricing();
 }
 
 </script>

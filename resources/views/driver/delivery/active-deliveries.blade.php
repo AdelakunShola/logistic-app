@@ -114,12 +114,21 @@
         <form action="{{ route('driver.active-deliveries') }}" method="GET">
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="relative flex-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <input type="search" name="search" value="{{ $filters['search'] }}" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm pl-8" placeholder="Search by tracking number, address, customer..."/>
-                </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+    </svg>
+    <input 
+        type="search" 
+        name="search" 
+        id="search-input"
+        value="{{ $filters['search'] }}" 
+        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm pl-8" 
+        placeholder="Search by tracking number, address, customer... (or scan barcode)"
+        autofocus
+        autocomplete="off"
+    />
+</div>
                 <button type="button" onclick="toggleFilters()" class="inline-flex items-center justify-center text-sm font-medium border border-input bg-background hover:bg-accent rounded-md px-3 h-10">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-2">
                         <path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"></path>
@@ -1351,9 +1360,70 @@ document.getElementById('complete-form').addEventListener('submit', async functi
 
 
 
+<script>
+let searchTimeout = null;
 
+// Auto-submit search when barcode is scanned
+document.getElementById('search-input')?.addEventListener('input', function(e) {
+    const searchValue = this.value.trim();
+    
+    // Clear previous timeout
+    if (searchTimeout) {
+        clearTimeout(searchTimeout);
+    }
+    
+    // If input looks like a tracking number (typically alphanumeric, 8+ chars)
+    // Auto-submit after a short delay to ensure full barcode is captured
+    if (searchValue.length >= 8) {
+        searchTimeout = setTimeout(() => {
+            const form = this.closest('form');
+            form.submit();
+        }, 500); // 500ms delay to ensure complete scan
+    }
+});
 
+// Also handle Enter key for manual searches
+document.getElementById('search-input')?.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
+        }
+        const form = this.closest('form');
+        if (this.value.trim()) {
+            form.submit();
+        }
+    }
+});
 
+// Keep focus on search input for quick scanning
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.focus();
+        
+        // Re-focus if user clicks anywhere on the page (optional)
+        document.addEventListener('click', function(e) {
+            // Don't refocus if clicking on buttons or other inputs
+            if (!e.target.closest('button, input, select, textarea, a')) {
+                searchInput.focus();
+            }
+        });
+    }
+});
+
+// Visual feedback when input is active
+const searchInput = document.getElementById('search-input');
+if (searchInput) {
+    searchInput.addEventListener('focus', function() {
+        this.classList.add('ring-2', 'ring-blue-500');
+    });
+    
+    searchInput.addEventListener('blur', function() {
+        this.classList.remove('ring-2', 'ring-blue-500');
+    });
+}
+</script>
 
 
 

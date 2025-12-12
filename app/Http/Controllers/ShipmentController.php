@@ -11,7 +11,6 @@ use App\Models\ShipmentDelay;
 use App\Models\ShipmentIssue;
 use App\Models\ShipmentItem;
 use App\Models\User;
-use App\Models\Carrier;
 use App\Models\Branch;
 use App\Models\Hub;
 use App\Models\Notification;
@@ -167,10 +166,25 @@ public function quickView(Shipment $shipment)
             'departure' => $shipment->pickup_date ? $shipment->pickup_date->format('M d, Y') : 'N/A',
             'eta' => $shipment->expected_delivery_date ? $shipment->expected_delivery_date->format('M d, Y') : 'N/A',
             'progress' => $this->calculateProgress($shipment),
+            
+            // Pickup contact details
+            'pickup_company_name' => $shipment->pickup_company_name,
+            'pickup_contact_name' => $shipment->pickup_contact_name,
+            'pickup_contact_phone' => $shipment->pickup_contact_phone,
+            'pickup_contact_email' => $shipment->pickup_contact_email,
+            
+            // Delivery contact details
+            'delivery_company_name' => $shipment->delivery_company_name,
+            'delivery_contact_name' => $shipment->delivery_contact_name,
+            'delivery_contact_phone' => $shipment->delivery_contact_phone,
+            'delivery_contact_email' => $shipment->delivery_contact_email,
+            'delivery_address' => $shipment->delivery_address,
+            'delivery_address_line2' => $shipment->delivery_address_line2,
+            'delivery_postal_code' => $shipment->delivery_postal_code,
+            'delivery_country' => $shipment->delivery_country,
         ]
     ]);
 }
-
 /**
  * Calculate shipment progress percentage
  */
@@ -842,7 +856,7 @@ $shipmentData = [
     ));
 }
 
-   public function updateshipments(Request $request, Shipment $shipment)
+public function updateshipments(Request $request, Shipment $shipment)
 {
     // Check if shipment can be edited
     if (!$shipment->can_be_edited) {
@@ -850,28 +864,74 @@ $shipmentData = [
             ->with('error', 'This shipment cannot be edited in its current status.');
     }
 
+    // FIXED: Removed 'required' and added missing date fields
     $validator = Validator::make($request->all(), [
-    'pickup_contact_name' => 'required|string|max:255',
-    'pickup_contact_phone' => 'required|string|max:20',
-    'pickup_address' => 'required|string',
-    'pickup_city' => 'required|string|max:100',
-    'pickup_state' => 'required|string|max:100',
-    'pickup_country' => 'required|string|max:100',
-    'pickup_postal_code' => 'required|string|max:20',
-    'delivery_contact_name' => 'required|string|max:255',
-    'delivery_contact_phone' => 'required|string|max:20',
-    'delivery_address' => 'required|string',
-    'delivery_city' => 'required|string|max:100',
-    'delivery_state' => 'required|string|max:100',
-    'delivery_country' => 'required|string|max:100',
-    'delivery_postal_code' => 'required|string|max:20',
-    'shipment_type' => 'required|in:Standard Package,Document Envelope,Freight/Pallet,Bulk Cargo',
-    'delivery_priority' => 'required|in:standard,express,overnight',
-    'shipping_zone' => 'required|in:local,regional,national,international', // NEW: Add shipping zone validation
-    'assigned_driver_id' => 'nullable|exists:users,id',
-]);
+        'pickup_contact_name' => 'nullable|string|max:255',
+        'pickup_contact_phone' => 'nullable|string|max:20',
+        'pickup_address' => 'nullable|string',
+        'pickup_city' => 'nullable|string|max:100',
+        'pickup_state' => 'nullable|string|max:100',
+        'pickup_country' => 'nullable|string|max:100',
+        'pickup_postal_code' => 'nullable|string|max:20',
+        'pickup_date' => 'nullable|date', // ADDED
+        'preferred_delivery_date' => 'nullable|date', // ADDED
+        
+        'delivery_contact_name' => 'nullable|string|max:255',
+        'delivery_contact_phone' => 'nullable|string|max:20',
+        'delivery_address' => 'nullable|string',
+        'delivery_city' => 'nullable|string|max:100',
+        'delivery_state' => 'nullable|string|max:100',
+        'delivery_country' => 'nullable|string|max:100',
+        'delivery_postal_code' => 'nullable|string|max:20',
+        
+        'shipment_type' => 'nullable|in:Standard Package,Document Envelope,Freight/Pallet,Bulk Cargo',
+        'delivery_priority' => 'nullable|in:standard,express,overnight',
+        'shipping_zone' => 'nullable|in:local,regional,national,international',
+        'assigned_driver_id' => 'nullable|exists:users,id',
+        
+        'customer_id' => 'nullable|exists:users,id',
+        'carrier_id' => 'nullable|exists:carriers,id',
+        'service_level' => 'nullable|string',
+        'payment_mode' => 'nullable|in:prepaid,cod,credit',
+        'cod_amount' => 'nullable|numeric|min:0',
+        
+        // Special services
+        'insurance_required' => 'nullable|boolean',
+        'insurance_amount' => 'nullable|numeric|min:0',
+        'signature_required' => 'nullable|boolean',
+        'temperature_controlled' => 'nullable|boolean',
+        'fragile_handling' => 'nullable|boolean',
+        
+        // Pricing fields
+        'base_price' => 'nullable|numeric|min:0',
+        'weight_charge' => 'nullable|numeric|min:0',
+        'distance_charge' => 'nullable|numeric|min:0',
+        'priority_charge' => 'nullable|numeric|min:0',
+        'tax_amount' => 'nullable|numeric|min:0',
+        'insurance_fee' => 'nullable|numeric|min:0',
+        'additional_services_fee' => 'nullable|numeric|min:0',
+        'total_amount' => 'nullable|numeric|min:0',
+        'total_weight' => 'nullable|numeric|min:0',
+        'total_value' => 'nullable|numeric|min:0',
+        'number_of_items' => 'nullable|integer|min:1',
+        
+        'special_instructions' => 'nullable|string',
+        
+        // Items array
+        'items' => 'nullable|array',
+        'items.*.description' => 'nullable|string',
+        'items.*.category' => 'nullable|string',
+        'items.*.quantity' => 'nullable|integer|min:1',
+        'items.*.weight' => 'nullable|numeric|min:0',
+        'items.*.value' => 'nullable|numeric|min:0',
+        'items.*.length' => 'nullable|numeric|min:0',
+        'items.*.width' => 'nullable|numeric|min:0',
+        'items.*.height' => 'nullable|numeric|min:0',
+        'items.*.is_hazardous' => 'nullable|boolean',
+    ]);
 
     if ($validator->fails()) {
+        Log::error('Validation failed:', $validator->errors()->toArray());
         return redirect()->back()
             ->withErrors($validator)
             ->withInput();
@@ -889,12 +949,81 @@ $shipmentData = [
         // Check if driver assignment changed
         $driverChanged = $oldDriverId != $newDriverId;
         
+        // FIXED: Prepare shipment data with proper boolean conversion
+        $shipmentData = [
+            'customer_id' => $request->customer_id,
+            'shipment_type' => $request->shipment_type,
+            'delivery_priority' => $request->delivery_priority,
+            'shipping_zone' => $request->shipping_zone,
+            
+            // Pickup Information
+            'pickup_company_name' => $request->pickup_company_name,
+            'pickup_contact_name' => $request->pickup_contact_name,
+            'pickup_contact_phone' => $request->pickup_contact_phone,
+            'pickup_contact_email' => $request->pickup_contact_email,
+            'pickup_address' => $request->pickup_address,
+            'pickup_address_line2' => $request->pickup_address_line2,
+            'pickup_city' => $request->pickup_city,
+            'pickup_state' => $request->pickup_state,
+            'pickup_country' => $request->pickup_country,
+            'pickup_postal_code' => $request->pickup_postal_code,
+            'pickup_latitude' => $request->pickup_latitude,
+            'pickup_longitude' => $request->pickup_longitude,
+            
+            // Delivery Information
+            'delivery_company_name' => $request->delivery_company_name,
+            'delivery_contact_name' => $request->delivery_contact_name,
+            'delivery_contact_phone' => $request->delivery_contact_phone,
+            'delivery_contact_email' => $request->delivery_contact_email,
+            'delivery_address' => $request->delivery_address,
+            'delivery_address_line2' => $request->delivery_address_line2,
+            'delivery_city' => $request->delivery_city,
+            'delivery_state' => $request->delivery_state,
+            'delivery_country' => $request->delivery_country,
+            'delivery_postal_code' => $request->delivery_postal_code,
+            'delivery_latitude' => $request->delivery_latitude,
+            'delivery_longitude' => $request->delivery_longitude,
+            
+            // Dates - FIXED: Proper handling
+            'pickup_date' => $request->pickup_date,
+            'preferred_delivery_date' => $request->preferred_delivery_date,
+            
+            // Special Services - FIXED: Convert checkbox to boolean
+            'insurance_required' => $request->has('insurance_required') ? 1 : 0,
+            'insurance_amount' => $request->insurance_amount ?? 0,
+            'signature_required' => $request->has('signature_required') ? 1 : 0,
+            'temperature_controlled' => $request->has('temperature_controlled') ? 1 : 0,
+            'fragile_handling' => $request->has('fragile_handling') ? 1 : 0,
+            
+            'carrier_id' => $request->carrier_id,
+            'assigned_driver_id' => $request->assigned_driver_id,
+            'service_level' => $request->service_level,
+            'payment_mode' => $request->payment_mode,
+            'cod_amount' => $request->cod_amount ?? 0,
+            'special_instructions' => $request->special_instructions,
+            
+            // Pricing
+            'base_price' => $request->base_price ?? 0,
+            'weight_charge' => $request->weight_charge ?? 0,
+            'distance_charge' => $request->distance_charge ?? 0,
+            'priority_charge' => $request->priority_charge ?? 0,
+            'tax_amount' => $request->tax_amount ?? 0,
+            'insurance_fee' => $request->insurance_fee ?? 0,
+            'additional_services_fee' => $request->additional_services_fee ?? 0,
+            'signature_fee' => $request->signature_fee ?? 0,
+            'temperature_fee' => $request->temperature_fee ?? 0,
+            'fragile_fee' => $request->fragile_fee ?? 0,
+            'subtotal_amount' => $request->subtotal_amount ?? 0,
+            'total_amount' => $request->total_amount ?? 0,
+        ];
+        
         // Update shipment
-        $shipmentData = $request->except(['items']);
         $shipment->update($shipmentData);
+        
+        Log::info('Shipment updated', ['id' => $shipment->id]);
 
         // Update or create items
-        if ($request->has('items')) {
+        if ($request->has('items') && is_array($request->items)) {
             // Delete existing items
             $shipment->shipmentItems()->delete();
 
@@ -904,22 +1033,30 @@ $shipmentData = [
             $numberOfItems = 0;
 
             foreach ($request->items as $itemData) {
+                // FIXED: Convert is_hazardous checkbox properly
+                $itemData['is_hazardous'] = isset($itemData['is_hazardous']) && $itemData['is_hazardous'] ? 1 : 0;
+                
                 $shipment->shipmentItems()->create($itemData);
-                $totalWeight += ($itemData['weight'] ?? 0) * ($itemData['quantity'] ?? 1);
-                $totalValue += ($itemData['value'] ?? 0) * ($itemData['quantity'] ?? 1);
-                $numberOfItems += $itemData['quantity'] ?? 1;
+                
+                $qty = $itemData['quantity'] ?? 1;
+                $totalWeight += ($itemData['weight'] ?? 0) * $qty;
+                $totalValue += ($itemData['value'] ?? 0) * $qty;
+                $numberOfItems += $qty;
             }
 
+            // Update totals
             $shipment->update([
                 'total_weight' => $totalWeight,
                 'total_value' => $totalValue,
                 'number_of_items' => $numberOfItems,
             ]);
+            
+            Log::info('Items updated', [
+                'total_items' => $numberOfItems,
+                'total_weight' => $totalWeight,
+                'total_value' => $totalValue
+            ]);
         }
-
-        // Recalculate pricing
-        $shipment->calculatePricing();
-        $shipment->save();
 
         // Handle driver reassignment notifications
         if ($driverChanged) {
@@ -1012,21 +1149,24 @@ $shipmentData = [
         // Log activity
         $shipment->logActivity('updated', 'Shipment updated', [
             'old' => $oldValues,
-            'new' => $shipment->toArray(),
+            'new' => $shipment->fresh()->toArray(),
             'driver_changed' => $driverChanged,
             'old_driver_id' => $oldDriverId,
             'new_driver_id' => $newDriverId,
         ]);
 
-        return redirect()->route('admin.shipments.index', $shipment->id)
+        Log::info('Shipment update completed successfully', ['id' => $shipment->id]);
+
+        return redirect()->route('admin.shipments.index')
             ->with('success', 'Shipment updated successfully!');
 
     } catch (\Exception $e) {
         DB::rollBack();
         Log::error('Shipment update failed: ' . $e->getMessage());
+        Log::error('Stack trace: ' . $e->getTraceAsString());
         
         return redirect()->back()
-            ->with('error', 'Failed to update shipment. Please try again.')
+            ->with('error', 'Failed to update shipment: ' . $e->getMessage())
             ->withInput();
     }
 }

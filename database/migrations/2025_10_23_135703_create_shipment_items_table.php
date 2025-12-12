@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('shipment_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('shipment_id')->constrained()->onDelete('cascade');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('category')->default('general_merchandise');
             $table->integer('quantity')->default(1);
             $table->decimal('weight', 10, 2)->default(0); // in lbs

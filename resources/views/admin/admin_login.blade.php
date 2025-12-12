@@ -4,7 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>CargoMax Logistics - Login</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('logoo.png') }}" type="image/png"/>
+    <link rel="apple-touch-icon" href="{{ asset('logoo.png') }}"/>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Login to WebMotion HQ Logistics - Secure access to your logistics management dashboard for tracking shipments, managing deliveries, and fleet operations."/>
+    <meta name="keywords" content="logistics login, shipping dashboard, WebMotion HQ, fleet management login, cargo tracking system"/>
+    <meta name="author" content="WebMotion HQ"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:title" content="WebMotion HQ Logistics - Login"/>
+    <meta property="og:description" content="Secure access to your logistics management dashboard"/>
+    <meta property="og:image" content="{{ asset('logoo.png') }}"/>
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="WebMotion HQ Logistics - Login"/>
+    <meta name="twitter:description" content="Secure access to your logistics management dashboard"/>
+    <meta name="twitter:image" content="{{ asset('logoo.png') }}"/>
+    
+    <title>WebMotion HQ Logistics - Login</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>

@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Your Shipment - FastFreight Logistics</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('logoo.png') }}" type="image/png"/>
+    <link rel="apple-touch-icon" href="{{ asset('logoo.png') }}"/>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Track your shipment with WebMotion HQ Logistics - Enter your tracking number for real-time delivery updates, estimated arrival times, and shipment status. Fast, reliable, and secure package tracking."/>
+    <meta name="keywords" content="track shipment, package tracking, delivery status, WebMotion HQ, order tracking, tracking number, shipment status"/>
+    <meta name="author" content="WebMotion HQ"/>
+    <meta name="robots" content="index, follow"/>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:title" content="Track Your Shipment - WebMotion HQ Logistics"/>
+    <meta property="og:description" content="Real-time shipment tracking with accurate delivery updates and estimated arrival times"/>
+    <meta property="og:image" content="{{ asset('logoo.png') }}"/>
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:url" content="{{ url()->current() }}"/>
+    <meta name="twitter:title" content="Track Your Shipment - WebMotion HQ Logistics"/>
+    <meta name="twitter:description" content="Real-time shipment tracking with accurate delivery updates and estimated arrival times"/>
+    <meta name="twitter:image" content="{{ asset('logoo.png') }}"/>
+    
+    <!-- Schema.org structured data for better SEO -->
+   
+    
+    <title>Track Your Shipment - WebMotion HQ Logistics</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+</head>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         body { font-family: 'Inter', sans-serif; }

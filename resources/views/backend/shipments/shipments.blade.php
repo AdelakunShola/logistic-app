@@ -916,9 +916,10 @@ async function viewShipment(shipmentId) {
 function displayQuickView(shipment) {
     const content = document.getElementById('quick-view-content');
     content.innerHTML = `
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Tracking Information -->
             <div>
-                <h4 class="font-semibold mb-3">Tracking Information</h4>
+                <h4 class="font-semibold mb-3 text-lg border-b pb-2">Tracking Information</h4>
                 <dl class="space-y-2 text-sm">
                     <div class="flex justify-between">
                         <dt class="text-muted-foreground">Tracking Number:</dt>
@@ -933,33 +934,117 @@ function displayQuickView(shipment) {
                         <dd class="capitalize">${shipment.type}</dd>
                     </div>
                     <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Priority:</dt>
+                        <dd class="capitalize">${shipment.priority}</dd>
+                    </div>
+                    <div class="flex justify-between">
                         <dt class="text-muted-foreground">Carrier:</dt>
                         <dd>${shipment.carrier}</dd>
                     </div>
                 </dl>
             </div>
+
+            <!-- Customer & Dates -->
             <div>
-                <h4 class="font-semibold mb-3">Customer & Route</h4>
+                <h4 class="font-semibold mb-3 text-lg border-b pb-2">Customer & Schedule</h4>
                 <dl class="space-y-2 text-sm">
                     <div class="flex justify-between">
                         <dt class="text-muted-foreground">Customer:</dt>
                         <dd class="font-medium">${shipment.customer}</dd>
                     </div>
                     <div class="flex justify-between">
-                        <dt class="text-muted-foreground">Origin:</dt>
-                        <dd>${shipment.origin}</dd>
+                        <dt class="text-muted-foreground">Departure:</dt>
+                        <dd>${shipment.departure}</dd>
                     </div>
                     <div class="flex justify-between">
-                        <dt class="text-muted-foreground">Destination:</dt>
-                        <dd>${shipment.destination}</dd>
+                        <dt class="text-muted-foreground">Expected Delivery:</dt>
+                        <dd>${shipment.eta}</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <!-- Pickup Details -->
+            <div>
+                <h4 class="font-semibold mb-3 text-lg border-b pb-2">Pickup Details</h4>
+                <dl class="space-y-2 text-sm">
+                    ${shipment.pickup_company_name ? `
+                    <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Company:</dt>
+                        <dd class="font-medium">${shipment.pickup_company_name}</dd>
+                    </div>
+                    ` : ''}
+                    ${shipment.pickup_contact_name ? `
+                    <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Contact Name:</dt>
+                        <dd>${shipment.pickup_contact_name}</dd>
+                    </div>
+                    ` : ''}
+                    ${shipment.pickup_contact_phone ? `
+                    <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Phone:</dt>
+                        <dd><a href="tel:${shipment.pickup_contact_phone}" class="text-primary hover:underline">${shipment.pickup_contact_phone}</a></dd>
+                    </div>
+                    ` : ''}
+                    ${shipment.pickup_contact_email ? `
+                    <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Email:</dt>
+                        <dd><a href="mailto:${shipment.pickup_contact_email}" class="text-primary hover:underline">${shipment.pickup_contact_email}</a></dd>
+                    </div>
+                    ` : ''}
+                    <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Location:</dt>
+                        <dd>${shipment.origin}</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <!-- Delivery Details -->
+            <div>
+                <h4 class="font-semibold mb-3 text-lg border-b pb-2">Delivery Details</h4>
+                <dl class="space-y-2 text-sm">
+                    ${shipment.delivery_company_name ? `
+                    <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Company:</dt>
+                        <dd class="font-medium">${shipment.delivery_company_name}</dd>
+                    </div>
+                    ` : ''}
+                    ${shipment.delivery_contact_name ? `
+                    <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Contact Name:</dt>
+                        <dd>${shipment.delivery_contact_name}</dd>
+                    </div>
+                    ` : ''}
+                    ${shipment.delivery_contact_phone ? `
+                    <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Phone:</dt>
+                        <dd><a href="tel:${shipment.delivery_contact_phone}" class="text-primary hover:underline">${shipment.delivery_contact_phone}</a></dd>
+                    </div>
+                    ` : ''}
+                    ${shipment.delivery_contact_email ? `
+                    <div class="flex justify-between">
+                        <dt class="text-muted-foreground">Email:</dt>
+                        <dd><a href="mailto:${shipment.delivery_contact_email}" class="text-primary hover:underline">${shipment.delivery_contact_email}</a></dd>
+                    </div>
+                    ` : ''}
+                    <div>
+                        <dt class="text-muted-foreground mb-1">Address:</dt>
+                        <dd class="font-medium">
+                            ${shipment.delivery_address || ''}
+                            ${shipment.delivery_address_line2 ? '<br>' + shipment.delivery_address_line2 : ''}
+                            <br>${shipment.destination}
+                            ${shipment.delivery_postal_code ? '<br>' + shipment.delivery_postal_code : ''}
+                            ${shipment.delivery_country ? '<br>' + shipment.delivery_country : ''}
+                        </dd>
                     </div>
                 </dl>
             </div>
         </div>
-        <div class="mt-4 pt-4 border-t">
-            <h4 class="font-semibold mb-3">Progress</h4>
+
+        <!-- Progress Bar -->
+        <div class="mt-6 pt-4 border-t">
+            <h4 class="font-semibold mb-3">Shipment Progress</h4>
             <div class="flex justify-between text-sm mb-2">
-                <span>Shipment Progress</span>
+                <span>Progress</span>
                 <span class="font-medium">${shipment.progress}%</span>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-3">
@@ -970,7 +1055,6 @@ function displayQuickView(shipment) {
     
     document.getElementById('quick-view-modal').classList.remove('hidden');
 }
-
 // Close Quick View
 function closeQuickView() {
     document.getElementById('quick-view-modal').classList.add('hidden');

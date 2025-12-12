@@ -16,6 +16,7 @@ use App\Models\DeliveryDelay;
 use App\Models\ShipmentDelay;
 use App\Models\CustomerFeedback;
 use App\Models\Report;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -26,12 +27,61 @@ class DriverController extends Controller
 {
 
     /////DRIVER PART
-    public function DriverDashboard()
-    {
-        return view('driver.index');
-    }//end method
-
-
+public function DriverDashboard()
+{
+    $driver = Auth::user();
+    
+    // Get vehicle assigned to this driver
+    $vehicle = Vehicle::where('assigned_driver_id', $driver->id)
+                      ->where('status', 'active')
+                      ->first();
+    
+    // Get today's deliveries count
+    $todayDeliveries = Shipment::where('assigned_driver_id', $driver->id)
+                               ->whereDate('pickup_date', today())
+                               ->count();
+    
+    $completedToday = Shipment::where('assigned_driver_id', $driver->id)
+                              ->whereDate('updated_at', today())
+                              ->where('status', 'delivered')
+                              ->count();
+    
+    $pendingDeliveries = Shipment::where('assigned_driver_id', $driver->id)
+                                 ->whereIn('status', ['pending', 'picked_up', 'in_transit', 'out_for_delivery'])
+                                 ->count();
+    
+    // Get total trips
+    $totalTrips = Shipment::where('assigned_driver_id', $driver->id)
+                          ->where('status', 'delivered')
+                          ->count();
+    
+    // **NEW: Get today's delivery schedule with actual shipment data**
+    $todaySchedule = Shipment::where('assigned_driver_id', $driver->id)
+                             ->whereDate('pickup_date', today())
+                             ->orderByRaw("FIELD(status, 'in_transit', 'out_for_delivery', 'picked_up', 'pending', 'delivered')")
+                             ->orderBy('pickup_date', 'asc')
+                             ->get();
+    
+    // Calculate average rating from shipments
+    $totalRatings = Shipment::where('assigned_driver_id', $driver->id)
+                            ->whereNotNull('customer_rating')
+                            ->count();
+    
+    $averageRating = Shipment::where('assigned_driver_id', $driver->id)
+                             ->whereNotNull('customer_rating')
+                             ->avg('customer_rating');
+    
+    return view('driver.index', compact(
+        'vehicle',
+        'todayDeliveries',
+        'completedToday',
+        'pendingDeliveries',
+        'totalTrips',
+        'totalRatings',
+        'averageRating',
+        'todaySchedule'  // Pass the actual shipment data
+    ));
+}
 
 
 
