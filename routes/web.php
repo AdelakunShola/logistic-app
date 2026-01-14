@@ -16,6 +16,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShipmentController;
+use App\Http\Controllers\SupportTicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\WarehouseController;
@@ -338,6 +339,23 @@ Route::get('issues', [IssueController::class, 'issuesindex'])->name('issues.inde
     Route::post('issues/{issue}/update-status', [IssueController::class, 'issuesupdateStatus'])->name('issues.update-status');
     Route::get('issues-export', [IssueController::class, 'issuesexport'])->name('issues.export');
 
+        // Support Tickets Routes
+        Route::prefix('support-tickets')->name('support-tickets.')->group(function () {
+            Route::get('/', [SupportTicketController::class, 'index'])->name('index');
+            Route::get('/create', [SupportTicketController::class, 'create'])->name('create');
+            Route::post('/', [SupportTicketController::class, 'store'])->name('store');
+            Route::get('/{id}', [SupportTicketController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [SupportTicketController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [SupportTicketController::class, 'update'])->name('update');
+            Route::delete('/{id}', [SupportTicketController::class, 'destroy'])->name('destroy');
+            
+            // Special actions
+            Route::post('/{id}/assign', [SupportTicketController::class, 'assign'])->name('assign');
+            Route::post('/{id}/update-status', [SupportTicketController::class, 'updateStatus'])->name('update-status');
+            Route::post('/{id}/messages', [SupportTicketController::class, 'addMessage'])->name('add-message');
+            Route::get('/export/csv', [SupportTicketController::class, 'export'])->name('export');
+        });
+
 
 
       
@@ -606,7 +624,7 @@ Route::get('/returns', [ReturnController::class, 'index'])->name('returns.index'
     });
     
     // Customer/User routes
-    Route::middleware('role:user')->prefix('user')->name('user.')->group(function () {
+    Route::middleware('role:customer')->prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
         Route::get('/orders', [UserController::class, 'orders'])->name('orders.index');
         Route::get('/orders/create', [UserController::class, 'createOrder'])->name('orders.create');
@@ -614,6 +632,15 @@ Route::get('/returns', [ReturnController::class, 'index'])->name('returns.index'
         Route::get('/orders/{order}', [UserController::class, 'showOrder'])->name('orders.show');
         Route::get('/track/{order}', [UserController::class, 'trackOrder'])->name('orders.track');
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+        
+        // Support Tickets Routes (Customer-facing)
+        Route::prefix('support-tickets')->name('support-tickets.')->group(function () {
+            Route::get('/', [SupportTicketController::class, 'customerIndex'])->name('index');
+            Route::get('/create', [SupportTicketController::class, 'customerCreate'])->name('create');
+            Route::post('/', [SupportTicketController::class, 'customerStore'])->name('store');
+            Route::get('/{id}', [SupportTicketController::class, 'customerShow'])->name('show');
+            Route::post('/{id}/messages', [SupportTicketController::class, 'customerAddMessage'])->name('add-message');
+        });
     });
 });
 
