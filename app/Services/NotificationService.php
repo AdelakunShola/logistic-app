@@ -130,16 +130,20 @@ class NotificationService
 
     /**
      * Get notifications for user based on role
-     * Admin: sees ALL notifications (user_id = NULL + all others)
-     * User: only sees their own (user_id = their ID)
+     * Admin: sees their own + broadcast (user_id = NULL)
+     * Driver/Customer: only sees their own (user_id = their ID)
      */
     public static function getNotifications(int $userId, string $userRole, int $limit = 10)
     {
         $isAdmin = in_array($userRole, ['admin', 'super_admin']);
 
         if ($isAdmin) {
-            // Admin sees ALL notifications
-            return Notification::orderBy('created_at', 'desc')
+            // Admin sees their own notifications + broadcast admin notifications (user_id = NULL)
+            return Notification::where(function ($q) use ($userId) {
+                    $q->where('user_id', $userId)
+                      ->orWhereNull('user_id');
+                })
+                ->orderBy('created_at', 'desc')
                 ->limit($limit)
                 ->get();
         }
@@ -159,8 +163,13 @@ class NotificationService
         $isAdmin = in_array($userRole, ['admin', 'super_admin']);
 
         if ($isAdmin) {
-            // Admin sees all unread
-            return Notification::unread()->count();
+            // Admin: own + broadcast
+            return Notification::unread()
+                ->where(function ($q) use ($userId) {
+                    $q->where('user_id', $userId)
+                      ->orWhereNull('user_id');
+                })
+                ->count();
         }
 
         // Regular user only their own
@@ -192,11 +201,16 @@ class NotificationService
         $isAdmin = in_array($userRole, ['admin', 'super_admin']);
 
         if ($isAdmin) {
-            // Admin marks all as read
-            return Notification::unread()->update([
-                'is_read' => true,
-                'read_at' => now(),
-            ]);
+            // Admin marks their own + broadcast as read
+            return Notification::unread()
+                ->where(function ($q) use ($userId) {
+                    $q->where('user_id', $userId)
+                      ->orWhereNull('user_id');
+                })
+                ->update([
+                    'is_read' => true,
+                    'read_at' => now(),
+                ]);
         }
 
         // Regular user marks only their own

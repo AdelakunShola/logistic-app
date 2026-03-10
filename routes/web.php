@@ -17,6 +17,8 @@ use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\SupportTicketController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\WarehouseController;
@@ -210,14 +212,20 @@ Route::middleware(['auth'])->group(function () {
     // Admin routes
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard');
-        
-        
-       
 
+        // Roles & Permissions
+        Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+        Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+        Route::put('/roles/{id}', [RoleController::class, 'update'])->name('roles.update');
+        Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
-        
+        // Internal Chat
+        Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+        Route::post('/chat/send', [ChatController::class, 'send'])->name('chat.send');
+        Route::get('/chat/messages/{userId}', [ChatController::class, 'messages'])->name('chat.messages');
+        Route::get('/chat/unread-count', [ChatController::class, 'unreadCount'])->name('chat.unread-count');
 
-//// Performance/Report routes
+        //// Performance/Report routes
 Route::get('/performance', [DriverController::class, 'showPerformance'])->name('performance.show');
 Route::get('/drivers/{id}/report', [DriverController::class, 'driverreport'])->name('drivers.report');
 
@@ -343,17 +351,14 @@ Route::get('issues', [IssueController::class, 'issuesindex'])->name('issues.inde
         Route::prefix('support-tickets')->name('support-tickets.')->group(function () {
             Route::get('/', [SupportTicketController::class, 'index'])->name('index');
             Route::get('/create', [SupportTicketController::class, 'create'])->name('create');
+            Route::get('/export/csv', [SupportTicketController::class, 'export'])->name('export');
             Route::post('/', [SupportTicketController::class, 'store'])->name('store');
             Route::get('/{id}', [SupportTicketController::class, 'show'])->name('show');
-            Route::get('/{id}/edit', [SupportTicketController::class, 'edit'])->name('edit');
             Route::put('/{id}', [SupportTicketController::class, 'update'])->name('update');
             Route::delete('/{id}', [SupportTicketController::class, 'destroy'])->name('destroy');
-            
-            // Special actions
             Route::post('/{id}/assign', [SupportTicketController::class, 'assign'])->name('assign');
             Route::post('/{id}/update-status', [SupportTicketController::class, 'updateStatus'])->name('update-status');
             Route::post('/{id}/messages', [SupportTicketController::class, 'addMessage'])->name('add-message');
-            Route::get('/export/csv', [SupportTicketController::class, 'export'])->name('export');
         });
 
 
@@ -621,8 +626,23 @@ Route::get('/returns', [ReturnController::class, 'index'])->name('returns.index'
         ->name('maintenance.history');
         Route::get('/maintenance/export/{format}', [DriverVehicleController::class, 'exportMaintenanceReports'])
         ->name('maintenance.export');
+
+        // Driver Chat
+        Route::get('/chat', [ChatController::class, 'driverIndex'])->name('chat.index');
+        Route::post('/chat/send', [ChatController::class, 'driverSend'])->name('chat.send');
+        Route::get('/chat/messages/{userId}', [ChatController::class, 'messages'])->name('chat.messages');
+        Route::get('/chat/unread-count', [ChatController::class, 'unreadCount'])->name('chat.unread-count');
+
+        // Driver Support Tickets
+        Route::prefix('support-tickets')->name('support-tickets.')->group(function () {
+            Route::get('/', [SupportTicketController::class, 'customerIndex'])->name('index');
+            Route::get('/create', [SupportTicketController::class, 'customerCreate'])->name('create');
+            Route::post('/', [SupportTicketController::class, 'customerStore'])->name('store');
+            Route::get('/{id}', [SupportTicketController::class, 'customerShow'])->name('show');
+            Route::post('/{id}/messages', [SupportTicketController::class, 'customerAddMessage'])->name('add-message');
+        });
     });
-    
+
     // Customer/User routes
     Route::middleware('role:customer')->prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');

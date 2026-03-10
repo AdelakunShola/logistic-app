@@ -106,28 +106,6 @@
         <div class="stat-card rounded-lg border bg-white shadow-sm p-6">
             <div class="flex items-center justify-between">
                 <div class="space-y-1">
-                    <p class="text-sm font-medium text-gray-600">Fuel Level</p>
-                    <p class="text-2xl font-bold">{{ $vehicle->current_fuel_level ?? 0 }}%</p>
-                </div>
-                <div class="p-2 bg-{{ ($vehicle->current_fuel_level ?? 0) > 50 ? 'green' : (($vehicle->current_fuel_level ?? 0) > 25 ? 'yellow' : 'red') }}-50 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5 text-{{ ($vehicle->current_fuel_level ?? 0) > 50 ? 'green' : (($vehicle->current_fuel_level ?? 0) > 25 ? 'yellow' : 'red') }}-600">
-                        <line x1="3" y1="22" x2="15" y2="22"></line>
-                        <line x1="4" y1="9" x2="14" y2="9"></line>
-                        <path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"></path>
-                        <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"></path>
-                    </svg>
-                </div>
-            </div>
-            <div class="mt-4">
-                <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                    <div class="h-full bg-{{ ($vehicle->current_fuel_level ?? 0) > 50 ? 'green' : (($vehicle->current_fuel_level ?? 0) > 25 ? 'yellow' : 'red') }}-500" style="width: {{ $vehicle->current_fuel_level ?? 0 }}%"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="stat-card rounded-lg border bg-white shadow-sm p-6">
-            <div class="flex items-center justify-between">
-                <div class="space-y-1">
                     <p class="text-sm font-medium text-gray-600">Active Alerts</p>
                     <p class="text-2xl font-bold">{{ $vehicle->alert_count }}</p>
                 </div>

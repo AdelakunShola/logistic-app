@@ -351,7 +351,7 @@
                         </div>--}}
                         
                         {{-- Maintenance Cost Tab Content --}}
-                        <div id="performance-maintenance-content" style="display:none;">
+                        <div id="performance-maintenance-content" style="display:block;">
                             <div class="w-full h-[300px]">
                                 <canvas id="maintenance-cost-chart"></canvas>
                             </div>
@@ -359,8 +359,8 @@
                                 <div class="rounded-lg border p-3">
                                     <div class="text-sm font-medium">Preventive vs. Repair</div>
                                     <div class="mt-1 flex flex-wrap items-end justify-between">
-                                        <div class="text-2xl font-bold" id="preventive-vs-repair">75% / 25%</div>
-                                        <div class="text-sm text-green-600" id="preventive-change">+12% YTD</div>
+                                        <div class="text-2xl font-bold" id="preventive-vs-repair">--</div>
+                                        <div class="text-sm text-muted-foreground" id="preventive-change">Loading...</div>
                                     </div>
                                 </div>
                               {{--   <div class="rounded-lg border p-3">
@@ -712,16 +712,6 @@
         <h3 class="font-semibold mb-4">Advanced Filters</h3>
         
         <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium mb-2">Fuel Level Range</label>
-                <div class="flex items-center gap-2">
-                    <input type="number" id="fuel-min" class="w-20 px-2 py-1 border rounded text-sm" placeholder="Min" min="0" max="100">
-                    <span class="text-sm">to</span>
-                    <input type="number" id="fuel-max" class="w-20 px-2 py-1 border rounded text-sm" placeholder="Max" min="0" max="100">
-                    <span class="text-sm">%</span>
-                </div>
-            </div>
-            
             <div>
                 <label class="block text-sm font-medium mb-2">Mileage Range</label>
                 <div class="flex items-center gap-2">

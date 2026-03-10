@@ -464,25 +464,22 @@ public function viewdriver($id)
 {
     $user = Auth::user();
     $notification = Notification::find($id);
-    
+
     if (!$notification) {
-        return redirect()->route('admin.notifications.all')
+        return redirect()->route('driver.notifications.all')
             ->with('error', 'Notification not found');
     }
-    
-    // Check permission
-    $isAdmin = in_array($user->role, ['admin', 'super_admin']);
-    
-    if (!$isAdmin && $notification->user_id !== $user->id) {
-        return redirect()->route('admin.notifications.all')
+
+    if ($notification->user_id !== $user->id) {
+        return redirect()->route('driver.notifications.all')
             ->with('error', 'Unauthorized');
     }
-    
+
     // Mark as read
     if (!$notification->is_read) {
         $notification->markAsRead();
     }
-    
+
     // Get the related data
     $relatedData = null;
     if ($notification->related_type && $notification->related_id) {
@@ -491,7 +488,7 @@ public function viewdriver($id)
             $relatedData = $modelClass::with('vehicle')->find($notification->related_id);
         }
     }
-    
-    return view('backend.notifications.view', compact('notification', 'relatedData'));
+
+    return view('driver.notifications.view', compact('notification', 'relatedData'));
 }
 }

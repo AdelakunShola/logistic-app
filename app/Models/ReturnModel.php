@@ -190,6 +190,25 @@ use LogsActivity;
             'type' => 'success',
             'channel' => 'system',
         ]);
+
+        // Notify the assigned driver for return pickup
+        $shipment = $this->shipment;
+        if ($shipment && $shipment->assigned_driver_id) {
+            Notification::create([
+                'user_id' => $shipment->assigned_driver_id,
+                'shipment_id' => $shipment->id,
+                'title' => 'Return Pickup Assigned',
+                'message' => "Return {$this->return_number} approved. Please pick up the return from the customer for shipment {$shipment->tracking_number}.",
+                'type' => 'info',
+                'channel' => 'system',
+                'data' => json_encode([
+                    'return_id' => $this->id,
+                    'return_number' => $this->return_number,
+                    'shipment_id' => $shipment->id,
+                    'action' => 'return_pickup',
+                ]),
+            ]);
+        }
     }
 
     public function reject($rejectedBy, $reason)

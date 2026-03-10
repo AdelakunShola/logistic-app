@@ -977,15 +977,6 @@
                                 <span class="text-gray-600">Mileage:</span>
                                 <span class="font-medium">${vehicle.mileage || 0} km</span>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Fuel Level:</span>
-                                <div class="flex items-center gap-2">
-                                    <div class="h-2 w-24 bg-gray-200 rounded-full overflow-hidden">
-                                        <div class="h-full bg-${vehicle.current_fuel_level > 60 ? 'green' : (vehicle.current_fuel_level > 30 ? 'yellow' : 'red')}-500" style="width:${vehicle.current_fuel_level || 0}%"></div>
-                                    </div>
-                                    <span class="font-medium">${vehicle.current_fuel_level || 0}%</span>
-                                </div>
-                            </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-600">Insurance Expiry:</span>
                                 <span class="font-medium">${vehicle.insurance_expiry || 'N/A'}</span>

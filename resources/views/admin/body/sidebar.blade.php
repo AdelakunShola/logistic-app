@@ -268,7 +268,7 @@
 								</svg>
 								<span>Settings</span>
 							</a>
-							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-foreground" href="/settings/roles">
+							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-foreground" href="{{ route('admin.roles.index') }}">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check h-4 w-4" aria-hidden="true">
 									<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
 									<path d="m9 12 2 2 4-4"></path>
@@ -285,41 +285,14 @@
 						</div>
 					</div>
 					<div class="px-3 py-2">
-						<h2 class="mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Help &amp; Logs</h2>
+						<h2 class="mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Support & Logs</h2>
 						<div class="space-y-1">
-							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-foreground" href="/help">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-life-buoy h-4 w-4" aria-hidden="true">
-									<circle cx="12" cy="12" r="10"></circle>
-									<path d="m4.93 4.93 4.24 4.24"></path>
-									<path d="m14.83 9.17 4.24-4.24"></path>
-									<path d="m14.83 14.83 4.24 4.24"></path>
-									<path d="m9.17 14.83-4.24 4.24"></path>
-									<circle cx="12" cy="12" r="4"></circle>
+							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground {{ request()->routeIs('admin.chat.*') ? 'bg-accent text-accent-foreground' : 'text-foreground' }}" href="{{ route('admin.chat.index') }}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-messages-square h-4 w-4" aria-hidden="true">
+									<path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"></path>
+									<path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path>
 								</svg>
-								<span>Help Center</span>
-							</a>
-							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-foreground" href="/contact">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-contact-round h-4 w-4" aria-hidden="true">
-									<path d="M16 2v2"></path>
-									<path d="M17.915 22a6 6 0 0 0-12 0"></path>
-									<path d="M8 2v2"></path>
-									<circle cx="12" cy="12" r="4"></circle>
-									<rect x="3" y="4" width="18" height="18" rx="2"></rect>
-								</svg>
-								<span>Contact</span>
-							</a>
-							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-foreground" href="/email">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-4 w-4" aria-hidden="true">
-									<path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
-									<rect x="2" y="4" width="20" height="16" rx="2"></rect>
-								</svg>
-								<span>Email</span>
-							</a>
-							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-foreground" href="/chat">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle h-4 w-4" aria-hidden="true">
-									<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
-								</svg>
-								<span>Chat</span>
+								<span>Team Chat</span>
 							</a>
 							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-foreground" href="{{ route('admin.support-tickets.index') }}">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ticket h-4 w-4" aria-hidden="true">
@@ -337,7 +310,6 @@
 								</svg>
 								<span>Audit Logs</span>
 							</a>
-						
 						</div>
 					</div>
 				</div>

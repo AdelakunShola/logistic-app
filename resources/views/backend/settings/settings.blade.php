@@ -33,7 +33,12 @@
                     <!-- Tabs Container -->
                     <div dir="ltr" data-orientation="horizontal" class="space-y-6">
                         <!-- Tab List -->
+                        @php
+                            $isAdminOrManager = in_array(auth()->user()->role, ['admin', 'super_admin', 'manager']);
+                            $defaultTab = $isAdminOrManager ? 'general' : 'profile';
+                        @endphp
                         <div role="tablist" aria-orientation="horizontal" class="items-center rounded-md bg-muted p-1 text-muted-foreground flex flex-wrap gap-2 justify-start h-max" tabindex="0" data-orientation="horizontal">
+                            @if($isAdminOrManager)
                             <button type="button" role="tab" aria-selected="true" aria-controls="general-content" data-state="active" id="general-trigger" class="justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm flex items-center gap-2" tabindex="0" data-orientation="horizontal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings h-4 w-4" aria-hidden="true">
                                     <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
@@ -41,7 +46,8 @@
                                 </svg>
                                 General
                             </button>
-                            <button type="button" role="tab" aria-selected="false" aria-controls="profile-content" data-state="inactive" id="profile-trigger" class="justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm flex items-center gap-2" tabindex="-1" data-orientation="horizontal">
+                            @endif
+                            <button type="button" role="tab" aria-selected="{{ !$isAdminOrManager ? 'true' : 'false' }}" aria-controls="profile-content" data-state="{{ !$isAdminOrManager ? 'active' : 'inactive' }}" id="profile-trigger" class="justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm flex items-center gap-2" tabindex="{{ !$isAdminOrManager ? '0' : '-1' }}" data-orientation="horizontal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-4 w-4" aria-hidden="true">
                                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
@@ -61,6 +67,7 @@
                                 </svg>
                                 Security
                             </button>
+                            @if($isAdminOrManager)
                             <button type="button" role="tab" aria-selected="false" aria-controls="system-content" data-state="inactive" id="system-trigger" class="justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm flex items-center gap-2" tabindex="-1" data-orientation="horizontal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-monitor h-4 w-4" aria-hidden="true">
                                     <rect width="20" height="14" x="2" y="3" rx="2"></rect>
@@ -69,7 +76,7 @@
                                 </svg>
                                 System
                             </button>
-                            
+
                         <button type="button" role="tab" aria-selected="false" aria-controls="pricing-content" data-state="inactive" id="pricing-trigger" class="justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm flex items-center gap-2" tabindex="-1" data-orientation="horizontal">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign h-4 w-4" aria-hidden="true">
         <line x1="12" x2="12" y1="2" y2="22"></line>
@@ -85,9 +92,11 @@
                                 </svg>
                                 Integrations
                             </button>
+                            @endif
                         </div>
 
                         <!-- General Tab Content -->
+                        @if($isAdminOrManager)
                         <div data-state="active" data-orientation="horizontal" role="tabpanel" aria-labelledby="general-trigger" id="general-content" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 space-y-6">
                             <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
                                 <div class="flex flex-col space-y-1.5 p-4 md:p-6">
@@ -145,8 +154,10 @@
                             </div>
                         </div>
 
+                        @endif
+
                         <!-- Profile Tab Content -->
-                        <div data-state="inactive" data-orientation="horizontal" role="tabpanel" aria-labelledby="profile-trigger" id="profile-content" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 space-y-6" hidden>
+                        <div data-state="{{ !$isAdminOrManager ? 'active' : 'inactive' }}" data-orientation="horizontal" role="tabpanel" aria-labelledby="profile-trigger" id="profile-content" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 space-y-6" {{ $isAdminOrManager ? 'hidden' : '' }}>
                             <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
                                 <div class="flex flex-col space-y-1.5 p-4 md:p-6">
                                     <h3 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight flex items-center gap-2">
@@ -225,14 +236,91 @@
                                             <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="phone" name="phone" value="{{ $user->phone }}">
                                         </div>
                                         <div class="space-y-2">
-                                            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="designation">Role</label>
+                                            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="designation">Designation</label>
                                             <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="designation" name="designation" value="{{ $user->designation }}">
                                         </div>
                                         <div class="space-y-2">
                                             <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="department">Department</label>
                                             <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="department" name="department" value="{{ $user->department }}">
                                         </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="employee_id">Employee ID</label>
+                                            <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="employee_id" name="employee_id" value="{{ $user->employee_id }}" readonly>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="role_display">Role</label>
+                                            <input class="flex h-10 w-full rounded-md border border-input bg-muted px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="role_display" value="{{ ucfirst(str_replace('_', ' ', $user->role)) }}" disabled>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="gender">Gender</label>
+                                            <select class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="gender" name="gender">
+                                                <option value="">Select Gender</option>
+                                                <option value="male" {{ $user->gender === 'male' ? 'selected' : '' }}>Male</option>
+                                                <option value="female" {{ $user->gender === 'female' ? 'selected' : '' }}>Female</option>
+                                                <option value="other" {{ $user->gender === 'other' ? 'selected' : '' }}>Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="date_of_birth">Date of Birth</label>
+                                            <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="date_of_birth" name="date_of_birth" type="date" value="{{ $user->date_of_birth ? $user->date_of_birth->format('Y-m-d') : '' }}">
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="joining_date">Joining Date</label>
+                                            <input class="flex h-10 w-full rounded-md border border-input bg-muted px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="joining_date" value="{{ $user->joining_date ? $user->joining_date->format('Y-m-d') : '' }}" disabled>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="status_display">Status</label>
+                                            <input class="flex h-10 w-full rounded-md border border-input bg-muted px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="status_display" value="{{ ucfirst(str_replace('_', ' ', $user->status ?? 'active')) }}" disabled>
+                                        </div>
                                     </div>
+
+                                    <!-- Address Section -->
+                                    <div class="mt-6">
+                                        <h4 class="text-sm font-semibold text-foreground mb-3">Address Information</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div class="space-y-2 md:col-span-2">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="address">Address</label>
+                                                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="address" name="address" value="{{ $user->address }}">
+                                            </div>
+                                            <div class="space-y-2">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="city">City</label>
+                                                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="city" name="city" value="{{ $user->city }}">
+                                            </div>
+                                            <div class="space-y-2">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="state">State</label>
+                                                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="state" name="state" value="{{ $user->state }}">
+                                            </div>
+                                            <div class="space-y-2">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="country">Country</label>
+                                                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="country" name="country" value="{{ $user->country }}">
+                                            </div>
+                                            <div class="space-y-2">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="postal_code">Postal Code</label>
+                                                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="postal_code" name="postal_code" value="{{ $user->postal_code }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if($user->role === 'driver')
+                                    <!-- Driver-Specific Fields -->
+                                    <div class="mt-6">
+                                        <h4 class="text-sm font-semibold text-foreground mb-3">Driver Information</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div class="space-y-2">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="license_number">License Number</label>
+                                                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="license_number" name="license_number" value="{{ $user->license_number }}">
+                                            </div>
+                                            <div class="space-y-2">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="vehicle_type">Vehicle Type</label>
+                                                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="vehicle_type" name="vehicle_type" value="{{ $user->vehicle_type }}">
+                                            </div>
+                                            <div class="space-y-2">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="vehicle_number">Vehicle Number</label>
+                                                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="vehicle_number" name="vehicle_number" value="{{ $user->vehicle_number }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </form>
                             </div>
                         </div>
@@ -421,6 +509,7 @@
                         </div>
 
                         <!-- System Tab Content -->
+                        @if($isAdminOrManager)
                         <div data-state="inactive" data-orientation="horizontal" role="tabpanel" aria-labelledby="system-trigger" id="system-content" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 space-y-6" hidden>
                             <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
                                 <div class="flex flex-col space-y-1.5 p-4 md:p-6">
@@ -540,7 +629,10 @@
                         </div>
 
 
+@endif
+
 <!-- Pricing & Billing Tab Content -->
+@if($isAdminOrManager)
 <div data-state="inactive" data-orientation="horizontal" role="tabpanel" aria-labelledby="pricing-trigger" id="pricing-content" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 space-y-6" hidden>
     
     <!-- Currency Settings -->
@@ -963,6 +1055,7 @@
 
                         <!-- Integrations Tab Content -->
                         <div data-state="inactive" data-orientation="horizontal" role="tabpanel" aria-labelledby="integrations-trigger" id="integrations-content" tabindex="0" class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 space-y-6" hidden>
+
                             <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
                                 <div class="flex flex-col space-y-1.5 p-4 md:p-6">
                                     <h3 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight flex items-center gap-2">
@@ -1065,6 +1158,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     <!-- Save Changes Button -->
                     <div class="flex justify-end">
