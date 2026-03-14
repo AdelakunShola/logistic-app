@@ -236,7 +236,7 @@
                                         @endif
                                     </span>
                                     <div>
-                                        <p class="font-medium">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A' }}</p>
+                                        <p class="font-medium">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : ($shipment->pickup_contact_name ?? 'N/A') }}</p>
                                         <p class="text-sm text-muted-foreground">{{ $shipment->delivery_contact_phone ?? $shipment->pickup_contact_phone ?? 'N/A' }}</p>
                                     </div>
                                 </div>
@@ -1113,14 +1113,14 @@ function validateStep(step) {
             if (customerType === 'existing') {
                 const customerId = form.querySelector('[name="customer_id"]').value;
                 if (!customerId) {
-                    alert('Please select a customer');
+                    showToast('Please select a customer', 'warning');
                     isValid = false;
                 }
             } else {
                 const customerName = form.querySelector('[name="pickup_contact_name"]').value;
                 const customerEmail = form.querySelector('[name="pickup_contact_email"]').value;
                 if (!customerName || !customerEmail) {
-                    alert('Please fill in customer name and email');
+                    showToast('Please fill in customer name and email', 'warning');
                     isValid = false;
                 }
             }
@@ -1138,7 +1138,7 @@ function validateStep(step) {
             const priority = form.querySelector('[name="delivery_priority"]').value;
             
             if (!address || !city || !state || !postalCode || !pickupDate || !timeSlot || !shipmentType || !priority) {
-                alert('Please fill in all required delivery details');
+                showToast('Please fill in all required delivery details', 'warning');
                 isValid = false;
             }
             break;
@@ -1147,7 +1147,7 @@ function validateStep(step) {
             // Check package details
             const numberOfItems = form.querySelector('[name="number_of_items"]').value;
             if (!numberOfItems || numberOfItems < 1) {
-                alert('Please enter number of items');
+                showToast('Please enter number of items', 'warning');
                 isValid = false;
             }
             break;
@@ -1329,12 +1329,12 @@ function viewDeliveryDetails(shipmentId) {
                 modal.classList.add('flex');
             }
         } else {
-            alert('Failed to load shipment details');
+            showToast('Failed to load shipment details', 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred while loading shipment details');
+        showToast('An error occurred while loading shipment details', 'error');
     });
 }
 
@@ -1428,8 +1428,7 @@ function copyToClipboard(text) {
 }
 
 function showNotification(message, type = 'info') {
-    // Simple notification - you can replace with your notification system
-    alert(message);
+    showToast(message, type);
 }
 
 function filterByTab(tab) {
@@ -1470,23 +1469,23 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Delivery scheduled successfully!');
-                    window.location.reload();
+                    showToast('Delivery scheduled successfully!', 'success');
+                    setTimeout(() => window.location.reload(), 1000);
                 } else {
-                    alert('Error: ' + (data.message || 'Failed to schedule delivery'));
+                    showToast('Error: ' + (data.message || 'Failed to schedule delivery'), 'error');
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalText;
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred. Please try again.');
+                showToast('An error occurred. Please try again.', 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
             });
         });
     }
-    
+
     // Reschedule Form
     const rescheduleForm = document.getElementById('rescheduleForm');
     if (rescheduleForm) {
@@ -1514,24 +1513,24 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Delivery rescheduled successfully!');
+                    showToast('Delivery rescheduled successfully!', 'success');
                     closeModal('rescheduleModal');
-                    window.location.reload();
+                    setTimeout(() => window.location.reload(), 1000);
                 } else {
-                    alert('Error: ' + (data.message || 'Failed to reschedule'));
+                    showToast('Error: ' + (data.message || 'Failed to reschedule'), 'error');
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalText;
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred. Please try again.');
+                showToast('An error occurred. Please try again.', 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
             });
         });
     }
-    
+
     // Assign Driver Form
     const assignDriverForm = document.getElementById('assignDriverForm');
     if (assignDriverForm) {
@@ -1559,18 +1558,18 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Driver assigned successfully!');
+                    showToast('Driver assigned successfully!', 'success');
                     closeModal('assignDriverModal');
-                    window.location.reload();
+                    setTimeout(() => window.location.reload(), 1000);
                 } else {
-                    alert('Error: ' + (data.message || 'Failed to assign driver'));
+                    showToast('Error: ' + (data.message || 'Failed to assign driver'), 'error');
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalText;
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred. Please try again.');
+                showToast('An error occurred. Please try again.', 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
             });

@@ -213,8 +213,8 @@
                                     <td class="p-4 align-middle font-medium">{{ $delay->shipment->tracking_number }}</td>
                                     <td class="p-4 align-middle">
                                         <div>
-                                            <div class="font-medium">{{ $delay->shipment->customer->first_name }} {{ $delay->shipment->customer->last_name }}</div>
-                                            <div class="text-sm text-muted-foreground">{{ $delay->shipment->customer->email }}</div>
+                                            <div class="font-medium">{{ $delay->shipment->customer ? $delay->shipment->customer->first_name . ' ' . $delay->shipment->customer->last_name : ($delay->shipment->pickup_contact_name ?? 'N/A') }}</div>
+                                            <div class="text-sm text-muted-foreground">{{ $delay->shipment->customer ? $delay->shipment->customer->email : ($delay->shipment->pickup_contact_email ?? 'N/A') }}</div>
                                         </div>
                                     </td>
                                     <td class="p-4 align-middle">

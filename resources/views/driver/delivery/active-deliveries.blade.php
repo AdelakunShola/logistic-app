@@ -201,8 +201,8 @@
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                                 <div>
-                                    <span class="text-muted-foreground">Customer:</span>
-                                    <span class="font-medium ml-2">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A' }}</span>
+                                    <span class="text-muted-foreground">Recipient:</span>
+                                    <span class="font-medium ml-2">{{ $shipment->delivery_contact_name ?? ($shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="text-muted-foreground">Contact:</span>
@@ -210,11 +210,11 @@
                                 </div>
                                 <div>
                                     <span class="text-muted-foreground">Pickup:</span>
-                                    <span class="ml-2">{{ $shipment->pickup_city }}, {{ $shipment->pickup_state }}</span>
+                                    <span class="ml-2">{{ $shipment->pickup_address }}, {{ $shipment->pickup_city }}, {{ $shipment->pickup_state }} {{ $shipment->pickup_postal_code }}</span>
                                 </div>
                                 <div>
                                     <span class="text-muted-foreground">Delivery:</span>
-                                    <span class="ml-2">{{ $shipment->delivery_city }}, {{ $shipment->delivery_state }}</span>
+                                    <span class="ml-2">{{ $shipment->delivery_address }}, {{ $shipment->delivery_city }}, {{ $shipment->delivery_state }} {{ $shipment->delivery_postal_code }}</span>
                                 </div>
                                 <div>
                                     <span class="text-muted-foreground">Expected:</span>
@@ -307,7 +307,7 @@
                                 View Details
                             </button>
 
-                            <button
+                           <!--  <button
         class="inline-flex items-center justify-center text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 h-9 rounded-md px-3"
         >
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-2">
@@ -316,7 +316,7 @@
         <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
     </svg>
     Get Route
-</button>
+</button>-->
                             
                             @if($shipment->status === 'pending')
                             <button onclick="updateStatus({{ $shipment->id }}, 'picked_up')" class="inline-flex items-center justify-center text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">
@@ -404,7 +404,7 @@
                         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                    <span class="truncate">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A' }}</span>
+                    <span class="truncate">{{ $shipment->delivery_contact_name ?? ($shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A') }}</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-muted-foreground flex-shrink-0">
@@ -423,7 +423,7 @@
                     </svg>
                     <div class="flex-1 min-w-0">
                         <span class="text-muted-foreground">From:</span>
-                        <span class="truncate block">{{ $shipment->pickup_city }}, {{ $shipment->pickup_state }}</span>
+                        <span class="truncate block">{{ $shipment->pickup_address }}, {{ $shipment->pickup_city }}, {{ $shipment->pickup_state }} {{ $shipment->pickup_postal_code }}</span>
                     </div>
                 </div>
                 <div class="flex items-start gap-1">
@@ -433,7 +433,7 @@
                     </svg>
                     <div class="flex-1 min-w-0">
                         <span class="text-muted-foreground">To:</span>
-                        <span class="truncate block">{{ $shipment->delivery_address }}, {{ $shipment->delivery_address_line2 }}, {{ $shipment->delivery_city }}, {{ $shipment->delivery_state }}, {{ $shipment->delivery_country }}</span>
+                        <span class="truncate block">{{ $shipment->delivery_address }}, {{ $shipment->delivery_city }}, {{ $shipment->delivery_state }} {{ $shipment->delivery_postal_code }}</span>
                     </div>
                 </div>
             </div>
@@ -474,14 +474,14 @@
                     View Details
                 </button>
 
-                <button class="inline-flex items-center justify-center text-xs font-medium bg-blue-600 text-white hover:bg-blue-700 h-8 rounded px-2">
+               <!-- <button class="inline-flex items-center justify-center text-xs font-medium bg-blue-600 text-white hover:bg-blue-700 h-8 rounded px-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-1">
                         <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
                         <path d="M21 3v5h-5"/>
                         <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
                     </svg>
                     Get Route
-                </button>
+                </button>-->
 
                 @if($shipment->status === 'pending')
                 <button onclick="updateStatus({{ $shipment->id }}, 'picked_up')" class="inline-flex items-center justify-center text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded px-2">
@@ -788,7 +788,7 @@ async function viewDelivery(shipmentId) {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to load delivery details.');
+        showToast('Failed to load delivery details.', 'error');
     }
 }
 
@@ -858,12 +858,12 @@ function displayQuickView(shipment) {
                     <p class="font-medium">${shipment.status}</p>
                 </div>
                 <div>
-                    <p class="text-muted-foreground">Customer</p>
+                    <p class="text-muted-foreground">Recipient</p>
                     <p class="font-medium">${shipment.customer}</p>
                 </div>
                 <div>
                     <p class="text-muted-foreground">Contact</p>
-                    <p class="font-medium">${shipment.contact_phone}</p>
+                    <p class="font-medium">${shipment.contact_phone || 'N/A'}</p>
                 </div>
                 <div class="col-span-2">
                     <p class="text-muted-foreground">Pickup Address</p>
@@ -913,8 +913,9 @@ function closeQuickView() {
 }
 
 async function updateStatus(shipmentId, status) {
-    if (!confirm(`Are you sure you want to update status to "${status.replace('_', ' ')}"?`)) return;
-    
+    const confirmed = await showConfirm(`Are you sure you want to update status to "${status.replace('_', ' ')}"?`, 'Update Status');
+    if (!confirmed) return;
+
     try {
         const response = await fetch(`/driver/deliveries/${shipmentId}/update-status`, {
             method: 'POST',
@@ -925,18 +926,18 @@ async function updateStatus(shipmentId, status) {
             },
             body: JSON.stringify({ status })
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
-            alert(data.message);
-            window.location.reload();
+            showToast(data.message, 'success');
+            setTimeout(() => window.location.reload(), 1000);
         } else {
-            alert('Failed to update status: ' + data.message);
+            showToast('Failed to update status: ' + data.message, 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to update status.');
+        showToast('Failed to update status.', 'error');
     }
 }
 
@@ -976,15 +977,15 @@ document.getElementById('delay-form').addEventListener('submit', async function(
         const result = await response.json();
         
         if (result.success) {
-            alert(result.message);
+            showToast(result.message, 'success');
             closeDelayModal();
-            window.location.reload();
+            setTimeout(() => window.location.reload(), 1000);
         } else {
-            alert('Failed to report delay: ' + result.message);
+            showToast('Failed to report delay: ' + result.message, 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to report delay.');
+        showToast('Failed to report delay.', 'error');
     }
 });
 
@@ -1021,7 +1022,7 @@ function completeDelivery(shipmentId) {
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Failed to load shipment details.');
+        showToast('Failed to load shipment details.', 'error');
     });
 }
 
@@ -1032,12 +1033,12 @@ function populateCompleteModal(shipment) {
     // Populate shipment info with payment details
     const infoHtml = `
         <div>
-            <p class="text-muted-foreground">Customer</p>
+            <p class="text-muted-foreground">Recipient</p>
             <p class="font-medium">${shipment.customer}</p>
         </div>
         <div>
             <p class="text-muted-foreground">Contact</p>
-            <p class="font-medium">${shipment.contact_phone}</p>
+            <p class="font-medium">${shipment.contact_phone || 'N/A'}</p>
         </div>
         <div>
             <p class="text-muted-foreground">Delivery Address</p>
@@ -1288,7 +1289,7 @@ document.getElementById('complete-form').addEventListener('submit', async functi
     
     // Validate signature
     if (!signaturePad || signaturePad.isEmpty()) {
-        alert('Please provide customer signature before completing delivery.');
+        showToast('Please provide customer signature before completing delivery.', 'warning');
         return;
     }
     
@@ -1296,7 +1297,7 @@ document.getElementById('complete-form').addEventListener('submit', async functi
     if (currentDeliveryShipment && currentDeliveryShipment.payment_mode === 'cod') {
         const codCheckbox = document.getElementById('cod-collected');
         if (!codCheckbox || !codCheckbox.checked) {
-            alert('Please confirm that you have collected the COD amount before completing delivery.');
+            showToast('Please confirm that you have collected the COD amount before completing delivery.', 'warning');
             return;
         }
     }
@@ -1332,17 +1333,17 @@ document.getElementById('complete-form').addEventListener('submit', async functi
         const result = await response.json();
         
         if (result.success) {
-            alert(result.message);
+            showToast(result.message, 'success');
             closeCompleteModal();
-            window.location.reload();
+            setTimeout(() => window.location.reload(), 1000);
         } else {
-            alert('Failed to complete delivery: ' + result.message);
+            showToast('Failed to complete delivery: ' + result.message, 'error');
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to complete delivery. Please try again.');
+        showToast('Failed to complete delivery. Please try again.', 'error');
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
     }

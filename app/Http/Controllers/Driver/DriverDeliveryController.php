@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Driver;
 use App\Http\Controllers\Controller;
 use App\Models\Shipment;
 use App\Models\ShipmentDelay;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -275,9 +276,9 @@ public function quickView(Shipment $shipment)
             'id' => $shipment->id,
             'tracking_number' => $shipment->tracking_number,
             'status' => ucfirst(str_replace('_', ' ', $shipment->status)),
-            'customer' => $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A',
-            'pickup_address' => $shipment->pickup_address . ', ' . $shipment->pickup_city . ', ' . $shipment->pickup_state,
-            'delivery_address' => $shipment->delivery_address . ', ' . $shipment->delivery_city . ', ' . $shipment->delivery_state,
+            'customer' => $shipment->delivery_contact_name ?? ($shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A'),
+            'pickup_address' => $shipment->pickup_address . ($shipment->pickup_address_line2 ? ', ' . $shipment->pickup_address_line2 : '') . ', ' . $shipment->pickup_city . ', ' . $shipment->pickup_state . ' ' . $shipment->pickup_postal_code . ($shipment->pickup_country ? ', ' . $shipment->pickup_country : ''),
+            'delivery_address' => $shipment->delivery_address . ($shipment->delivery_address_line2 ? ', ' . $shipment->delivery_address_line2 : '') . ', ' . $shipment->delivery_city . ', ' . $shipment->delivery_state . ' ' . $shipment->delivery_postal_code . ($shipment->delivery_country ? ', ' . $shipment->delivery_country : ''),
             'expected_delivery' => $shipment->expected_delivery_date ? $shipment->expected_delivery_date->format('M d, Y h:i A') : 'N/A',
             'actual_delivery' => $shipment->actual_delivery_date ? $shipment->actual_delivery_date->format('M d, Y h:i A') : 'N/A',
             'priority' => ucfirst($shipment->delivery_priority),
@@ -303,7 +304,7 @@ public function quickView(Shipment $shipment)
             // Shipment items
             'items' => $shipment->shipmentItems->map(function($item) {
                 return [
-                    'description' => $item->item_description,
+                    'description' => $item->description,
                     'quantity' => $item->quantity,
                     'weight' => number_format($item->weight, 1),
                     'dimensions' => $item->dimensions,
@@ -553,16 +554,112 @@ public function quickView(Shipment $shipment)
 }
     
     /**
+     * Available Shipments (unassigned) for driver self-assignment
+     */
+    public function availableShipments(Request $request)
+    {
+        $query = Shipment::with(['customer', 'shipmentItems'])
+            ->whereNull('assigned_driver_id')
+            ->whereIn('status', ['pending', 'picked_up']);
+
+        if ($request->input('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('tracking_number', 'like', "%{$search}%")
+                  ->orWhere('pickup_city', 'like', "%{$search}%")
+                  ->orWhere('delivery_city', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->input('priority')) {
+            $query->where('delivery_priority', $request->input('priority'));
+        }
+
+        $query->orderBy('delivery_priority', 'desc')
+              ->orderBy('expected_delivery_date', 'asc');
+
+        $shipments = $query->paginate(15)->withQueryString();
+
+        $stats = [
+            'total' => Shipment::whereNull('assigned_driver_id')->whereIn('status', ['pending', 'picked_up'])->count(),
+            'express' => Shipment::whereNull('assigned_driver_id')->whereIn('status', ['pending', 'picked_up'])->where('delivery_priority', 'express')->count(),
+            'overnight' => Shipment::whereNull('assigned_driver_id')->whereIn('status', ['pending', 'picked_up'])->where('delivery_priority', 'overnight')->count(),
+        ];
+
+        $filters = [
+            'search' => $request->input('search'),
+            'priority' => $request->input('priority'),
+        ];
+
+        return view('driver.delivery.available-shipments', compact('shipments', 'stats', 'filters'));
+    }
+
+    /**
+     * Self-assign a shipment (AJAX)
+     */
+    public function selfAssign(Request $request, Shipment $shipment)
+    {
+        if ($shipment->assigned_driver_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This shipment has already been assigned to another driver.',
+            ], 400);
+        }
+
+        if (!in_array($shipment->status, ['pending', 'picked_up'])) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This shipment cannot be assigned at its current status.',
+            ], 400);
+        }
+
+        try {
+            $shipment->update([
+                'assigned_driver_id' => Auth::id(),
+            ]);
+
+            // Create tracking history
+            $shipment->trackingHistory()->create([
+                'status' => $shipment->status,
+                'location' => $shipment->pickup_city . ', ' . $shipment->pickup_state,
+                'description' => 'Driver ' . Auth::user()->first_name . ' ' . Auth::user()->last_name . ' self-assigned this shipment',
+                'updated_by' => Auth::id(),
+            ]);
+
+            // Notify admins
+            $admins = \App\Models\User::where('role', 'admin')->get();
+            foreach ($admins as $admin) {
+                Notification::create([
+                    'user_id' => $admin->id,
+                    'shipment_id' => $shipment->id,
+                    'title' => 'Driver Self-Assignment',
+                    'message' => Auth::user()->first_name . ' ' . Auth::user()->last_name . ' self-assigned shipment ' . $shipment->tracking_number,
+                    'type' => 'info',
+                    'channel' => 'system',
+                ]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Shipment assigned to you successfully!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to assign shipment: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
      * Export Deliveries
      */
     public function export(Request $request, $type)
     {
-        // Implementation similar to admin export
-        // Filter by driver ID
         $driverId = Auth::id();
-        
+
         // Add export logic here based on $type (csv, excel, pdf)
-        
-        return response()->download($filePath);
+
+        return response()->download($filePath ?? '');
     }
 }

@@ -566,31 +566,31 @@ document.getElementById('assignDriverForm')?.addEventListener('submit', function
         if (data.success) {
             location.reload();
         } else {
-            alert('Error: ' + data.message);
+            showToast('Error: ' + data.message, 'error');
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred while assigning the driver');
+        showToast('An error occurred while assigning the driver', 'error');
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
     });
 });
 
 // Mark as Departed
-document.getElementById('markDepartedBtn')?.addEventListener('click', function() {
-    if (confirm('Mark this transfer as departed?')) {
-        updateTransferStatus('in_transit');
-    }
+document.getElementById('markDepartedBtn')?.addEventListener('click', async function() {
+    const confirmed = await showConfirm('Mark this transfer as departed?', 'Confirm Departure');
+    if (!confirmed) return;
+    updateTransferStatus('in_transit');
 });
 
 // Mark as Arrived
-document.getElementById('markArrivedBtn')?.addEventListener('click', function() {
-    if (confirm('Mark this transfer as arrived at destination?')) {
-        updateTransferStatus('completed');
-    }
+document.getElementById('markArrivedBtn')?.addEventListener('click', async function() {
+    const confirmed = await showConfirm('Mark this transfer as arrived at destination?', 'Confirm Arrival');
+    if (!confirmed) return;
+    updateTransferStatus('completed');
 });
 
 // Cancel Transfer Modal
@@ -628,14 +628,14 @@ document.getElementById('cancelTransferForm')?.addEventListener('submit', functi
         if (data.success) {
             location.reload();
         } else {
-            alert('Error: ' + data.message);
+            showToast('Error: ' + data.message, 'error');
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred while cancelling the transfer');
+        showToast('An error occurred while cancelling the transfer', 'error');
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
     });
@@ -660,12 +660,12 @@ function updateTransferStatus(status, reason = null) {
         if (data.success) {
             location.reload();
         } else {
-            alert('Error: ' + data.message);
+            showToast('Error: ' + data.message, 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred while updating the status');
+        showToast('An error occurred while updating the status', 'error');
     });
 }
 

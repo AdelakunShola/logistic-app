@@ -182,12 +182,12 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                             <div>
-                                <span class="text-muted-foreground">Customer:</span>
-                                <span class="font-medium ml-2">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A' }}</span>
+                                <span class="text-muted-foreground">Recipient:</span>
+                                <span class="font-medium ml-2">{{ $shipment->delivery_contact_name ?? ($shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A') }}</span>
                             </div>
                             <div>
                                 <span class="text-muted-foreground">Delivered To:</span>
-                                <span class="ml-2">{{ $shipment->delivery_city }}, {{ $shipment->delivery_state }}</span>
+                                <span class="ml-2">{{ $shipment->delivery_address }}, {{ $shipment->delivery_city }}, {{ $shipment->delivery_state }} {{ $shipment->delivery_postal_code }}</span>
                             </div>
                             <div>
                                 <span class="text-muted-foreground">Delivered On:</span>
@@ -283,7 +283,7 @@ async function viewDelivery(shipmentId) {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to load delivery details.');
+        showToast('Failed to load delivery details.', 'error');
     }
 }
 
@@ -441,7 +441,7 @@ function displayQuickView(shipment) {
                     </span>
                 </div>
                 <div>
-                    <p class="text-muted-foreground">Customer</p>
+                    <p class="text-muted-foreground">Recipient</p>
                     <p class="font-medium">${shipment.customer}</p>
                 </div>
                 <div>

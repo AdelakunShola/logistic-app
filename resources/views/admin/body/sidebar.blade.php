@@ -195,6 +195,26 @@
 						</div>
 					</div>
 					<div class="px-3 py-2">
+						<h2 class="mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Yard Management</h2>
+						<div class="space-y-1">
+							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground {{ request()->routeIs('admin.yards.index') ? 'bg-accent text-accent-foreground' : 'text-foreground' }}" href="{{ route('admin.yards.index') }}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-land-plot h-4 w-4" aria-hidden="true">
+									<path d="m12 8 6-3-6-3v10"></path>
+									<path d="m8 11.99-5.5 3.14a1 1 0 0 0 0 1.74l8.5 4.86a2 2 0 0 0 2 0l8.5-4.86a1 1 0 0 0 0-1.74L16 11.99"></path>
+								</svg>
+								<span>All Yards</span>
+							</a>
+							<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground {{ request()->routeIs('admin.yards.create') ? 'bg-accent text-accent-foreground' : 'text-foreground' }}" href="{{ route('admin.yards.create') }}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-plus h-4 w-4" aria-hidden="true">
+									<rect width="18" height="18" x="3" y="3" rx="2"></rect>
+									<path d="M8 12h8"></path>
+									<path d="M12 8v8"></path>
+								</svg>
+								<span>Add New Yard</span>
+							</a>
+						</div>
+					</div>
+					<div class="px-3 py-2">
 						<h2 class="mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Clients</h2>
 						<div class="space-y-1">
 						

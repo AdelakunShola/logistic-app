@@ -637,31 +637,32 @@
     }
 
     // Bulk delete
-    bulkDeleteBtn?.addEventListener('click', function() {
+    bulkDeleteBtn?.addEventListener('click', async function() {
         const selectedIds = Array.from(transferCheckboxes)
             .filter(cb => cb.checked)
             .map(cb => cb.value);
-        
+
         if (selectedIds.length === 0) return;
-        
-        if (confirm(`Are you sure you want to delete ${selectedIds.length} transfer(s)?`)) {
-            fetch('{{ route("admin.warehouse.transfers.bulk.delete") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify({ ids: selectedIds })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            });
-        }
+
+        const confirmed = await showConfirm(`Are you sure you want to delete ${selectedIds.length} transfer(s)?`, 'Confirm Delete');
+        if (!confirmed) return;
+
+        fetch('{{ route("admin.warehouse.transfers.bulk.delete") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify({ ids: selectedIds })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                showToast('Error: ' + data.message, 'error');
+            }
+        });
     });
 
     // Refresh button
@@ -703,7 +704,7 @@
         const fromWarehouseId = document.getElementById('from_warehouse_select').value;
         
         if (!fromWarehouseId) {
-            alert('Please select a warehouse first');
+            showToast('Please select a warehouse first', 'warning');
             return;
         }
 
@@ -731,7 +732,7 @@
         .catch(error => {
             console.error('Error:', error);
             document.getElementById('shipmentsLoadingState').classList.add('hidden');
-            alert('Error loading shipments');
+            showToast('Error loading shipments', 'error');
         });
     });
 
@@ -785,12 +786,12 @@
             if (data.success) {
                 location.reload();
             } else {
-                alert('Error: ' + data.message);
+                showToast('Error: ' + data.message, 'error');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while initiating the transfer');
+            showToast('An error occurred while initiating the transfer', 'error');
         });
     });
 
@@ -971,12 +972,12 @@
             if (data.success) {
                 location.reload();
             } else {
-                alert('Error: ' + data.message);
+                showToast('Error: ' + data.message, 'error');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred');
+            showToast('An error occurred', 'error');
         });
     });
 
@@ -1016,12 +1017,12 @@
             if (data.success) {
                 location.reload();
             } else {
-                alert('Error: ' + data.message);
+                showToast('Error: ' + data.message, 'error');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred');
+            showToast('An error occurred', 'error');
         });
     });
 

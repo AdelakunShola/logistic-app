@@ -24,8 +24,12 @@ class SettingController extends Controller
             'company_email' => Setting::get('company_email', 'admin@cargomax.com'),
             'company_phone' => Setting::get('company_phone', '+1 (555) 123-4567'),
             'company_website' => Setting::get('company_website', 'www.cargomax.com'),
-            'company_address' => Setting::get('company_address', '123 Logistics Ave, Transport City, TC 12345'),
-            'company_tax_percentage' => Setting::get('company_tax_percentage', '8.5'),
+            'company_address' => Setting::get('company_address', '123 Logistics Ave'),
+            'company_address_line2' => Setting::get('company_address_line2', ''),
+            'company_city' => Setting::get('company_city', 'Transport City'),
+            'company_state' => Setting::get('company_state', 'TC'),
+            'company_postal_code' => Setting::get('company_postal_code', '12345'),
+            'company_country' => Setting::get('company_country', 'USA'),
         ];
         
         $systemSettings = [

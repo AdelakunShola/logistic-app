@@ -625,10 +625,6 @@
                                 <span class="text-muted-foreground">Weekly Hours:</span>
                                 <span class="font-medium">{{ $driver->weekly_hours ?? '0h' }}</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span class="text-muted-foreground">Monthly Earnings:</span>
-                                <span class="font-medium">${{ number_format($driver->monthly_earnings ?? 0, 2) }}</span>
-                            </div>
                         </div>
 
                         <!-- Action Button -->
@@ -722,7 +718,7 @@
                     <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;">Delivery Performance Map</h3>
                     <p style="font-size: 0.875rem; color: #6b7280;">Interactive visualization of regional delivery performance</p>
                 </div>
-                <button class="btn btn-secondary" onclick="alert('Map fullscreen feature')">
+                <button class="btn btn-secondary" onclick="showToast('Map fullscreen feature', 'info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
                     </svg>

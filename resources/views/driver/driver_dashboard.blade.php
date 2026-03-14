@@ -123,6 +123,70 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 	
         <span data-radix-focus-guard="" tabindex="0" style="outline: none; opacity: 0; position: fixed; pointer-events: none;" data-aria-hidden="true" aria-hidden="true"></span>
+<!-- Toast Notification Container -->
+<div id="toast-container" class="fixed top-4 right-4 z-[9999] flex flex-col gap-2" style="pointer-events: none;"></div>
+
+<!-- Confirm Modal -->
+<div id="confirm-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[9998] flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+        <div class="p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <div id="confirm-modal-icon" class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-yellow-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-600">
+                        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3 id="confirm-modal-title" class="text-lg font-semibold">Confirm Action</h3>
+                    <p id="confirm-modal-message" class="text-sm text-muted-foreground mt-1"></p>
+                </div>
+            </div>
+            <div class="flex justify-end gap-2 mt-6">
+                <button id="confirm-modal-cancel" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-4">Cancel</button>
+                <button id="confirm-modal-ok" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-4">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showToast(message, type = 'info', duration = 4000) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    const colors = { success: 'bg-green-50 border-green-200 text-green-800', error: 'bg-red-50 border-red-200 text-red-800', warning: 'bg-yellow-50 border-yellow-200 text-yellow-800', info: 'bg-blue-50 border-blue-200 text-blue-800' };
+    const icons = { success: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>', error: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>', warning: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>', info: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>' };
+    toast.className = `flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg min-w-[320px] max-w-[420px] transform transition-all duration-300 translate-x-full ${colors[type] || colors.info}`;
+    toast.style.pointerEvents = 'auto';
+    toast.innerHTML = `<span class="flex-shrink-0">${icons[type] || icons.info}</span><span class="flex-1 text-sm font-medium">${message}</span><button onclick="this.parentElement.remove()" class="flex-shrink-0 opacity-60 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>`;
+    container.appendChild(toast);
+    requestAnimationFrame(() => { toast.classList.remove('translate-x-full'); toast.classList.add('translate-x-0'); });
+    setTimeout(() => { toast.classList.remove('translate-x-0'); toast.classList.add('translate-x-full'); setTimeout(() => toast.remove(), 300); }, duration);
+}
+
+function showConfirm(message, title = 'Confirm Action', type = 'warning') {
+    return new Promise((resolve) => {
+        const modal = document.getElementById('confirm-modal');
+        document.getElementById('confirm-modal-title').textContent = title;
+        document.getElementById('confirm-modal-message').textContent = message;
+        const cancelBtn = document.getElementById('confirm-modal-cancel');
+        const okBtn = document.getElementById('confirm-modal-ok');
+        if (type === 'danger') {
+            okBtn.className = 'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium bg-red-600 text-white hover:bg-red-700 h-9 rounded-md px-4';
+            okBtn.textContent = 'Delete';
+        } else {
+            okBtn.className = 'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-4';
+            okBtn.textContent = 'Confirm';
+        }
+        modal.classList.remove('hidden');
+        function cleanup() { modal.classList.add('hidden'); cancelBtn.removeEventListener('click', onCancel); okBtn.removeEventListener('click', onOk); }
+        function onCancel() { cleanup(); resolve(false); }
+        function onOk() { cleanup(); resolve(true); }
+        cancelBtn.addEventListener('click', onCancel);
+        okBtn.addEventListener('click', onOk);
+    });
+}
+</script>
+
 	<!-- Add this just before </body> tag in your driver_dashboard.blade.php -->
 
 <script>

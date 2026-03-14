@@ -160,7 +160,7 @@ public function quickView(Shipment $shipment)
             'status' => $shipment->status,
             'type' => $shipment->shipment_type,
             'priority' => $shipment->delivery_priority,
-            'customer' => $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A',
+            'customer' => $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : ($shipment->pickup_contact_name ?? 'N/A'),
             'origin' => $shipment->pickup_city . ', ' . $shipment->pickup_state,
             'destination' => $shipment->delivery_city . ', ' . $shipment->delivery_state,
             'carrier' => $shipment->carrier->name ?? 'N/A',
@@ -443,7 +443,7 @@ private function exportAsCsv($shipments)
             fputcsv($file, [
                 $shipment->id,
                 $shipment->tracking_number,
-                $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A',
+                $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : ($shipment->pickup_contact_name ?? 'N/A'),
                 $shipment->pickup_city . ', ' . $shipment->pickup_state,
                 $shipment->delivery_city . ', ' . $shipment->delivery_state,
                 ucfirst($shipment->shipment_type),
@@ -512,6 +512,20 @@ public function createshipments()
         ->get();
     $vehicles = Vehicle::where('status', 'available')->get();
 
+    // Get company settings for origin address defaults
+    $companyDefaults = [
+        'company_name' => Setting::get('company_name', ''),
+        'contact_name' => Setting::get('company_name', ''),
+        'address' => Setting::get('company_address', ''),
+        'address_line2' => Setting::get('company_address_line2', ''),
+        'city' => Setting::get('company_city', ''),
+        'state' => Setting::get('company_state', ''),
+        'postal_code' => Setting::get('company_postal_code', ''),
+        'country' => Setting::get('company_country', 'USA'),
+        'phone' => Setting::get('company_phone', ''),
+        'email' => Setting::get('company_email', ''),
+    ];
+
     // Get pricing settings for the view
     $pricingSettings = [
         'currency' => Setting::get('pricing_currency', 'USD'),
@@ -568,7 +582,8 @@ public function createshipments()
         'hubs',
         'drivers',
         'vehicles',
-        'pricingSettings'
+        'pricingSettings',
+        'companyDefaults'
     ));
 }
 
@@ -1232,8 +1247,8 @@ public function bulkExport(Request $request)
             fputcsv($file, [
                 $shipment->id,
                 $shipment->tracking_number,
-                $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A',
-                $shipment->customer ? $shipment->customer->email : 'N/A',
+                $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : ($shipment->pickup_contact_name ?? 'N/A'),
+                $shipment->customer ? $shipment->customer->email : ($shipment->pickup_contact_email ?? 'N/A'),
                 ucfirst(str_replace('_', ' ', $shipment->status)),
                 $shipment->pickup_city,
                 $shipment->pickup_state,
@@ -3020,11 +3035,11 @@ public function storeReturn(Request $request, Shipment $shipment)
 
         // Get customer info - handle both registered users and guest customers
         $customer = $shipment->customer;
-        $orderCount = Shipment::where('customer_id', $customer->id)->count();
-        $returnCount = ReturnModel::where('customer_id', $customer->id)->count();
+        $orderCount = $customer ? Shipment::where('customer_id', $customer->id)->count() : 0;
+        $returnCount = $customer ? ReturnModel::where('customer_id', $customer->id)->count() : 0;
 
         // Determine pickup contact name (sender info = pickup info)
-        $pickupContactName = $shipment->pickup_contact_name ?? 
+        $pickupContactName = $shipment->pickup_contact_name ??
                             ($customer ? $customer->first_name . ' ' . $customer->last_name : 'N/A');
 
         // Create return
@@ -3034,27 +3049,27 @@ public function storeReturn(Request $request, Shipment $shipment)
             'shipment_id' => $shipment->id,
             'customer_id' => $shipment->customer_id,
             'return_reason' => $request->return_reason,
-            'pickup_contact_name' => $pickupContactName, // Sender/Pickup info
+            'pickup_contact_name' => $pickupContactName,
             'description' => $request->description,
             'customer_notes' => $request->customer_notes,
             'return_date' => now()->toDateString(),
             'request_date' => now()->toDateString(),
             'status' => 'pending_review',
-            'warehouse' => optional($shipment->currentWarehouse)->name ?? optional($shipment->currentWarehouse)->name ?? 'Main Warehouse',
+            'warehouse' => optional($shipment->currentWarehouse)->name ?? 'Main Warehouse',
             'tracking_number' => null,
-            'pickup_address' => $shipment->delivery_address . ', ' . 
-                               $shipment->delivery_city . ', ' . 
-                               $shipment->delivery_state . ' ' . 
+            'pickup_address' => $shipment->delivery_address . ', ' .
+                               $shipment->delivery_city . ', ' .
+                               $shipment->delivery_state . ' ' .
                                $shipment->delivery_postal_code,
-            'total_amount' => $shipment->total_amount, // FIXED: Added total_amount from shipment
+            'total_amount' => $shipment->total_amount ?? 0,
             'return_value' => $returnValue,
-            'refund_amount' => $shipment->total_amount, // Use total_amount for refund
+            'refund_amount' => $shipment->total_amount ?? 0,
             'refund_status' => 'pending',
             'items' => $returnItems,
             'attached_images' => $images,
             'customer_order_count' => $orderCount,
             'customer_return_count' => $returnCount,
-            'customer_since' => $customer->created_at ? $customer->created_at->toDateString() : null,
+            'customer_since' => $customer && $customer->created_at ? $customer->created_at->toDateString() : null,
         ]);
 
         // Update shipment status
@@ -3071,15 +3086,17 @@ public function storeReturn(Request $request, Shipment $shipment)
         ]);
 
         // Notify customer
-        Notification::create([
-            'user_id' => $customer->id,
-            'shipment_id' => $shipment->id,
-            'title' => 'Return Request Received',
-            'message' => "Your return request {$return->return_number} for shipment {$shipment->tracking_number} has been received and is under review.",
-            'type' => 'info',
-            'channel' => 'system',
-            'action_url' => route('admin.returns.show', $return->id),
-        ]);
+        if ($customer) {
+            Notification::create([
+                'user_id' => $customer->id,
+                'shipment_id' => $shipment->id,
+                'title' => 'Return Request Received',
+                'message' => "Your return request {$return->return_number} for shipment {$shipment->tracking_number} has been received and is under review.",
+                'type' => 'info',
+                'channel' => 'system',
+                'action_url' => route('admin.returns.show', $return->id),
+            ]);
+        }
 
         // Notify admins
         $admins = User::where('role', 'admin')->get();

@@ -250,46 +250,46 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Company Name</label>
-                                <input type="text" name="pickup_company_name" class="w-full px-4 py-2 border rounded-md" placeholder="Enter company name">
+                                <input type="text" name="pickup_company_name" class="w-full px-4 py-2 border rounded-md" placeholder="Enter company name" value="{{ $companyDefaults['company_name'] ?? '' }}">
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Contact Name *</label>
-                                <input type="text" name="pickup_contact_name" class="w-full px-4 py-2 border rounded-md" placeholder="Enter contact name" >
+                                <input type="text" name="pickup_contact_name" class="w-full px-4 py-2 border rounded-md" placeholder="Enter contact name" value="{{ $companyDefaults['contact_name'] ?? '' }}">
                             </div>
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-medium">Address Line 1 *</label>
-                            <input type="text" name="pickup_address" id="pickup_address" class="w-full px-4 py-2 border rounded-md" placeholder="Enter street address"  onchange="calculatePricing()">
+                            <input type="text" name="pickup_address" id="pickup_address" class="w-full px-4 py-2 border rounded-md" placeholder="Enter street address" value="{{ $companyDefaults['address'] ?? '' }}" onchange="calculatePricing()">
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-medium">Address Line 2 (Optional)</label>
-                            <input type="text" name="pickup_address_line2" class="w-full px-4 py-2 border rounded-md" placeholder="Apartment, suite, etc.">
+                            <input type="text" name="pickup_address_line2" class="w-full px-4 py-2 border rounded-md" placeholder="Apartment, suite, etc." value="{{ $companyDefaults['address_line2'] ?? '' }}">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">City *</label>
-                                <input type="text" name="pickup_city" id="pickup_city" class="w-full px-4 py-2 border rounded-md" placeholder="Enter city" >
+                                <input type="text" name="pickup_city" id="pickup_city" class="w-full px-4 py-2 border rounded-md" placeholder="Enter city" value="{{ $companyDefaults['city'] ?? '' }}">
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">State/Province *</label>
-                                <input type="text" name="pickup_state" id="pickup_state" class="w-full px-4 py-2 border rounded-md" placeholder="Enter state" >
+                                <input type="text" name="pickup_state" id="pickup_state" class="w-full px-4 py-2 border rounded-md" placeholder="Enter state" value="{{ $companyDefaults['state'] ?? '' }}">
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">ZIP/Postal Code *</label>
-                                <input type="text" name="pickup_postal_code" id="pickup_postal_code" class="w-full px-4 py-2 border rounded-md" placeholder="Enter ZIP code" >
+                                <input type="text" name="pickup_postal_code" id="pickup_postal_code" class="w-full px-4 py-2 border rounded-md" placeholder="Enter ZIP code" value="{{ $companyDefaults['postal_code'] ?? '' }}">
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Phone Number *</label>
-                                <input type="tel" name="pickup_contact_phone" class="w-full px-4 py-2 border rounded-md" placeholder="Enter phone number" >
+                                <input type="tel" name="pickup_contact_phone" class="w-full px-4 py-2 border rounded-md" placeholder="Enter phone number" value="{{ $companyDefaults['phone'] ?? '' }}">
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium">Email Address</label>
-                                <input type="email" name="pickup_contact_email" class="w-full px-4 py-2 border rounded-md" placeholder="Enter email address">
+                                <input type="email" name="pickup_contact_email" class="w-full px-4 py-2 border rounded-md" placeholder="Enter email address" value="{{ $companyDefaults['email'] ?? '' }}">
                             </div>
                         </div>
-                        <input type="hidden" name="pickup_country" value="USA">
+                        <input type="hidden" name="pickup_country" value="{{ $companyDefaults['country'] ?? 'USA' }}">
                         <input type="hidden" name="pickup_latitude" id="pickup_latitude">
                         <input type="hidden" name="pickup_longitude" id="pickup_longitude">
                     </div>
@@ -531,24 +531,6 @@
 
                             <!-- Right Column -->
                             <div class="space-y-4">
-                                <div class="space-y-2">
-                                    <label class="text-sm font-medium">Preferred Carrier</label>
-                                    <select name="carrier_id" class="w-full px-4 py-2 border rounded-md">
-                                        <option value="">Select carrier (optional)</option>
-                                        @if(isset($carriers))
-                                            @foreach($carriers as $carrier)
-                                                <option value="{{ $carrier->id }}">{{ $carrier->name }}</option>
-                                            @endforeach
-                                        @else
-                                            <option value="fedex">FedEx</option>
-                                            <option value="ups">UPS</option>
-                                            <option value="usps">USPS</option>
-                                            <option value="dhl">DHL</option>
-                                        @endif
-                                    </select>
-                                </div>
-
-
                                 <div class="space-y-2">
                                     <label class="text-sm font-medium">Assigned Driver</label>
                                     <select name="assigned_driver_id" class="w-full px-4 py-2 border rounded-md">

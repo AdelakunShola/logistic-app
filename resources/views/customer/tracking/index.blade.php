@@ -334,35 +334,98 @@
         </div>
         @endif
 
+        <!-- Return Request Section (only for delivered shipments) -->
+        @if($shipment && $shipment->status === 'delivered')
+        <div class="max-w-2xl mx-auto mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 14 4 9 9 4"></polyline>
+                            <path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-gray-900 uppercase">Request a Return</h3>
+                        <p class="text-sm text-gray-500">Submit a return request for this delivered shipment</p>
+                    </div>
+                </div>
+
+                <form action="{{ route('tracking.requestReturn', $shipment->tracking_number) }}" method="POST">
+                    @csrf
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-700 mb-2 uppercase">Your Name <span class="text-red-500">*</span></label>
+                        <input type="text" name="name" required value="{{ old('name') }}" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-700 mb-2 uppercase">Your Email <span class="text-red-500">*</span></label>
+                        <input type="email" name="email" required value="{{ old('email') }}" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-700 mb-2 uppercase">Your Phone <span class="text-red-500">*</span></label>
+                        <input type="tel" name="phone" required value="{{ old('phone') }}" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-700 mb-2 uppercase">Reason for Return <span class="text-red-500">*</span></label>
+                        <select name="return_reason" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none">
+                            <option value="">Select reason...</option>
+                            <option value="defective_product">Defective Product</option>
+                            <option value="wrong_item_sent">Wrong Item Sent</option>
+                            <option value="changed_mind">Changed Mind</option>
+                            <option value="damaged_in_transit">Damaged in Transit</option>
+                            <option value="not_as_described">Not as Described</option>
+                            <option value="quality_issue">Quality Issue</option>
+                            <option value="size_issue">Size Issue</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-gray-700 mb-2 uppercase">Description <span class="text-red-500">*</span></label>
+                        <textarea name="description" required rows="4" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none resize-none" placeholder="Please describe the issue in detail...">{{ old('description') }}</textarea>
+                    </div>
+
+                    <button type="submit" class="btn-red px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-wide w-full">
+                        Submit Return Request
+                    </button>
+                </form>
+            </div>
+        </div>
+        @endif
+
         <!-- Contact Forms Section -->
         <div class="max-w-2xl mx-auto mb-16">
             <div class="grid grid-cols-1 gap-8">
                 <!-- Contact Our Team -->
                 <div class="bg-white rounded-lg shadow-lg p-8">
                     <h3 class="text-2xl md:text-3xl font-black text-gray-900 mb-6 uppercase text-center">Contact Our Team</h3>
-                    
+
                     <form action="{{ route('tracking.reportIssue', $shipment->tracking_number ?? 'default') }}" method="POST">
                         @csrf
                         <div class="mb-4">
                             <label class="block text-sm font-bold text-gray-700 mb-2 uppercase">Your Name</label>
                             <input type="text" name="name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none" />
                         </div>
-                        
+
                         <div class="mb-4">
                             <label class="block text-sm font-bold text-gray-700 mb-2 uppercase">Your Email</label>
                             <input type="email" name="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none" />
                         </div>
-                        
+
                         <div class="mb-4">
                             <label class="block text-sm font-bold text-gray-700 mb-2 uppercase">Subject</label>
                             <input type="text" name="issue_type" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none" />
                         </div>
-                        
+
                         <div class="mb-6">
                             <label class="block text-sm font-bold text-gray-700 mb-2 uppercase">Your Message (Optional)</label>
                             <textarea name="description" rows="4" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none resize-none"></textarea>
                         </div>
-                        
+
                         <button type="submit" class="btn-red px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-wide w-full">Submit</button>
                     </form>
                 </div>

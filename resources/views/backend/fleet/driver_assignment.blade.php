@@ -444,10 +444,6 @@
                                 <span class="text-muted-foreground">Weekly Hours</span>
                                 <span class="font-medium">{{ $driver->weekly_hours ?? 'N/A' }}</span>
                             </div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-muted-foreground">Monthly Earnings</span>
-                                <span class="font-medium">${{ number_format($driver->monthly_earnings ?? 0, 2) }}</span>
-                            </div>
                         </div>
                         <div class="flex gap-2 pt-2">
                             <button onclick="viewDriverReport({{ $driver->id }})" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 flex-1">
@@ -1205,8 +1201,6 @@ function generateDetailsContent(driver) {
     const failedDeliveries = parseInt(driver.failed_deliveries) || 0;
     const onTimeRate = totalDeliveries > 0 ? ((successfulDeliveries / totalDeliveries) * 100).toFixed(1) : '0';
     const weeklyHours = driver.weekly_hours || '0h';
-    const monthlyEarnings = parseFloat(driver.monthly_earnings) || 0;
-    
     return `
         <div class="flex items-center space-x-4 mb-6 pb-6 border-b">
             ${driver.profile_photo ? 
@@ -1365,11 +1359,9 @@ function generateDocumentsSection(documents, driverId) {
 function generatePerformanceContent(data) {
     // FIXED: Ensure rating is a number
     const rating = parseFloat(data.rating) || 0;
-    const monthlyEarnings = parseFloat(data.monthly_earnings) || 0;
-    
     return `
         <div class="space-y-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
                     <div class="text-3xl font-bold text-green-600">${data.on_time_rate}%</div>
                     <div class="text-sm text-muted-foreground mt-1">On-time Rate</div>
@@ -1381,10 +1373,6 @@ function generatePerformanceContent(data) {
                 <div class="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
                     <div class="text-3xl font-bold text-purple-600">${data.weekly_hours}</div>
                     <div class="text-sm text-muted-foreground mt-1">Weekly Hours</div>
-                </div>
-                <div class="text-center p-4 bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg">
-                    <div class="text-3xl font-bold text-amber-600">$${monthlyEarnings.toLocaleString()}</div>
-                    <div class="text-sm text-muted-foreground mt-1">Monthly Earnings</div>
                 </div>
             </div>
             

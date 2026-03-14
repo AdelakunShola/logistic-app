@@ -765,7 +765,7 @@ document.getElementById('reportForm')?.addEventListener('submit', async function
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Error: ' + error.message);
+        showToast('Error: ' + error.message, 'error');
         
         // Re-enable button
         submitBtn.disabled = false;

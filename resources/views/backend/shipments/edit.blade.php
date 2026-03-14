@@ -614,17 +614,6 @@
                             <!-- Right Column -->
                             <div class="space-y-4">
                                 <div class="space-y-2">
-                                    <label class="text-sm font-medium">Preferred Carrier</label>
-                                    <select name="carrier_id" class="w-full px-4 py-2 border rounded-md">
-                                        <option value="">Select carrier (optional)</option>
-                                        @foreach($carriers as $carrier)
-                                            <option value="{{ $carrier->id }}" {{ $shipment->carrier_id == $carrier->id ? 'selected' : '' }}>{{ $carrier->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-                                <div class="space-y-2">
     <label class="text-sm font-medium">Assigned Driver</label>
     <select name="assigned_driver_id" class="w-full px-4 py-2 border rounded-md">
         <option value="">Select driver </option>
@@ -1691,18 +1680,6 @@ if (currentStep === 5) {
     document.getElementById('next-btn').classList.remove('hidden');
     document.getElementById('submit-btn').classList.add('hidden');
 }
-}
-function validateStep(step) {
-const currentStepEl = document.getElementById(step-${step});
-const required = currentStepEl.querySelectorAll('[required]');
-for (let field of required) {
-    if (!field.value) {
-        field.focus();
-        alert('Please fill in all required fields');
-        return false;
-    }
-}
-return true;
 }
 function toggleCOD(select) {
 const div = document.getElementById('cod-amount-div');

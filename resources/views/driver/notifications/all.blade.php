@@ -207,14 +207,15 @@ async function markAsRead(notificationId) {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to mark notification as read');
+        showToast('Failed to mark notification as read', 'error');
     }
 }
 
 // Mark all as read
 async function markAllAsRead() {
-    if (!confirm('Mark all notifications as read?')) return;
-    
+    const confirmed = await showConfirm('Mark all notifications as read?', 'Confirm Action');
+    if (!confirmed) return;
+
     try {
         const response = await fetch('/driver/notifications/mark-all-as-read', {
             method: 'POST',
@@ -224,22 +225,24 @@ async function markAllAsRead() {
                 'Accept': 'application/json',
             }
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
-            window.location.reload();
+            showToast('All notifications marked as read', 'success');
+            setTimeout(() => window.location.reload(), 1000);
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to mark all as read');
+        showToast('Failed to mark all as read', 'error');
     }
 }
 
 // Delete notification
 async function deleteNotification(notificationId) {
-    if (!confirm('Delete this notification?')) return;
-    
+    const confirmed = await showConfirm('Delete this notification?', 'Delete Notification');
+    if (!confirmed) return;
+
     try {
         const response = await fetch(`/driver/notifications/${notificationId}`, {
             method: 'DELETE',
@@ -249,18 +252,19 @@ async function deleteNotification(notificationId) {
                 'Accept': 'application/json',
             }
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
             const notification = document.querySelector(`[data-notification-id="${notificationId}"]`);
             notification.style.transition = 'opacity 0.3s';
             notification.style.opacity = '0';
             setTimeout(() => notification.remove(), 300);
+            showToast('Notification deleted', 'success');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to delete notification');
+        showToast('Failed to delete notification', 'error');
     }
 }
 

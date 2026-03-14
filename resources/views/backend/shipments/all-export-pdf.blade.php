@@ -69,7 +69,7 @@
             <tr>
                 <td>{{ $shipment->id }}</td>
                 <td>{{ $shipment->tracking_number }}</td>
-                <td>{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A' }}</td>
+                <td>{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : ($shipment->pickup_contact_name ?? 'N/A') }}</td>
                 <td>{{ $shipment->pickup_city }}, {{ $shipment->pickup_state }}</td>
                 <td>{{ $shipment->delivery_city }}, {{ $shipment->delivery_state }}</td>
                 <td>{{ ucfirst(str_replace('_', ' ', $shipment->status)) }}</td>

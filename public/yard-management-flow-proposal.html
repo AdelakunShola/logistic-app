@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yard Management Flow - Proposed Changes</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #1a1a2e;
+            background: #fff;
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #0f3460;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #0f3460;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .header .date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-removed {
+            background: #ffe0e0;
+            color: #c0392b;
+            border: 1px solid #e74c3c;
+        }
+
+        .badge-added {
+            background: #d5f5e3;
+            color: #1e8449;
+            border: 1px solid #27ae60;
+        }
+
+        .badge-modified {
+            background: #fef3cd;
+            color: #856404;
+            border: 1px solid #f0ad4e;
+        }
+
+        .badge-unchanged {
+            background: #e8eaf6;
+            color: #3949ab;
+            border: 1px solid #5c6bc0;
+        }
+
+        /* ── Changes Summary ── */
+        .changes-section {
+            margin-bottom: 35px;
+        }
+
+        .changes-section h2 {
+            font-size: 20px;
+            color: #0f3460;
+            margin-bottom: 15px;
+            padding-left: 12px;
+            border-left: 4px solid #0f3460;
+        }
+
+        .changes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .change-card {
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .change-card.removed {
+            background: #fff5f5;
+            border-color: #e74c3c;
+        }
+
+        .change-card.added {
+            background: #f0fff4;
+            border-color: #27ae60;
+        }
+
+        .change-card.modified {
+            background: #fffef0;
+            border-color: #f0ad4e;
+        }
+
+        .change-card h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .change-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .change-card ul li {
+            font-size: 12px;
+            padding: 4px 0;
+            padding-left: 15px;
+            position: relative;
+            color: #444;
+        }
+
+        .change-card.removed ul li::before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .change-card.added ul li::before {
+            content: "+";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .change-card.modified ul li::before {
+            content: "~";
+            position: absolute;
+            left: 0;
+            color: #f0ad4e;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* ── Flow Diagram ── */
+        .flow-section {
+            margin-bottom: 35px;
+            page-break-before: always;
+        }
+
+        .flow-section h2 {
+            font-size: 20px;
+            color: #0f3460;
+            margin-bottom: 20px;
+            padding-left: 12px;
+            border-left: 4px solid #0f3460;
+        }
+
+        .flow-container {
+            position: relative;
+        }
+
+        .flow-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 2px solid #0f3460;
+            background: #f8f9ff;
+            flex: 1;
+            position: relative;
+        }
+
+        .flow-step.highlight {
+            border-color: #27ae60;
+            background: #f0fff4;
+        }
+
+        .flow-step .step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #0f3460;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .flow-step.highlight .step-number {
+            background: #27ae60;
+        }
+
+        .flow-step .step-content {
+            flex: 1;
+        }
+
+        .flow-step .step-content h4 {
+            font-size: 13px;
+            color: #1a1a2e;
+            margin-bottom: 2px;
+        }
+
+        .flow-step .step-content p {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .flow-step .role-tag {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .role-driver {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .role-system {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .role-admin {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .role-storekeeper {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            padding: 2px 0;
+            color: #0f3460;
+            font-size: 18px;
+        }
+
+        .flow-divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            font-size: 12px;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .flow-divider::before,
+        .flow-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        /* ── Role Summary ── */
+        .roles-section {
+            margin-bottom: 35px;
+        }
+
+        .roles-section h2 {
+            font-size: 20px;
+            color: #0f3460;
+            margin-bottom: 15px;
+            padding-left: 12px;
+            border-left: 4px solid #0f3460;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .role-card {
+            border-radius: 8px;
+            padding: 18px;
+            border: 1px solid #ddd;
+        }
+
+        .role-card h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .role-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .role-card ul li {
+            font-size: 12px;
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+            color: #444;
+        }
+
+        .role-card ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #0f3460;
+            font-weight: bold;
+        }
+
+        .role-card.driver-card {
+            background: #f5f9ff;
+            border-color: #1565c0;
+        }
+
+        .role-card.admin-card {
+            background: #fff8f0;
+            border-color: #e65100;
+        }
+
+        .role-card.storekeeper-card {
+            background: #f0faf0;
+            border-color: #2e7d32;
+        }
+
+        /* ── Comparison ── */
+        .comparison-section {
+            margin-bottom: 35px;
+        }
+
+        .comparison-section h2 {
+            font-size: 20px;
+            color: #0f3460;
+            margin-bottom: 15px;
+            padding-left: 12px;
+            border-left: 4px solid #0f3460;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .comparison-table th {
+            background: #0f3460;
+            color: #fff;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9ff;
+        }
+
+        .comparison-table .old {
+            text-decoration: line-through;
+            color: #c0392b;
+        }
+
+        .comparison-table .new {
+            color: #1e8449;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 11px;
+            color: #999;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+
+            .flow-section {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ════════════════════════ HEADER ════════════════════════ -->
+    <div class="header">
+        <h1>Gate & Yard Management Flow</h1>
+        <div class="subtitle">Proposed Changes & Updated System Flow</div>
+        <div class="date">Prepared: March 12, 2026</div>
+    </div>
+
+    <!-- ════════════════════════ CHANGES SUMMARY ════════════════════════ -->
+    <div class="changes-section">
+        <h2>Summary of Changes</h2>
+        <div class="changes-grid">
+            <div class="change-card removed">
+                <h3><span class="badge badge-removed">Removed</span></h3>
+                <ul>
+                    <li>Camera capturing truck plate number at gate</li>
+                </ul>
+            </div>
+            <div class="change-card added">
+                <h3><span class="badge badge-added">Added</span></h3>
+                <ul>
+                    <li>Driver barcode scanning for check-in</li>
+                    <li>System auto-assigns slot to driver</li>
+                    <li>Driver self check-in and self check-out</li>
+                    <li>Storekeeper role and workflow</li>
+                    <li>Storekeeper requests truck for processing</li>
+                    <li>Storekeeper marks processing as complete</li>
+                    <li>Overstay detection and notifications</li>
+                </ul>
+            </div>
+            <div class="change-card modified">
+                <h3><span class="badge badge-modified">Modified</span></h3>
+                <ul>
+                    <li>Check-in is now driver-initiated (was gate staff)</li>
+                    <li>Slot assignment is now automated (was manual)</li>
+                    <li>Check-out is now driver-initiated (was gate staff)</li>
+                    <li>Vehicle identification via barcode (was camera + license)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════ BEFORE / AFTER COMPARISON ════════════════════════ -->
+    <div class="comparison-section">
+        <h2>Before vs. After Comparison</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%">#</th>
+                    <th style="width: 40%">Original Flow</th>
+                    <th style="width: 40%">New Flow</th>
+                    <th style="width: 15%">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Truck arrives at factory entrance</td>
+                    <td>Truck arrives at factory entrance</td>
+                    <td><span class="badge badge-unchanged">Unchanged</span></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="old">Camera captures truck plate number</td>
+                    <td class="new">Driver scans barcode (from phone or printed pass)</td>
+                    <td><span class="badge badge-modified">Replaced</span></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="">Driver scans license on gate kiosk</td>
+                    <td class="new">The scanned license is matched to what's in the database</td>
+                    <td><span class="badge badge-modified">Modified</span></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Data matched and captured to database</td>
+                    <td>System verifies barcode, matches driver & appointment</td>
+                    <td><span class="badge badge-modified">Modified</span></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Truck is assigned a parking slot</td>
+                    <td class="new">System auto-assigns optimal slot based on purpose</td>
+                    <td><span class="badge badge-modified">Automated</span></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Boom gate is opened for truck entry</td>
+                    <td>Gate opens — driver receives slot info on screen</td>
+                    <td><span class="badge badge-modified">Modified</span></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td class="">Marshal guides truck to slot</td>
+                    <td class="new">Driver navigates to assigned slot (shown on app)</td>
+                    <td><span class="badge badge-unchanged">Unchanged</span></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td class="">Truck is parked and confirmed by Marshal</td>
+                    <td class="new">Driver confirms arrival at slot (self check-in)</td>
+                    <td><span class="badge badge-modified">Modified</span></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Storekeeper requests truck for processing</td>
+                    <td>Storekeeper views checked-in trucks, requests for processing</td>
+                    <td><span class="badge badge-modified">Enhanced</span></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Truck is checked in and processed</td>
+                    <td>Truck is processed (loading/unloading at dock)</td>
+                    <td><span class="badge badge-modified">Modified</span></td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>Truck is checked out after processing and indicated</td>
+                    <td class="new">Storekeeper marks processing complete, driver checks out</td>
+                    <td><span class="badge badge-modified">Modified</span></td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>Truck is checked out</td>
+                    <td>System releases slot, truck exits yard</td>
+                    <td><span class="badge badge-modified">Automated</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ════════════════════════ NEW FLOW ════════════════════════ -->
+    <div class="flow-section">
+        <h2>New Yard Management Flow</h2>
+
+        <div class="flow-divider">Phase 1 — Gate Entry</div>
+
+        <div class="flow-container">
+            <div class="flow-row">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Truck Arrives at Factory Entrance</h4>
+                        <p>Driver arrives at the yard gate with a scheduled or walk-in visit</p>
+                    </div>
+                    <span class="role-tag role-driver">Driver</span>
+                </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-row">
+                <div class="flow-step highlight">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Driver Scans Barcode to Check In</h4>
+                        <p>Driver scans their barcode (from phone app or printed appointment pass) at the gate kiosk or via the driver app</p>
+                    </div>
+                    <span class="role-tag role-driver">Driver</span>
+                    <span class="badge badge-added" style="margin-left: 5px;">New</span>
+                </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-row">
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>System Verifies & Matches Data</h4>
+                        <p>System validates barcode, matches driver identity, appointment (if required), and vehicle information from the database</p>
+                    </div>
+                    <span class="role-tag role-system">System</span>
+                </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-row">
+                <div class="flow-step highlight">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>System Auto-Assigns Parking Slot</h4>
+                        <p>Based on visit purpose (delivery, pickup, staging), the system automatically selects the optimal available slot in the appropriate zone</p>
+                    </div>
+                    <span class="role-tag role-system">System</span>
+                    <span class="badge badge-added" style="margin-left: 5px;">New</span>
+                </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-row">
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Gate Opens & Slot Info Displayed</h4>
+                        <p>Gate opens for entry. Driver sees assigned slot number and zone on their app or the gate screen</p>
+                    </div>
+                    <span class="role-tag role-system">System</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flow-divider">Phase 2 — Parking & Yard Operations</div>
+
+        <div class="flow-container">
+            <div class="flow-row">
+                <div class="flow-step highlight">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Driver Parks at Assigned Slot</h4>
+                        <p>Driver navigates to the assigned slot independently — no marshal required. Slot location is visible on the driver app</p>
+                    </div>
+                    <span class="role-tag role-driver">Driver</span>
+                    <span class="badge badge-modified" style="margin-left: 5px;">Changed</span>
+                </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-row">
+                <div class="flow-step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h4>Yard Dashboard Updates in Real-Time</h4>
+                        <p>Admin yard dashboard reflects the new check-in. Slot turns occupied (red) on the live yard map. Visit timer starts</p>
+                    </div>
+                    <span class="role-tag role-admin">Admin</span>
+                </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-row">
+                <div class="flow-step highlight">
+                    <div class="step-number">8</div>
+                    <div class="step-content">
+                        <h4>Storekeeper Views Checked-In Trucks</h4>
+                        <p>Storekeeper sees all checked-in vehicles in the system, filtered by purpose. Selects a truck and requests it for processing (loading/unloading)</p>
+                    </div>
+                    <span class="role-tag role-storekeeper">Storekeeper</span>
+                    <span class="badge badge-added" style="margin-left: 5px;">New</span>
+                </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-row">
+                <div class="flow-step">
+                    <div class="step-number">9</div>
+                    <div class="step-content">
+                        <h4>Truck is Processed</h4>
+                        <p>Truck moves to dock or stays at slot for loading/unloading. Storekeeper oversees the processing. Linked shipment status updates accordingly</p>
+                    </div>
+                    <span class="role-tag role-storekeeper">Storekeeper</span>
+                </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-row">
+                <div class="flow-step highlight">
+                    <div class="step-number">10</div>
+                    <div class="step-content">
+                        <h4>Storekeeper Marks Processing Complete</h4>
+                        <p>Once loading/unloading is finished, storekeeper marks the truck as processed. Driver is notified they are cleared to leave</p>
+                    </div>
+                    <span class="role-tag role-storekeeper">Storekeeper</span>
+                    <span class="badge badge-added" style="margin-left: 5px;">New</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-divider">Phase 3 — Check-Out & Exit</div>
+
+        <div class="flow-container">
+            <div class="flow-row">
+                <div class="flow-step highlight">
+                    <div class="step-number">11</div>
+                    <div class="step-content">
+                        <h4>Driver Self Check-Out</h4>
+                        <p>Driver checks out via the app. System records actual duration, calculates dwell time, and flags any overstay</p>
+                    </div>
+                    <span class="role-tag role-driver">Driver</span>
+                    <span class="badge badge-modified" style="margin-left: 5px;">Changed</span>
+                </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-row">
+                <div class="flow-step">
+                    <div class="step-number">12</div>
+                    <div class="step-content">
+                        <h4>System Releases Slot & Truck Exits</h4>
+                        <p>Slot is released back to available. Yard dashboard updates. Visit is recorded in history for reporting and analytics</p>
+                    </div>
+                    <span class="role-tag role-system">System</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overstay Side Flow -->
+        <div style="margin-top: 25px; padding: 15px; background: #fff5f5; border: 1px solid #e74c3c; border-radius: 8px;">
+            <h4 style="font-size: 13px; color: #c0392b; margin-bottom: 8px;">⚠ Overstay Detection (Runs Continuously)</h4>
+            <p style="font-size: 12px; color: #666;">
+                If a vehicle exceeds its expected stay duration, the system automatically:
+                <strong>(1)</strong> Flags the visit as overstay on the dashboard &nbsp;→&nbsp;
+                <strong>(2)</strong> Sends alert notification to the driver &nbsp;→&nbsp;
+                <strong>(3)</strong> Sends alert notification to the yard manager &nbsp;→&nbsp;
+                <strong>(4)</strong> Highlights the slot with a pulsing overstay indicator
+            </p>
+        </div>
+    </div>
+
+    <!-- ════════════════════════ ROLE BREAKDOWN ════════════════════════ -->
+    <div class="roles-section" style="page-break-before: always;">
+        <h2>Role Responsibilities</h2>
+        <div class="roles-grid">
+            <div class="role-card driver-card">
+                <h3><span class="role-tag role-driver">Driver</span></h3>
+                <ul>
+                    <li>Scan barcode at gate to check in</li>
+                    <li>Receive auto-assigned slot information</li>
+                    <li>Navigate to slot independently</li>
+                    <li>View active visit status and timer</li>
+                    <li>Self check-out when cleared</li>
+                    <li>View scheduled appointments</li>
+                    <li>Receive overstay notifications</li>
+                </ul>
+            </div>
+            <div class="role-card storekeeper-card">
+                <h3><span class="role-tag role-storekeeper">Storekeeper</span> <span class="badge badge-added">New Role</span></h3>
+                <ul>
+                    <li>View all checked-in trucks in yard</li>
+                    <li>Filter trucks by purpose (delivery, pickup, etc.)</li>
+                    <li>Request a truck for processing</li>
+                    <li>Oversee loading/unloading operations</li>
+                    <li>Mark processing as complete</li>
+                    <li>Notify driver when cleared to leave</li>
+                </ul>
+            </div>
+            <div class="role-card admin-card">
+                <h3><span class="role-tag role-admin">Admin / Yard Manager</span></h3>
+                <ul>
+                    <li>Configure yards, zones, and slots</li>
+                    <li>Design yard layout visually</li>
+                    <li>Monitor live dashboard in real-time</li>
+                    <li>Manage appointments and confirmations</li>
+                    <li>Override slot assignments if needed</li>
+                    <li>Receive overstay alerts</li>
+                    <li>View utilization reports and analytics</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════ IMPLEMENTATION SCOPE ════════════════════════ -->
+    <div class="changes-section">
+        <h2>Implementation Scope</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th style="width: 35%">Feature</th>
+                    <th style="width: 15%">Status</th>
+                    <th style="width: 50%">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Driver Barcode Check-In</strong></td>
+                    <td><span class="badge badge-added">To Build</span></td>
+                    <td>Add barcode scanning capability to the driver check-in flow. Generate unique barcodes per driver or per appointment</td>
+                </tr>
+                <tr>
+                    <td><strong>Auto Slot Assignment</strong></td>
+                    <td><span class="badge badge-unchanged">Built</span></td>
+                    <td>Already implemented in YardAllocationService — assigns slots based on visit purpose and zone priority</td>
+                </tr>
+                <tr>
+                    <td><strong>Driver Self Check-In / Check-Out</strong></td>
+                    <td><span class="badge badge-unchanged">Built</span></td>
+                    <td>Already implemented — drivers can self check-in and check-out from the driver panel</td>
+                </tr>
+                <tr>
+                    <td><strong>Storekeeper Dashboard</strong></td>
+                    <td><span class="badge badge-added">To Build</span></td>
+                    <td>New view for storekeepers to see checked-in trucks and request them for processing</td>
+                </tr>
+                <tr>
+                    <td><strong>Processing Workflow</strong></td>
+                    <td><span class="badge badge-added">To Build</span></td>
+                    <td>Storekeeper request → truck processing → mark complete → notify driver flow</td>
+                </tr>
+                <tr>
+                    <td><strong>Live Yard Dashboard</strong></td>
+                    <td><span class="badge badge-unchanged">Built</span></td>
+                    <td>Real-time 2D/isometric yard visualization with auto-refresh already implemented</td>
+                </tr>
+                <tr>
+                    <td><strong>Overstay Detection</strong></td>
+                    <td><span class="badge badge-unchanged">Built</span></td>
+                    <td>Automatic overstay detection with notifications to driver and yard manager already implemented</td>
+                </tr>
+                <tr>
+                    <td><strong>Reports & Analytics</strong></td>
+                    <td><span class="badge badge-unchanged">Built</span></td>
+                    <td>Utilization reports, analytics dashboard, dwell time tracking already implemented</td>
+                </tr>
+                <tr>
+                    <td><strong>Remove Camera/License Integration</strong></td>
+                    <td><span class="badge badge-removed">To Remove</span></td>
+                    <td>Remove any camera capture and license scan dependencies from the gate entry flow</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <p>Yard Management System — Proposed Flow Update</p>
+        <p style="margin-top:4px;">Open this file in a browser and use <strong>Ctrl + P → Save as PDF</strong> to export</p>
+    </div>
+
+</body>
+</html>

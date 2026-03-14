@@ -223,16 +223,16 @@
             <h3>👤 Customer Information</h3>
             <div class="info-row">
                 <div class="info-label">Name:</div>
-                <div class="info-value">{{ $shipment->customer->first_name }} {{ $shipment->customer->last_name }}</div>
+                <div class="info-value">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : ($shipment->pickup_contact_name ?? 'N/A') }}</div>
             </div>
             <div class="info-row">
                 <div class="info-label">Email:</div>
-                <div class="info-value">{{ $shipment->customer->email }}</div>
+                <div class="info-value">{{ $shipment->customer ? $shipment->customer->email : ($shipment->pickup_contact_email ?? 'N/A') }}</div>
             </div>
-            @if($shipment->customer->phone)
+            @if($shipment->customer ? $shipment->customer->phone : ($shipment->pickup_contact_phone ?? null))
             <div class="info-row">
                 <div class="info-label">Phone:</div>
-                <div class="info-value">{{ $shipment->customer->phone }}</div>
+                <div class="info-value">{{ $shipment->customer ? $shipment->customer->phone : $shipment->pickup_contact_phone }}</div>
             </div>
             @endif
         </div>

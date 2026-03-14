@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                                 <div class="flex-1">
                                     <p class="font-medium">Next Stop</p>
-                                    <p class="text-sm text-muted-foreground">{{ $nextDelivery->delivery_address }}, {{ $nextDelivery->delivery_city }}</p>
+                                    <p class="text-sm text-muted-foreground">{{ $nextDelivery->delivery_address }}, {{ $nextDelivery->delivery_city }}, {{ $nextDelivery->delivery_state }} {{ $nextDelivery->delivery_postal_code }}</p>
                                     @if($nextDelivery->expected_delivery_date)
                                         <p class="text-xs text-muted-foreground mt-1">ETA: {{ $nextDelivery->expected_delivery_date->format('h:i A') }}</p>
                                     @endif
@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <p class="font-semibold">#{{ $shipment->tracking_number }}</p>
                                     <span class="text-xs px-2 py-1 rounded-full {{ $badgeBgClass }}">{{ $statusLabel }}</span>
                                 </div>
-                                <p class="text-sm text-muted-foreground mt-1">{{ $shipment->delivery_address }}, {{ $shipment->delivery_city }}</p>
+                                <p class="text-sm text-muted-foreground mt-1">{{ $shipment->delivery_address }}, {{ $shipment->delivery_city }}, {{ $shipment->delivery_state }} {{ $shipment->delivery_postal_code }}</p>
                                 @if($isDelivered && $shipment->actual_delivery_date)
                                     <p class="text-xs text-muted-foreground mt-1">Delivered at {{ $shipment->actual_delivery_date->format('h:i A') }}</p>
                                 @elseif($shipment->expected_delivery_date)
@@ -271,9 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         {{ $isInProgress ? 'ETA' : 'Scheduled' }}: {{ $shipment->expected_delivery_date->format('h:i A') }}
                                     </p>
                                 @endif
-                                @if($shipment->customer)
-                                    <p class="text-xs text-muted-foreground mt-1">Customer: {{ $shipment->customer->first_name }} {{ $shipment->customer->last_name }}</p>
-                                @endif
+                                <p class="text-xs text-muted-foreground mt-1">Recipient: {{ $shipment->delivery_contact_name ?? ($shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A') }}</p>
                             </div>
                         </div>
                     @empty
@@ -345,6 +343,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             </svg>
                         </div>
                         <span class="text-xs font-medium text-center">Delayed Shipments</span>
+                    </a>
+
+                    <a href="{{ route('driver.available-shipments') }}" class="flex flex-col items-center gap-2 p-4 border rounded-lg hover:bg-accent hover:shadow-md transition-all">
+                        <div class="p-2 rounded-full bg-orange-500 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"></path>
+                                <path d="m7.5 4.27 9 5.15"></path>
+                                <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                                <line x1="12" x2="12" y1="22" y2="12"></line>
+                                <circle cx="18.5" cy="15.5" r="2.5"></circle>
+                                <path d="M20.27 17.27 22 19"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-medium text-center">Available Shipments</span>
                     </a>
                 </div>
             </div>

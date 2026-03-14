@@ -355,7 +355,7 @@
                                     <div>{{ $shipment->id }}</div>
                                     <div class="text-xs text-muted-foreground">{{ $shipment->tracking_number }}</div>
                                 </td>
-                                <td class="p-4 align-middle">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A' }}</td>
+                                <td class="p-4 align-middle">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : ($shipment->pickup_contact_name ?? 'N/A') }}</td>
                                 <td class="p-4 align-middle hidden md:table-cell">{{ $shipment->pickup_city }}, {{ $shipment->pickup_state }}</td>
                                 <td class="p-4 align-middle hidden md:table-cell">{{ $shipment->delivery_city }}, {{ $shipment->delivery_state }}</td>
                                 <td class="p-4 align-middle hidden lg:table-cell">{{ $shipment->pickup_date ? $shipment->pickup_date->format('M d, Y') : 'N/A' }}</td>
@@ -429,6 +429,15 @@
                                         <!-- Action Menu -->
                                         <div id="action-menu-{{ $shipment->id }}" class="hidden absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                                             <div class="py-1">
+                                                @if($shipment->status === 'delivered')
+                                                <a href="{{ route('admin.shipments.show', $shipment->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline mr-2">
+                                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                                        <circle cx="12" cy="12" r="3"></circle>
+                                                    </svg>
+                                                    Details
+                                                </a>
+                                                @else
                                                 <button onclick="viewShipment({{ $shipment->id }})" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                                                         <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
@@ -443,6 +452,7 @@
                                                     </svg>
                                                     Edit Shipment
                                                 </a>
+                                                @endif
                                                 <button onclick="duplicateShipment({{ $shipment->id }})" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                                                         <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
@@ -451,20 +461,17 @@
                                                     Duplicate
                                                 </button>
 
-
 @if($shipment->status === 'delivered')
-    <button onclick="openReturnModal({{ $shipment->id }})" 
+    <button onclick="openReturnModal({{ $shipment->id }})"
             data-return-url="{{ route('admin.shipments.create-return', $shipment->id) }}"
             class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
-            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+            <polyline points="9 14 4 9 9 4"></polyline>
+            <path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
         </svg>
         Return
     </button>
 @endif
-
-   
 
                                                 @if(in_array($shipment->status, ['draft', 'cancelled']))
                                                 <button onclick="deleteShipment({{ $shipment->id }})" class="w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-50 flex items-center">
@@ -530,6 +537,15 @@
                             <!-- Action Menu for Card -->
                             <div id="action-menu-{{ $shipment->id }}" class="hidden absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                                 <div class="py-1">
+                                    @if($shipment->status === 'delivered')
+                                    <a href="{{ route('admin.shipments.show', $shipment->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline mr-2">
+                                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        Details
+                                    </a>
+                                    @else
                                     <button onclick="viewShipment({{ $shipment->id }})" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                                             <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
@@ -544,6 +560,7 @@
                                         </svg>
                                         Edit Shipment
                                     </a>
+                                    @endif
                                     <button onclick="duplicateShipment({{ $shipment->id }})" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                                             <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
@@ -581,7 +598,7 @@
                 <div class="space-y-2 text-sm">
                     <div class="flex justify-between">
                         <span class="text-muted-foreground">Customer:</span>
-                        <span class="font-medium">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A' }}</span>
+                        <span class="font-medium">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : ($shipment->pickup_contact_name ?? 'N/A') }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-muted-foreground">Origin:</span>
@@ -908,7 +925,7 @@ async function viewShipment(shipmentId) {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to load shipment details. Please try again.');
+        showToast('Failed to load shipment details. Please try again.', 'error');
     }
 }
 
@@ -986,8 +1003,9 @@ function editFromQuickView() {
 
 // Duplicate Shipment
 async function duplicateShipment(shipmentId) {
-    if (!confirm('Are you sure you want to duplicate this shipment?')) return;
-    
+    const confirmed = await showConfirm('Are you sure you want to duplicate this shipment?', 'Duplicate Shipment');
+    if (!confirmed) return;
+
     try {
         const response = await fetch(`/admin/shipments/${shipmentId}/duplicate`, {
             method: 'POST',
@@ -997,22 +1015,23 @@ async function duplicateShipment(shipmentId) {
                 'Accept': 'application/json',
             }
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
-            alert(`Shipment duplicated successfully! New tracking number: ${data.tracking_number}`);
-            if (confirm('Would you like to edit the duplicated shipment now?')) {
+            showToast(`Shipment duplicated successfully! New tracking number: ${data.tracking_number}`, 'success');
+            const editNow = await showConfirm('Would you like to edit the duplicated shipment now?', 'Edit Duplicate');
+            if (editNow) {
                 window.location.href = data.redirect_url;
             } else {
                 window.location.reload();
             }
         } else {
-            alert('Failed to duplicate shipment: ' + data.message);
+            showToast('Failed to duplicate shipment: ' + data.message, 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to duplicate shipment. Please try again.');
+        showToast('Failed to duplicate shipment. Please try again.', 'error');
     }
 }
 function openReturnModal(shipmentId) {
@@ -1027,8 +1046,9 @@ function openReturnModal(shipmentId) {
 }
 // Delete Single Shipment
 async function deleteShipment(shipmentId) {
-    if (!confirm('Are you sure you want to delete this shipment? This action cannot be undone.')) return;
-    
+    const confirmed = await showConfirm('Are you sure you want to delete this shipment? This action cannot be undone.', 'Delete Shipment', 'danger');
+    if (!confirmed) return;
+
     try {
         const response = await fetch(`/admin/shipments/${shipmentId}`, {
             method: 'DELETE',
@@ -1037,31 +1057,30 @@ async function deleteShipment(shipmentId) {
                 'Accept': 'application/json',
             }
         });
-        
+
         if (response.ok) {
-            alert('Shipment deleted successfully!');
-            window.location.reload();
+            showToast('Shipment deleted successfully!', 'success');
+            setTimeout(() => window.location.reload(), 1000);
         } else {
             const data = await response.json();
-            alert('Failed to delete shipment: ' + (data.message || 'Unknown error'));
+            showToast('Failed to delete shipment: ' + (data.message || 'Unknown error'), 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to delete shipment. Please try again.');
+        showToast('Failed to delete shipment. Please try again.', 'error');
     }
 }
 
 // Bulk Delete
 async function bulkDelete() {
     if (selectedShipments.size === 0) {
-        alert('Please select at least one shipment to delete.');
+        showToast('Please select at least one shipment to delete.', 'warning');
         return;
     }
-    
-    if (!confirm(`Are you sure you want to delete ${selectedShipments.size} shipment(s)? Only draft and cancelled shipments can be deleted.`)) {
-        return;
-    }
-    
+
+    const confirmed = await showConfirm(`Are you sure you want to delete ${selectedShipments.size} shipment(s)? Only draft and cancelled shipments can be deleted.`, 'Bulk Delete', 'danger');
+    if (!confirmed) return;
+
     try {
         const response = await fetch('/admin/shipments/bulk-delete', {
             method: 'POST',
@@ -1074,24 +1093,24 @@ async function bulkDelete() {
                 shipment_ids: Array.from(selectedShipments)
             })
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
-            alert(data.message);
-            window.location.reload();
+            showToast(data.message, 'success');
+            setTimeout(() => window.location.reload(), 1000);
         } else {
-            alert('Failed to delete shipments: ' + data.message);
+            showToast('Failed to delete shipments: ' + data.message, 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to delete shipments. Please try again.');
+        showToast('Failed to delete shipments. Please try again.', 'error');
     }
 }
 
 function bulkPrint() {
     if (selectedShipments.size === 0) {
-        alert('Please select at least one shipment to print.');
+        showToast('Please select at least one shipment to print.', 'warning');
         return;
     }
     
@@ -1102,7 +1121,7 @@ function bulkPrint() {
 // Bulk Export
 function bulkExport() {
     if (selectedShipments.size === 0) {
-        alert('Please select at least one shipment to export.');
+        showToast('Please select at least one shipment to export.', 'warning');
         return;
     }
     
@@ -1113,7 +1132,7 @@ function bulkExport() {
 // Bulk Edit - Show modal for bulk editing
 function bulkEdit() {
     if (selectedShipments.size === 0) {
-        alert('Please select at least one shipment to edit.');
+        showToast('Please select at least one shipment to edit.', 'warning');
         return;
     }
     
@@ -1277,7 +1296,7 @@ async function submitBulkEdit() {
     updates.send_notification = formData.get('send_notification') === 'on';
     
     if (Object.keys(updates).length === 1 && updates.send_notification === false) {
-        alert('Please select at least one field to update.');
+        showToast('Please select at least one field to update.', 'warning');
         return;
     }
     
@@ -1298,15 +1317,15 @@ async function submitBulkEdit() {
         const data = await response.json();
         
         if (data.success) {
-            alert(data.message);
+            showToast(data.message, 'success');
             closeBulkEditModal();
-            window.location.reload();
+            setTimeout(() => window.location.reload(), 1000);
         } else {
-            alert('Failed to update shipments: ' + data.message);
+            showToast('Failed to update shipments: ' + data.message, 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to update shipments. Please try again.');
+        showToast('Failed to update shipments. Please try again.', 'error');
     }
 }
 // Toggle Map View

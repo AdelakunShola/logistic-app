@@ -75,6 +75,50 @@
 					</svg>
 					<span>Delayed Deliveries</span>
 				</a>
+				<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground {{ request()->routeIs('driver.available-shipments') ? 'bg-accent text-accent-foreground' : 'text-foreground' }}" href="{{ route('driver.available-shipments') }}">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-search h-4 w-4" aria-hidden="true">
+						<path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"></path>
+						<path d="m7.5 4.27 9 5.15"></path>
+						<polyline points="3.29 7 12 12 20.71 7"></polyline>
+						<line x1="12" x2="12" y1="22" y2="12"></line>
+						<circle cx="18.5" cy="15.5" r="2.5"></circle>
+						<path d="M20.27 17.27 22 19"></path>
+					</svg>
+					<span>Available Shipments</span>
+				</a>
+			</div>
+		</div>
+
+		<!-- Yard Section -->
+		<div class="px-3 py-2">
+			<h2 class="mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Yard</h2>
+			<div class="space-y-1">
+				<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground {{ request()->routeIs('driver.yard.check-in') ? 'bg-accent text-accent-foreground' : 'text-foreground' }}" href="{{ route('driver.yard.check-in') }}">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-in h-4 w-4" aria-hidden="true">
+						<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+						<polyline points="10 17 15 12 10 7"></polyline>
+						<line x1="15" x2="3" y1="12" y2="12"></line>
+					</svg>
+					<span>Yard Check-in</span>
+				</a>
+				<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground {{ request()->routeIs('driver.yard.my-visit') ? 'bg-accent text-accent-foreground' : 'text-foreground' }}" href="{{ route('driver.yard.my-visit') }}">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin h-4 w-4" aria-hidden="true">
+						<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+						<circle cx="12" cy="10" r="3"></circle>
+					</svg>
+					<span>My Yard Visit</span>
+				</a>
+				<a class="flex items-center gap-3 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground {{ request()->routeIs('driver.yard.appointments') ? 'bg-accent text-accent-foreground' : 'text-foreground' }}" href="{{ route('driver.yard.appointments') }}">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-clock h-4 w-4" aria-hidden="true">
+						<path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"></path>
+						<path d="M16 2v4"></path>
+						<path d="M8 2v4"></path>
+						<path d="M3 10h5"></path>
+						<path d="M17.5 17.5 16 16.3V14"></path>
+						<circle cx="16" cy="16" r="6"></circle>
+					</svg>
+					<span>Yard Appointments</span>
+				</a>
 			</div>
 		</div>
 

@@ -192,8 +192,8 @@ Customer Notified
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm mb-3">
                                 <div>
-                                    <span class="text-muted-foreground">Customer:</span>
-                                    <span class="font-medium ml-2">{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A' }}</span>
+                                    <span class="text-muted-foreground">Recipient:</span>
+                                    <span class="font-medium ml-2">{{ $shipment->delivery_contact_name ?? ($shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="text-muted-foreground">Contact:</span>
@@ -201,7 +201,7 @@ Customer Notified
                                 </div>
                                 <div>
                                     <span class="text-muted-foreground">Destination:</span>
-                                    <span class="ml-2">{{ $shipment->delivery_city }}, {{ $shipment->delivery_state }}</span>
+                                    <span class="ml-2">{{ $shipment->delivery_address }}, {{ $shipment->delivery_city }}, {{ $shipment->delivery_state }} {{ $shipment->delivery_postal_code }}</span>
                                 </div>
                                 <div>
                                     <span class="text-muted-foreground">Original ETA:</span>
@@ -404,7 +404,7 @@ async function viewDelivery(shipmentId) {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to load delivery details.');
+        showToast('Failed to load delivery details.', 'error');
     }
 }
 
@@ -422,7 +422,7 @@ function displayQuickView(shipment) {
                     <p class="font-medium">${shipment.status}</p>
                 </div>
                 <div>
-                    <p class="text-muted-foreground">Customer</p>
+                    <p class="text-muted-foreground">Recipient</p>
                     <p class="font-medium">${shipment.customer}</p>
                 </div>
                 <div>
@@ -500,15 +500,15 @@ document.getElementById('resolve-form').addEventListener('submit', async functio
         const result = await response.json();
         
         if (result.success) {
-            alert(result.message);
+            showToast(result.message, 'success');
             closeResolveModal();
-            window.location.reload();
+            setTimeout(() => window.location.reload(), 1000);
         } else {
-            alert('Failed to resolve delay: ' + result.message);
+            showToast('Failed to resolve delay: ' + result.message, 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to resolve delay.');
+        showToast('Failed to resolve delay.', 'error');
     }
 });
 
@@ -550,15 +550,15 @@ document.getElementById('update-delay-form').addEventListener('submit', async fu
         const result = await response.json();
         
         if (result.success) {
-            alert('Delay information updated successfully!');
+            showToast('Delay information updated successfully!', 'success');
             closeUpdateDelayModal();
-            window.location.reload();
+            setTimeout(() => window.location.reload(), 1000);
         } else {
-            alert('Failed to update delay: ' + result.message);
+            showToast('Failed to update delay: ' + result.message, 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to update delay information.');
+        showToast('Failed to update delay information.', 'error');
     }
 });
 </script>

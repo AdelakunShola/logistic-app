@@ -37,8 +37,8 @@
                     </div>
                     <div>
                         <label class="text-sm font-medium">Customer</label>
-                        <p>{{ $shipment->customer->first_name }} {{ $shipment->customer->last_name }}</p>
-                        <p class="text-sm text-muted-foreground">{{ $shipment->customer->email }}</p>
+                        <p>{{ $shipment->customer ? $shipment->customer->first_name . ' ' . $shipment->customer->last_name : ($shipment->pickup_contact_name ?? 'N/A') }}</p>
+                        <p class="text-sm text-muted-foreground">{{ $shipment->customer ? $shipment->customer->email : ($shipment->pickup_contact_email ?? 'N/A') }}</p>
                     </div>
                     <div>
                         <label class="text-sm font-medium">Total Value</label>

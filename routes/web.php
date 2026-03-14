@@ -24,6 +24,13 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WarehouseInventoryController;
 use App\Http\Controllers\WarehouseTransferController;
+use App\Http\Controllers\YardController;
+use App\Http\Controllers\YardZoneController;
+use App\Http\Controllers\YardSlotController;
+use App\Http\Controllers\YardVisitController;
+use App\Http\Controllers\YardAppointmentController;
+use App\Http\Controllers\YardDashboardController;
+use App\Http\Controllers\YardReportController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -527,6 +534,56 @@ Route::get('/returns', [ReturnController::class, 'index'])->name('returns.index'
     });
 });
 
+// Yard Management (Admin)
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Yards CRUD
+    Route::get('/yards', [YardController::class, 'index'])->name('yards.index');
+    Route::get('/yards/create', [YardController::class, 'create'])->name('yards.create');
+    Route::post('/yards', [YardController::class, 'store'])->name('yards.store');
+    Route::get('/yards/{yard}', [YardController::class, 'show'])->name('yards.show');
+    Route::get('/yards/{yard}/edit', [YardController::class, 'edit'])->name('yards.edit');
+    Route::put('/yards/{yard}', [YardController::class, 'update'])->name('yards.update');
+    Route::delete('/yards/{yard}', [YardController::class, 'destroy'])->name('yards.destroy');
+    Route::post('/yards/{yard}/update-status', [YardController::class, 'updateStatus'])->name('yards.update-status');
+
+    // Yard Designer
+    Route::get('/yards/{yard}/designer', [YardController::class, 'designer'])->name('yards.designer');
+    Route::post('/yards/{yard}/save-layout', [YardController::class, 'saveLayout'])->name('yards.save-layout');
+
+    // Yard Dashboard
+    Route::get('/yards/{yard}/dashboard', [YardDashboardController::class, 'index'])->name('yards.dashboard');
+    Route::get('/yards/{yard}/dashboard/refresh', [YardDashboardController::class, 'refresh'])->name('yards.dashboard.refresh');
+    Route::get('/yards/{yard}/stats', [YardDashboardController::class, 'stats'])->name('yards.stats');
+
+    // Zone management (AJAX)
+    Route::post('/yards/{yard}/zones', [YardZoneController::class, 'store'])->name('yards.zones.store');
+    Route::put('/yard-zones/{zone}', [YardZoneController::class, 'update'])->name('yard-zones.update');
+    Route::delete('/yard-zones/{zone}', [YardZoneController::class, 'destroy'])->name('yard-zones.destroy');
+
+    // Slot management (AJAX)
+    Route::post('/yard-zones/{zone}/slots', [YardSlotController::class, 'store'])->name('yard-slots.store');
+    Route::put('/yard-slots/{slot}', [YardSlotController::class, 'update'])->name('yard-slots.update');
+    Route::delete('/yard-slots/{slot}', [YardSlotController::class, 'destroy'])->name('yard-slots.destroy');
+    Route::post('/yard-slots/{slot}/update-status', [YardSlotController::class, 'updateStatus'])->name('yard-slots.update-status');
+
+    // Yard Visits
+    Route::get('/yards/{yard}/visits', [YardVisitController::class, 'index'])->name('yards.visits.index');
+    Route::post('/yards/{yard}/visits/check-in', [YardVisitController::class, 'checkIn'])->name('yards.visits.check-in');
+    Route::post('/yard-visits/{visit}/check-out', [YardVisitController::class, 'checkOut'])->name('yard-visits.check-out');
+    Route::post('/yard-visits/{visit}/reassign', [YardVisitController::class, 'reassignSlot'])->name('yard-visits.reassign');
+
+    // Yard Appointments
+    Route::get('/yards/{yard}/appointments', [YardAppointmentController::class, 'index'])->name('yards.appointments.index');
+    Route::post('/yards/{yard}/appointments', [YardAppointmentController::class, 'store'])->name('yards.appointments.store');
+    Route::put('/yard-appointments/{appointment}', [YardAppointmentController::class, 'update'])->name('yard-appointments.update');
+    Route::delete('/yard-appointments/{appointment}', [YardAppointmentController::class, 'destroy'])->name('yard-appointments.destroy');
+    Route::post('/yard-appointments/{appointment}/confirm', [YardAppointmentController::class, 'confirm'])->name('yard-appointments.confirm');
+
+    // Yard Reports
+    Route::get('/yards/{yard}/reports/utilization', [YardReportController::class, 'utilization'])->name('yards.reports.utilization');
+    Route::get('/yards/{yard}/reports/analytics', [YardReportController::class, 'analytics'])->name('yards.reports.analytics');
+});
+
 
 
 
@@ -596,13 +653,15 @@ Route::get('/returns', [ReturnController::class, 'index'])->name('returns.index'
     Route::get('/active-deliveries', [DriverDeliveryController::class, 'activeDeliveries'])->name('active-deliveries');
     Route::get('/completed-deliveries', [DriverDeliveryController::class, 'completedDeliveries'])->name('completed-deliveries');
     Route::get('/delayed-deliveries', [DriverDeliveryController::class, 'delayedDeliveries'])->name('delayed-deliveries');
-    
+    Route::get('/available-shipments', [DriverDeliveryController::class, 'availableShipments'])->name('available-shipments');
+
     // AJAX Routes
     Route::get('/deliveries/{shipment}/quick-view', [DriverDeliveryController::class, 'quickView'])->name('deliveries.quick-view');
     Route::post('/deliveries/{shipment}/update-status', [DriverDeliveryController::class, 'updateStatus'])->name('deliveries.update-status');
     Route::post('/deliveries/{shipment}/report-delay', [DriverDeliveryController::class, 'reportDelay'])->name('deliveries.report-delay');
     Route::post('/deliveries/{shipment}/resolve-delay', [DriverDeliveryController::class, 'resolveDelay'])->name('deliveries.resolve-delay');
     Route::post('/deliveries/{shipment}/complete', [DriverDeliveryController::class, 'completeDelivery'])->name('deliveries.complete');
+    Route::post('/deliveries/{shipment}/self-assign', [DriverDeliveryController::class, 'selfAssign'])->name('deliveries.self-assign');
     
     // Export Routes
     Route::get('/deliveries/export/{type}', [DriverDeliveryController::class, 'export'])->name('deliveries.export');
@@ -626,6 +685,13 @@ Route::get('/returns', [ReturnController::class, 'index'])->name('returns.index'
         ->name('maintenance.history');
         Route::get('/maintenance/export/{format}', [DriverVehicleController::class, 'exportMaintenanceReports'])
         ->name('maintenance.export');
+
+        // Driver Yard
+        Route::get('/yard/check-in', [YardVisitController::class, 'selfCheckInForm'])->name('yard.check-in');
+        Route::post('/yard/check-in', [YardVisitController::class, 'selfCheckIn'])->name('yard.check-in.store');
+        Route::get('/yard/my-visit', [YardVisitController::class, 'myVisit'])->name('yard.my-visit');
+        Route::post('/yard/check-out', [YardVisitController::class, 'selfCheckOut'])->name('yard.check-out');
+        Route::get('/yard/appointments', [YardAppointmentController::class, 'driverAppointments'])->name('yard.appointments');
 
         // Driver Chat
         Route::get('/chat', [ChatController::class, 'driverIndex'])->name('chat.index');
@@ -690,6 +756,7 @@ Route::prefix('tracking')->name('tracking.')->group(function () {
     Route::post('/search', [CustomerTrackingController::class, 'search'])->name('search');
     Route::get('/{tracking_number}', [CustomerTrackingController::class, 'show'])->name('show');
     Route::post('/{tracking_number}/report-issue', [CustomerTrackingController::class, 'reportIssue'])->name('reportIssue');
+    Route::post('/{tracking_number}/request-return', [CustomerTrackingController::class, 'requestReturn'])->name('requestReturn');
 });
 
 ///////////SHIPMENT TRACKING
